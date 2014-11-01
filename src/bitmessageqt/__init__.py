@@ -2893,7 +2893,7 @@ class MyForm(QtGui.QMainWindow):
     def on_action_SentTrash(self):
         #Added by webdev25
         self.ui.tableWidgetSent.blockSignals(True)
-        
+
         while self.ui.tableWidgetSent.selectedIndexes() != []:
             currentRow = self.ui.tableWidgetSent.selectedIndexes()[0].row()
             ackdataToTrash = str(self.ui.tableWidgetSent.item(
@@ -3454,7 +3454,7 @@ class MyForm(QtGui.QMainWindow):
             shared.config.set('bitmessagesettings', 'statusbar_view', 'true')
         else:
             self.ui.statusbar.setVisible(True)
-            shared.config.set('bitmessagesettings', 'statusbar_view', 'false')
+            shared.config.set('bitmessagesettings', 'statusbar_view', 'false') 
 
         self.saveConfigSettings()
 
