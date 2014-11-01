@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'bitmessageqt/bitmessageui.ui'
 #
-# Created: Sat Nov  1 10:14:24 2014
+# Created: Sat Nov  1 18:37:35 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -472,6 +472,8 @@ class Ui_MainWindow(object):
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName(_fromUtf8("menuFile"))
+        self.menuNew = QtGui.QMenu(self.menuFile)
+        self.menuNew.setObjectName(_fromUtf8("menuNew"))
         self.menuSettings = QtGui.QMenu(self.menubar)
         self.menuSettings.setObjectName(_fromUtf8("menuSettings"))
         self.menuHelp = QtGui.QMenu(self.menubar)
@@ -541,6 +543,22 @@ class Ui_MainWindow(object):
         self.actionViewTabPositionEast.setObjectName(_fromUtf8("actionViewTabPositionEast"))
         self.actionViewTabPositionWest = QtGui.QAction(MainWindow)
         self.actionViewTabPositionWest.setObjectName(_fromUtf8("actionViewTabPositionWest"))
+        self.actionNewMessage = QtGui.QAction(MainWindow)
+        self.actionNewMessage.setObjectName(_fromUtf8("actionNewMessage"))
+        self.actionNewIdentity = QtGui.QAction(MainWindow)
+        self.actionNewIdentity.setObjectName(_fromUtf8("actionNewIdentity"))
+        self.actionNewAddressBook = QtGui.QAction(MainWindow)
+        self.actionNewAddressBook.setObjectName(_fromUtf8("actionNewAddressBook"))
+        self.actionNewSubscription = QtGui.QAction(MainWindow)
+        self.actionNewSubscription.setObjectName(_fromUtf8("actionNewSubscription"))
+        self.actionNewBlackWhiteList = QtGui.QAction(MainWindow)
+        self.actionNewBlackWhiteList.setObjectName(_fromUtf8("actionNewBlackWhiteList"))
+        self.menuNew.addAction(self.actionNewMessage)
+        self.menuNew.addAction(self.actionNewIdentity)
+        self.menuNew.addAction(self.actionNewAddressBook)
+        self.menuNew.addAction(self.actionNewSubscription)
+        self.menuNew.addAction(self.actionNewBlackWhiteList)
+        self.menuFile.addAction(self.menuNew.menuAction())
         self.menuFile.addAction(self.actionManageKeys)
         self.menuFile.addAction(self.actionDeleteAllTrashedMessages)
         self.menuFile.addAction(self.actionRegenerateDeterministicAddresses)
@@ -692,6 +710,7 @@ class Ui_MainWindow(object):
         self.labelBytesSentCount.setText(_translate("MainWindow", "Up: 0 KB/s", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.networkstatus), _translate("MainWindow", "Network Status", None))
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
+        self.menuNew.setTitle(_translate("MainWindow", "New", None))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings", None))
         self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
         self.menuView.setTitle(_translate("MainWindow", "View", None))
@@ -716,5 +735,10 @@ class Ui_MainWindow(object):
         self.actionViewTabPositionSouth.setText(_translate("MainWindow", "South", None))
         self.actionViewTabPositionEast.setText(_translate("MainWindow", "East", None))
         self.actionViewTabPositionWest.setText(_translate("MainWindow", "West", None))
+        self.actionNewMessage.setText(_translate("MainWindow", "Message", None))
+        self.actionNewIdentity.setText(_translate("MainWindow", "Identity", None))
+        self.actionNewAddressBook.setText(_translate("MainWindow", "Address book entry", None))
+        self.actionNewSubscription.setText(_translate("MainWindow", "Subscription", None))
+        self.actionNewBlackWhiteList.setText(_translate("MainWindow", "Black/White list entry", None))
 
 import bitmessage_icons_rc

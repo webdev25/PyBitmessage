@@ -239,6 +239,20 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.actionViewTabPositionWest, QtCore.SIGNAL(
             "triggered()"), self.toggleTabPositionWest)
 
+        QtCore.QObject.connect(self.ui.actionNewIdentity, QtCore.SIGNAL(
+            "triggered()"), self.click_NewAddressDialog)
+        QtCore.QObject.connect(self.ui.actionNewAddressBook, QtCore.SIGNAL(
+            "triggered()"), self.click_pushButtonAddAddressBook)
+        QtCore.QObject.connect(self.ui.actionNewSubscription, QtCore.SIGNAL(
+            "triggered()"), self.click_pushButtonAddSubscription)
+        QtCore.QObject.connect(self.ui.actionNewBlackWhiteList, QtCore.SIGNAL(
+            "triggered()"), self.click_pushButtonAddBlacklist)
+        QtCore.QObject.connect(self.ui.actionNewMessage, QtCore.SIGNAL(
+            "triggered()"), self.click_NewMessage)
+
+
+        
+
         
 
         # End changes by webdev25
@@ -3490,6 +3504,9 @@ class MyForm(QtGui.QMainWindow):
             shared.config.set('bitmessagesettings', 'tab_position_view', 'north')
 
         self.saveConfigSettings()
+
+    def click_NewMessage(self):
+        self.ui.tabWidget.setCurrentIndex(1)
 
     def saveConfigSettings(self):
         with open(shared.appdata + 'keys.dat', 'wb') as configfile:
