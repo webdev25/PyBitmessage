@@ -226,6 +226,8 @@ class MyForm(QtGui.QMainWindow):
 
         QtCore.QObject.connect(self.ui.actionViewToggleLayout, QtCore.SIGNAL(
             "triggered()"), self.toggleLayout)
+        QtCore.QObject.connect(self.ui.actionViewToggleFilters, QtCore.SIGNAL(
+            "triggered()"), self.toggleFilters)
 
         # End changes by webdev25
 
@@ -663,6 +665,14 @@ class MyForm(QtGui.QMainWindow):
         else:
             self.ui.splitter.setOrientation(QtCore.Qt.Vertical)
             self.ui.splitter_2.setOrientation(QtCore.Qt.Vertical)
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','filter_view'):
+            self.ui.widgetInboxFilters.setVisible(False)
+            self.ui.widgetSentFilters.setVisible(False)
+            
+        else:
+            self.ui.widgetInboxFilters.setVisible(True)
+            self.ui.widgetSentFilters.setVisible(True)
 
         # End changes by webdev25
 
@@ -3379,6 +3389,20 @@ class MyForm(QtGui.QMainWindow):
             self.ui.splitter.setOrientation(QtCore.Qt.Vertical)
             self.ui.splitter_2.setOrientation(QtCore.Qt.Vertical)
             shared.config.set('bitmessagesettings', 'layout_view', 'false')
+
+        self.saveConfigSettings()
+
+    def toggleFilters(self):
+
+        if self.ui.widgetInboxFilters.isVisible() or self.ui.widgetSentFilters.isVisible():
+            self.ui.widgetInboxFilters.setVisible(False)
+            self.ui.widgetSentFilters.setVisible(False)
+            shared.config.set('bitmessagesettings', 'filter_view', 'true')
+
+        else:
+            self.ui.widgetInboxFilters.setVisible(True)
+            self.ui.widgetSentFilters.setVisible(True)
+            shared.config.set('bitmessagesettings', 'filter_view', 'false')
 
         self.saveConfigSettings()
 

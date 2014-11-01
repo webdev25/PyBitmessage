@@ -83,39 +83,63 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QLineEdit" name="inboxSearchLineEdit">
-            <property name="placeholderText">
-             <string>Search</string>
+           <widget class="QWidget" name="widgetInboxFilters" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="inboxSearchOptionCB">
-            <item>
-             <property name="text">
-              <string>All</string>
+            <layout class="QHBoxLayout" name="_2">
+             <property name="leftMargin">
+              <number>0</number>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>To</string>
+             <property name="topMargin">
+              <number>0</number>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>From</string>
+             <property name="rightMargin">
+              <number>0</number>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Subject</string>
+             <property name="bottomMargin">
+              <number>0</number>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Message</string>
-             </property>
-            </item>
+             <item>
+              <widget class="QLineEdit" name="inboxSearchLineEdit">
+               <property name="placeholderText">
+                <string>Search</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="inboxSearchOptionCB">
+               <item>
+                <property name="text">
+                 <string>All</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>To</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>From</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Subject</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Message</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -392,39 +416,63 @@ p, li { white-space: pre-wrap; }
            <number>0</number>
           </property>
           <item>
-           <widget class="QLineEdit" name="sentSearchLineEdit">
-            <property name="placeholderText">
-             <string>Search</string>
+           <widget class="QWidget" name="widgetSentFilters" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="sentSearchOptionCB">
-            <item>
-             <property name="text">
-              <string>All</string>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <property name="leftMargin">
+              <number>0</number>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>To</string>
+             <property name="topMargin">
+              <number>0</number>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>From</string>
+             <property name="rightMargin">
+              <number>0</number>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Subject</string>
+             <property name="bottomMargin">
+              <number>0</number>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Message</string>
-             </property>
-            </item>
+             <item>
+              <widget class="QLineEdit" name="sentSearchLineEdit">
+               <property name="placeholderText">
+                <string>Search</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="sentSearchOptionCB">
+               <item>
+                <property name="text">
+                 <string>All</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>To</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>From</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Subject</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Message</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -1128,6 +1176,9 @@ p, li { white-space: pre-wrap; }
       <string>Toggle</string>
      </property>
      <addaction name="actionViewToggleLayout"/>
+     <addaction name="actionViewToggleFilters"/>
+     <addaction name="actionViewToggleStatusBar"/>
+     <addaction name="actionViewToggleTabs"/>
     </widget>
     <addaction name="menuToggle"/>
    </widget>
@@ -1250,6 +1301,21 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Layout</string>
+   </property>
+  </action>
+  <action name="actionViewToggleFilters">
+   <property name="text">
+    <string>Filters</string>
+   </property>
+  </action>
+  <action name="actionViewToggleStatusBar">
+   <property name="text">
+    <string>Status Bar</string>
+   </property>
+  </action>
+  <action name="actionViewToggleTabs">
+   <property name="text">
+    <string>Tabs</string>
    </property>
   </action>
  </widget>
