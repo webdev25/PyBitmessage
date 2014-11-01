@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'bitmessageqt/bitmessageui.ui'
 #
-# Created: Sat Nov  1 07:31:12 2014
+# Created: Sat Nov  1 08:17:27 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -133,6 +133,7 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addWidget(self.label_3, 4, 0, 1, 1)
         self.labelFrom = QtGui.QLabel(self.send)
         self.labelFrom.setText(_fromUtf8(""))
+        self.labelFrom.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.labelFrom.setObjectName(_fromUtf8("labelFrom"))
         self.gridLayout_2.addWidget(self.labelFrom, 2, 2, 1, 3)
         self.radioButtonSpecific = QtGui.QRadioButton(self.send)
@@ -499,6 +500,8 @@ class Ui_MainWindow(object):
         self.actionJoinChan.setIcon(icon)
         self.actionJoinChan.setObjectName(_fromUtf8("actionJoinChan"))
         self.actionViewToggleLayout = QtGui.QAction(MainWindow)
+        self.actionViewToggleLayout.setCheckable(False)
+        self.actionViewToggleLayout.setChecked(False)
         self.actionViewToggleLayout.setObjectName(_fromUtf8("actionViewToggleLayout"))
         self.menuFile.addAction(self.actionManageKeys)
         self.menuFile.addAction(self.actionDeleteAllTrashedMessages)

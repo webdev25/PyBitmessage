@@ -266,6 +266,9 @@
           <property name="text">
            <string/>
           </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
          </widget>
         </item>
         <item row="0" column="1">
@@ -1239,6 +1242,12 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionViewToggleLayout">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Layout</string>
    </property>
