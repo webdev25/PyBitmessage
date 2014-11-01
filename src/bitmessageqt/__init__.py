@@ -228,6 +228,18 @@ class MyForm(QtGui.QMainWindow):
             "triggered()"), self.toggleLayout)
         QtCore.QObject.connect(self.ui.actionViewToggleFilters, QtCore.SIGNAL(
             "triggered()"), self.toggleFilters)
+        QtCore.QObject.connect(self.ui.actionViewToggleStatusBar, QtCore.SIGNAL(
+            "triggered()"), self.toggleStatusBar)
+        QtCore.QObject.connect(self.ui.actionViewTabPositionNorth, QtCore.SIGNAL(
+            "triggered()"), self.toggleTabPositionNorth)
+        QtCore.QObject.connect(self.ui.actionViewTabPositionSouth, QtCore.SIGNAL(
+            "triggered()"), self.toggleTabPositionSouth)
+        QtCore.QObject.connect(self.ui.actionViewTabPositionEast, QtCore.SIGNAL(
+            "triggered()"), self.toggleTabPositionEast)
+        QtCore.QObject.connect(self.ui.actionViewTabPositionWest, QtCore.SIGNAL(
+            "triggered()"), self.toggleTabPositionWest)
+
+        
 
         # End changes by webdev25
 
@@ -666,6 +678,7 @@ class MyForm(QtGui.QMainWindow):
             self.ui.splitter.setOrientation(QtCore.Qt.Vertical)
             self.ui.splitter_2.setOrientation(QtCore.Qt.Vertical)
 
+
         if shared.safeConfigGetBoolean('bitmessagesettings','filter_view'):
             self.ui.widgetInboxFilters.setVisible(False)
             self.ui.widgetSentFilters.setVisible(False)
@@ -673,6 +686,21 @@ class MyForm(QtGui.QMainWindow):
         else:
             self.ui.widgetInboxFilters.setVisible(True)
             self.ui.widgetSentFilters.setVisible(True)
+
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','statusbar_view'):
+            self.ui.statusbar.setVisible(False)
+            
+        else:
+            self.ui.statusbar.setVisible(True)
+
+        try:
+            self.toggleTabPosition( shared.config.get('bitmessagesettings', 'tab_position_view') )
+        except:
+            self.toggleTabPosition('north')
+
+            
+            
 
         # End changes by webdev25
 
@@ -3380,6 +3408,7 @@ class MyForm(QtGui.QMainWindow):
     # Changes made by webdev25
 
     def toggleLayout(self):
+
         if self.ui.splitter.orientation() == QtCore.Qt.Vertical:
             self.ui.splitter.setOrientation(QtCore.Qt.Horizontal)
             self.ui.splitter_2.setOrientation(QtCore.Qt.Horizontal)
@@ -3403,6 +3432,50 @@ class MyForm(QtGui.QMainWindow):
             self.ui.widgetInboxFilters.setVisible(True)
             self.ui.widgetSentFilters.setVisible(True)
             shared.config.set('bitmessagesettings', 'filter_view', 'false')
+
+        self.saveConfigSettings()
+
+    def toggleStatusBar(self):
+
+        if self.ui.statusbar.isVisible():
+            self.ui.statusbar.setVisible(False)
+            shared.config.set('bitmessagesettings', 'statusbar_view', 'true')
+        else:
+            self.ui.statusbar.setVisible(True)
+            shared.config.set('bitmessagesettings', 'statusbar_view', 'false')
+
+        self.saveConfigSettings()
+
+    def toggleTabPositionNorth(self):
+
+        self.toggleTabPosition('north')
+
+    def toggleTabPositionSouth(self):
+
+        self.toggleTabPosition('south')
+
+    def toggleTabPositionEast(self):
+
+        self.toggleTabPosition('east')
+
+    def toggleTabPositionWest(self):
+
+        self.toggleTabPosition('west')
+
+    def toggleTabPosition(self,position):
+
+        if position == 'south':
+            self.ui.tabWidget.setTabPosition( QTabWidget.South )
+            shared.config.set('bitmessagesettings', 'tab_position_view', 'south')
+        elif position == 'east':
+            self.ui.tabWidget.setTabPosition( QTabWidget.East )
+            shared.config.set('bitmessagesettings', 'tab_position_view', 'east')
+        elif position == 'west':
+            self.ui.tabWidget.setTabPosition( QTabWidget.West )
+            shared.config.set('bitmessagesettings', 'tab_position_view', 'west')
+        else:
+            self.ui.tabWidget.setTabPosition( QTabWidget.North )
+            shared.config.set('bitmessagesettings', 'tab_position_view', 'north')
 
         self.saveConfigSettings()
 

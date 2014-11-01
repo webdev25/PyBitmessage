@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'bitmessageqt/bitmessageui.ui'
 #
-# Created: Sat Nov  1 10:00:58 2014
+# Created: Sat Nov  1 10:14:24 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -480,6 +480,8 @@ class Ui_MainWindow(object):
         self.menuView.setObjectName(_fromUtf8("menuView"))
         self.menuToggle = QtGui.QMenu(self.menuView)
         self.menuToggle.setObjectName(_fromUtf8("menuToggle"))
+        self.menuViewTabPosition = QtGui.QMenu(self.menuView)
+        self.menuViewTabPosition.setObjectName(_fromUtf8("menuViewTabPosition"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setMaximumSize(QtCore.QSize(16777215, 22))
@@ -531,6 +533,14 @@ class Ui_MainWindow(object):
         self.actionViewToggleStatusBar.setObjectName(_fromUtf8("actionViewToggleStatusBar"))
         self.actionViewToggleTabs = QtGui.QAction(MainWindow)
         self.actionViewToggleTabs.setObjectName(_fromUtf8("actionViewToggleTabs"))
+        self.actionViewTabPositionNorth = QtGui.QAction(MainWindow)
+        self.actionViewTabPositionNorth.setObjectName(_fromUtf8("actionViewTabPositionNorth"))
+        self.actionViewTabPositionSouth = QtGui.QAction(MainWindow)
+        self.actionViewTabPositionSouth.setObjectName(_fromUtf8("actionViewTabPositionSouth"))
+        self.actionViewTabPositionEast = QtGui.QAction(MainWindow)
+        self.actionViewTabPositionEast.setObjectName(_fromUtf8("actionViewTabPositionEast"))
+        self.actionViewTabPositionWest = QtGui.QAction(MainWindow)
+        self.actionViewTabPositionWest.setObjectName(_fromUtf8("actionViewTabPositionWest"))
         self.menuFile.addAction(self.actionManageKeys)
         self.menuFile.addAction(self.actionDeleteAllTrashedMessages)
         self.menuFile.addAction(self.actionRegenerateDeterministicAddresses)
@@ -542,8 +552,12 @@ class Ui_MainWindow(object):
         self.menuToggle.addAction(self.actionViewToggleLayout)
         self.menuToggle.addAction(self.actionViewToggleFilters)
         self.menuToggle.addAction(self.actionViewToggleStatusBar)
-        self.menuToggle.addAction(self.actionViewToggleTabs)
+        self.menuViewTabPosition.addAction(self.actionViewTabPositionNorth)
+        self.menuViewTabPosition.addAction(self.actionViewTabPositionSouth)
+        self.menuViewTabPosition.addAction(self.actionViewTabPositionEast)
+        self.menuViewTabPosition.addAction(self.actionViewTabPositionWest)
         self.menuView.addAction(self.menuToggle.menuAction())
+        self.menuView.addAction(self.menuViewTabPosition.menuAction())
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuView.menuAction())
         self.menubar.addAction(self.menuSettings.menuAction())
@@ -682,6 +696,7 @@ class Ui_MainWindow(object):
         self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
         self.menuView.setTitle(_translate("MainWindow", "View", None))
         self.menuToggle.setTitle(_translate("MainWindow", "Toggle", None))
+        self.menuViewTabPosition.setTitle(_translate("MainWindow", "Tab position", None))
         self.actionImport_keys.setText(_translate("MainWindow", "Import keys", None))
         self.actionManageKeys.setText(_translate("MainWindow", "Manage keys", None))
         self.actionExit.setText(_translate("MainWindow", "Quit", None))
@@ -697,5 +712,9 @@ class Ui_MainWindow(object):
         self.actionViewToggleFilters.setText(_translate("MainWindow", "Filters", None))
         self.actionViewToggleStatusBar.setText(_translate("MainWindow", "Status Bar", None))
         self.actionViewToggleTabs.setText(_translate("MainWindow", "Tabs", None))
+        self.actionViewTabPositionNorth.setText(_translate("MainWindow", "North", None))
+        self.actionViewTabPositionSouth.setText(_translate("MainWindow", "South", None))
+        self.actionViewTabPositionEast.setText(_translate("MainWindow", "East", None))
+        self.actionViewTabPositionWest.setText(_translate("MainWindow", "West", None))
 
 import bitmessage_icons_rc
