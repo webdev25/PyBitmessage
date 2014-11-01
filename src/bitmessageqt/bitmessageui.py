@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'bitmessageqt/bitmessageui.ui'
 #
-# Created: Sat Nov  1 08:17:27 2014
+# Created: Sat Nov  1 09:34:29 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -582,7 +582,7 @@ class Ui_MainWindow(object):
         self.radioButtonBroadcast.setText(_translate("MainWindow", "Broadcast to everyone who is subscribed to your address", None))
         self.pushButtonSend.setText(_translate("MainWindow", "Send", None))
         self.labelSendBroadcastWarning.setText(_translate("MainWindow", "Be aware that broadcasts are only encrypted with your address. Anyone who knows your address can read them.", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.send), _translate("MainWindow", "Send", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.send), _translate("MainWindow", "Compose", None))
         self.sentSearchLineEdit.setPlaceholderText(_translate("MainWindow", "Search", None))
         self.sentSearchOptionCB.setItemText(0, _translate("MainWindow", "All", None))
         self.sentSearchOptionCB.setItemText(1, _translate("MainWindow", "To", None))
