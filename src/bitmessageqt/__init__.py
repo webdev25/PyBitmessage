@@ -2841,6 +2841,9 @@ class MyForm(QtGui.QMainWindow):
 
     # Send item on the Inbox tab to trash
     def on_action_InboxTrash(self):
+        #Added by webdev25
+        self.ui.tableWidgetInbox.blockSignals(True)
+
         while self.ui.tableWidgetInbox.selectedIndexes() != []:
             currentRow = self.ui.tableWidgetInbox.selectedIndexes()[0].row()
             inventoryHashToTrash = str(self.ui.tableWidgetInbox.item(
@@ -2854,6 +2857,9 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetInbox.selectRow(currentRow)
         else:
             self.ui.tableWidgetInbox.selectRow(currentRow - 1)
+
+        #Added by webdev25
+        self.ui.tableWidgetInbox.blockSignals(False)
 
     def on_action_InboxSaveMessageAs(self):
         currentInboxRow = self.ui.tableWidgetInbox.currentRow()
@@ -2885,6 +2891,9 @@ class MyForm(QtGui.QMainWindow):
 
     # Send item on the Sent tab to trash
     def on_action_SentTrash(self):
+        #Added by webdev25
+        self.ui.tableWidgetSent.blockSignals(True)
+        
         while self.ui.tableWidgetSent.selectedIndexes() != []:
             currentRow = self.ui.tableWidgetSent.selectedIndexes()[0].row()
             ackdataToTrash = str(self.ui.tableWidgetSent.item(
@@ -2898,6 +2907,9 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetSent.selectRow(currentRow)
         else:
             self.ui.tableWidgetSent.selectRow(currentRow - 1)
+
+        #Added by webdev25
+        self.ui.tableWidgetSent.blockSignals(False)
 
     def on_action_ForceSend(self):
         currentRow = self.ui.tableWidgetSent.currentRow()
