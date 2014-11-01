@@ -1,3 +1,8 @@
+PyBitmessage enhancements
+=========================
+
+Aims to improve the usability, usefulness and speed of PyBitmessage.
+
 PyBitmessage
 ============
 
