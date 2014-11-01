@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'bitmessageui.ui'
+# Form implementation generated from reading ui file 'bitmessageqt/bitmessageui.ui'
 #
-# Created: Fri Aug 01 15:30:14 2014
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Sat Nov  1 07:31:12 2014
+#      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -445,7 +445,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 885, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 885, 26))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName(_fromUtf8("menuFile"))
@@ -453,6 +453,10 @@ class Ui_MainWindow(object):
         self.menuSettings.setObjectName(_fromUtf8("menuSettings"))
         self.menuHelp = QtGui.QMenu(self.menubar)
         self.menuHelp.setObjectName(_fromUtf8("menuHelp"))
+        self.menuView = QtGui.QMenu(self.menubar)
+        self.menuView.setObjectName(_fromUtf8("menuView"))
+        self.menuToggle = QtGui.QMenu(self.menuView)
+        self.menuToggle.setObjectName(_fromUtf8("menuToggle"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setMaximumSize(QtCore.QSize(16777215, 22))
@@ -494,6 +498,8 @@ class Ui_MainWindow(object):
         icon = QtGui.QIcon.fromTheme(_fromUtf8("contact-new"))
         self.actionJoinChan.setIcon(icon)
         self.actionJoinChan.setObjectName(_fromUtf8("actionJoinChan"))
+        self.actionViewToggleLayout = QtGui.QAction(MainWindow)
+        self.actionViewToggleLayout.setObjectName(_fromUtf8("actionViewToggleLayout"))
         self.menuFile.addAction(self.actionManageKeys)
         self.menuFile.addAction(self.actionDeleteAllTrashedMessages)
         self.menuFile.addAction(self.actionRegenerateDeterministicAddresses)
@@ -502,7 +508,10 @@ class Ui_MainWindow(object):
         self.menuSettings.addAction(self.actionSettings)
         self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addAction(self.actionAbout)
+        self.menuToggle.addAction(self.actionViewToggleLayout)
+        self.menuView.addAction(self.menuToggle.menuAction())
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuView.menuAction())
         self.menubar.addAction(self.menuSettings.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
@@ -563,8 +572,8 @@ class Ui_MainWindow(object):
         self.textEditMessage.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+"</style></head><body style=\" font-family:\'Open Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\';\"><br /></p></body></html>", None))
         self.label.setText(_translate("MainWindow", "To:", None))
         self.label_2.setText(_translate("MainWindow", "From:", None))
         self.radioButtonBroadcast.setText(_translate("MainWindow", "Broadcast to everyone who is subscribed to your address", None))
@@ -637,6 +646,8 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings", None))
         self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
+        self.menuView.setTitle(_translate("MainWindow", "View", None))
+        self.menuToggle.setTitle(_translate("MainWindow", "Toggle", None))
         self.actionImport_keys.setText(_translate("MainWindow", "Import keys", None))
         self.actionManageKeys.setText(_translate("MainWindow", "Manage keys", None))
         self.actionExit.setText(_translate("MainWindow", "Quit", None))
@@ -648,5 +659,6 @@ class Ui_MainWindow(object):
         self.actionRegenerateDeterministicAddresses.setText(_translate("MainWindow", "Regenerate deterministic addresses", None))
         self.actionDeleteAllTrashedMessages.setText(_translate("MainWindow", "Delete all trashed messages", None))
         self.actionJoinChan.setText(_translate("MainWindow", "Join / Create chan", None))
+        self.actionViewToggleLayout.setText(_translate("MainWindow", "Layout", None))
 
 import bitmessage_icons_rc

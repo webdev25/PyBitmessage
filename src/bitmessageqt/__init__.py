@@ -222,6 +222,13 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.actionHelp, QtCore.SIGNAL(
             "triggered()"), self.click_actionHelp)
 
+        # Changes by webdev25
+
+        QtCore.QObject.connect(self.ui.actionViewToggleLayout, QtCore.SIGNAL(
+            "triggered()"), self.toggleLayout)
+
+        # End changes by webdev25
+
     def init_inbox_popup_menu(self):
         # Popup menu for the Inbox tab
         self.ui.inboxContextMenuToolbar = QtGui.QToolBar()
@@ -646,6 +653,18 @@ class MyForm(QtGui.QMainWindow):
         except:
             print 'There was a problem testing for a Namecoin daemon. Hiding the Fetch Namecoin ID button'
             self.ui.pushButtonFetchNamecoinID.hide()
+
+        # Changes by webdev25
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','layout_view'):
+            self.ui.splitter.setOrientation(QtCore.Qt.Horizontal)
+            self.ui.splitter_2.setOrientation(QtCore.Qt.Horizontal)
+            
+        else:
+            self.ui.splitter.setOrientation(QtCore.Qt.Vertical)
+            self.ui.splitter_2.setOrientation(QtCore.Qt.Vertical)
+
+        # End changes by webdev25
 
 
     # Show or hide the application window after clicking an item within the
@@ -3347,6 +3366,27 @@ class MyForm(QtGui.QMainWindow):
                 print 'Status bar:', data
 
         self.statusBar().showMessage(data)
+
+    # Changes made by webdev25
+
+    def toggleLayout(self):
+        if self.ui.splitter.orientation() == QtCore.Qt.Vertical:
+            self.ui.splitter.setOrientation(QtCore.Qt.Horizontal)
+            self.ui.splitter_2.setOrientation(QtCore.Qt.Horizontal)
+            shared.config.set('bitmessagesettings', 'layout_view', 'true')
+            
+        else:
+            self.ui.splitter.setOrientation(QtCore.Qt.Vertical)
+            self.ui.splitter_2.setOrientation(QtCore.Qt.Vertical)
+            shared.config.set('bitmessagesettings', 'layout_view', 'false')
+
+        self.saveConfigSettings()
+
+    def saveConfigSettings(self):
+        with open(shared.appdata + 'keys.dat', 'wb') as configfile:
+            shared.config.write(configfile)
+
+    # End of changes made by webdev25
 
 
 class helpDialog(QtGui.QDialog):
