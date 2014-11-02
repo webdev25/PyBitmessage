@@ -561,7 +561,7 @@ p, li { white-space: pre-wrap; }
          <normaloff>:/newPrefix/images/identities.png</normaloff>:/newPrefix/images/identities.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Your Identities</string>
+        <string>Identities</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
@@ -926,7 +926,7 @@ p, li { white-space: pre-wrap; }
          <normaloff>:/newPrefix/images/networkstatus.png</normaloff>:/newPrefix/images/networkstatus.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Network Status</string>
+        <string>Network</string>
        </attribute>
        <widget class="QPushButton" name="pushButtonStatusIcon">
         <property name="geometry">

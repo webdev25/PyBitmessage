@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'bitmessageqt/bitmessageui.ui'
 #
-# Created: Sun Nov  2 16:42:54 2014
+# Created: Sun Nov  2 16:55:20 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -675,7 +675,7 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Address", None))
         item = self.tableWidgetYourIdentities.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Stream", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.youridentities), _translate("MainWindow", "Your Identities", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.youridentities), _translate("MainWindow", "Identities", None))
         self.tableWidgetSubscriptions.setSortingEnabled(True)
         item = self.tableWidgetSubscriptions.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Label", None))
@@ -713,7 +713,7 @@ class Ui_MainWindow(object):
         self.labelLookupsPerSecond.setText(_translate("MainWindow", "Inventory lookups per second: 0", None))
         self.labelBytesRecvCount.setText(_translate("MainWindow", "Down: 0 KB/s", None))
         self.labelBytesSentCount.setText(_translate("MainWindow", "Up: 0 KB/s", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.networkstatus), _translate("MainWindow", "Network Status", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.networkstatus), _translate("MainWindow", "Network", None))
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.menuNew.setTitle(_translate("MainWindow", "New", None))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings", None))
