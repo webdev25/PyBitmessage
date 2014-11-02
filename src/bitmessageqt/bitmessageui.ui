@@ -1166,16 +1166,8 @@ p, li { white-space: pre-wrap; }
     </widget>
     <addaction name="menuNew"/>
     <addaction name="actionJoinChan"/>
-    <addaction name="actionRegenerateDeterministicAddresses"/>
-    <addaction name="actionDeleteAllTrashedMessages"/>
-    <addaction name="actionManageKeys"/>
-    <addaction name="actionExit"/>
-   </widget>
-   <widget class="QMenu" name="menuSettings">
-    <property name="title">
-     <string>Settings</string>
-    </property>
     <addaction name="actionSettings"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -1202,16 +1194,24 @@ p, li { white-space: pre-wrap; }
       <string>Tab position</string>
      </property>
      <addaction name="actionViewTabPositionNorth"/>
-     <addaction name="actionViewTabPositionSouth"/>
      <addaction name="actionViewTabPositionEast"/>
+     <addaction name="actionViewTabPositionSouth"/>
      <addaction name="actionViewTabPositionWest"/>
     </widget>
     <addaction name="menuToggle"/>
     <addaction name="menuViewTabPosition"/>
    </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionDeleteAllTrashedMessages"/>
+    <addaction name="actionRegenerateDeterministicAddresses"/>
+    <addaction name="actionManageKeys"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
-   <addaction name="menuSettings"/>
+   <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'bitmessageqt/bitmessageui.ui'
 #
-# Created: Sun Nov  2 16:55:20 2014
+# Created: Sun Nov  2 17:11:32 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -476,8 +476,6 @@ class Ui_MainWindow(object):
         self.menuFile.setObjectName(_fromUtf8("menuFile"))
         self.menuNew = QtGui.QMenu(self.menuFile)
         self.menuNew.setObjectName(_fromUtf8("menuNew"))
-        self.menuSettings = QtGui.QMenu(self.menubar)
-        self.menuSettings.setObjectName(_fromUtf8("menuSettings"))
         self.menuHelp = QtGui.QMenu(self.menubar)
         self.menuHelp.setObjectName(_fromUtf8("menuHelp"))
         self.menuView = QtGui.QMenu(self.menubar)
@@ -486,6 +484,8 @@ class Ui_MainWindow(object):
         self.menuToggle.setObjectName(_fromUtf8("menuToggle"))
         self.menuViewTabPosition = QtGui.QMenu(self.menuView)
         self.menuViewTabPosition.setObjectName(_fromUtf8("menuViewTabPosition"))
+        self.menuTools = QtGui.QMenu(self.menubar)
+        self.menuTools.setObjectName(_fromUtf8("menuTools"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setMaximumSize(QtCore.QSize(16777215, 22))
@@ -564,11 +564,8 @@ class Ui_MainWindow(object):
         self.menuNew.addAction(self.actionNewBlackWhiteList)
         self.menuFile.addAction(self.menuNew.menuAction())
         self.menuFile.addAction(self.actionJoinChan)
-        self.menuFile.addAction(self.actionRegenerateDeterministicAddresses)
-        self.menuFile.addAction(self.actionDeleteAllTrashedMessages)
-        self.menuFile.addAction(self.actionManageKeys)
+        self.menuFile.addAction(self.actionSettings)
         self.menuFile.addAction(self.actionExit)
-        self.menuSettings.addAction(self.actionSettings)
         self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addAction(self.actionAbout)
         self.menuToggle.addAction(self.actionViewToggleLayout)
@@ -576,14 +573,17 @@ class Ui_MainWindow(object):
         self.menuToggle.addAction(self.actionViewToggleStatusBar)
         self.menuToggle.addAction(self.actionViewToggleHints)
         self.menuViewTabPosition.addAction(self.actionViewTabPositionNorth)
-        self.menuViewTabPosition.addAction(self.actionViewTabPositionSouth)
         self.menuViewTabPosition.addAction(self.actionViewTabPositionEast)
+        self.menuViewTabPosition.addAction(self.actionViewTabPositionSouth)
         self.menuViewTabPosition.addAction(self.actionViewTabPositionWest)
         self.menuView.addAction(self.menuToggle.menuAction())
         self.menuView.addAction(self.menuViewTabPosition.menuAction())
+        self.menuTools.addAction(self.actionDeleteAllTrashedMessages)
+        self.menuTools.addAction(self.actionRegenerateDeterministicAddresses)
+        self.menuTools.addAction(self.actionManageKeys)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuView.menuAction())
-        self.menubar.addAction(self.menuSettings.menuAction())
+        self.menubar.addAction(self.menuTools.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -716,11 +716,11 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.networkstatus), _translate("MainWindow", "Network", None))
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.menuNew.setTitle(_translate("MainWindow", "New", None))
-        self.menuSettings.setTitle(_translate("MainWindow", "Settings", None))
         self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
         self.menuView.setTitle(_translate("MainWindow", "View", None))
         self.menuToggle.setTitle(_translate("MainWindow", "Toggle", None))
         self.menuViewTabPosition.setTitle(_translate("MainWindow", "Tab position", None))
+        self.menuTools.setTitle(_translate("MainWindow", "Tools", None))
         self.actionImport_keys.setText(_translate("MainWindow", "Import keys", None))
         self.actionManageKeys.setText(_translate("MainWindow", "Manage keys", None))
         self.actionExit.setText(_translate("MainWindow", "Quit", None))
