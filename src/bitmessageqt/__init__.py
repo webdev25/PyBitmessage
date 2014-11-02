@@ -2218,6 +2218,8 @@ class MyForm(QtGui.QMainWindow):
         self.ubuntuMessagingMenuUpdate(True, newItem, toLabel)
 
     def click_pushButtonAddAddressBook(self):
+        #added by webdev25
+        self.ui.tabWidget.setCurrentIndex(5)
         self.AddAddressDialogInstance = AddAddressDialog(self)
         if self.AddAddressDialogInstance.exec_():
             if self.AddAddressDialogInstance.ui.labelAddressCheck.text() == _translate("MainWindow", "Address is valid."):
@@ -2273,6 +2275,9 @@ class MyForm(QtGui.QMainWindow):
         shared.reloadBroadcastSendersForWhichImWatching()
 
     def click_pushButtonAddSubscription(self):
+        # added by webdev25
+        self.ui.tabWidget.setCurrentIndex(4)
+
         self.NewSubscriptionDialogInstance = NewSubscriptionDialog(self)
         if self.NewSubscriptionDialogInstance.exec_():
             if self.NewSubscriptionDialogInstance.ui.labelAddressCheck.text() != _translate("MainWindow", "Address is valid."):
@@ -2570,6 +2575,9 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tabWidget.setTabText(6, 'Whitelist')
 
     def click_pushButtonAddBlacklist(self):
+        #added by webdev25
+        self.ui.tabWidget.setCurrentIndex(6)
+
         self.NewBlacklistDialogInstance = AddAddressDialog(self)
         if self.NewBlacklistDialogInstance.exec_():
             if self.NewBlacklistDialogInstance.ui.labelAddressCheck.text() == _translate("MainWindow", "Address is valid."):
@@ -2640,6 +2648,10 @@ class MyForm(QtGui.QMainWindow):
             self.rerenderInboxToLabels()
 
     def click_NewAddressDialog(self):
+
+        # added by webdev25
+        self.ui.tabWidget.setCurrentIndex(3)
+
         self.dialog = NewAddressDialog(self)
         # For Modal dialogs
         if self.dialog.exec_():

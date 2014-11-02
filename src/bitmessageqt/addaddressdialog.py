@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'addaddressdialog.ui'
+# Form implementation generated from reading ui file 'bitmessageqt/addaddressdialog.ui'
 #
-# Created: Sat Nov 30 20:35:38 2013
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Sun Nov  2 17:20:05 2014
+#      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_AddAddressDialog(object):
     def setupUi(self, AddAddressDialog):
         AddAddressDialog.setObjectName(_fromUtf8("AddAddressDialog"))
-        AddAddressDialog.resize(368, 162)
+        AddAddressDialog.resize(368, 217)
         self.formLayout = QtGui.QFormLayout(AddAddressDialog)
         self.formLayout.setFieldGrowthPolicy(QtGui.QFormLayout.AllNonFixedFieldsGrow)
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
@@ -59,7 +59,7 @@ class Ui_AddAddressDialog(object):
         QtCore.QMetaObject.connectSlotsByName(AddAddressDialog)
 
     def retranslateUi(self, AddAddressDialog):
-        AddAddressDialog.setWindowTitle(_translate("AddAddressDialog", "Add new entry", None))
+        AddAddressDialog.setWindowTitle(_translate("AddAddressDialog", "Add new address book entry", None))
         self.label_2.setText(_translate("AddAddressDialog", "Label", None))
         self.label.setText(_translate("AddAddressDialog", "Address", None))
 

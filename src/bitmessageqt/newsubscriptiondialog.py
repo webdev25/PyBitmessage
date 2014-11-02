@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'newsubscriptiondialog.ui'
+# Form implementation generated from reading ui file 'bitmessageqt/newsubscriptiondialog.ui'
 #
-# Created: Sat Nov 30 21:53:38 2013
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Sun Nov  2 17:20:45 2014
+#      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_NewSubscriptionDialog(object):
     def setupUi(self, NewSubscriptionDialog):
         NewSubscriptionDialog.setObjectName(_fromUtf8("NewSubscriptionDialog"))
-        NewSubscriptionDialog.resize(368, 173)
+        NewSubscriptionDialog.resize(368, 236)
         self.formLayout = QtGui.QFormLayout(NewSubscriptionDialog)
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
         self.label_2 = QtGui.QLabel(NewSubscriptionDialog)
@@ -62,7 +62,7 @@ class Ui_NewSubscriptionDialog(object):
         QtCore.QMetaObject.connectSlotsByName(NewSubscriptionDialog)
 
     def retranslateUi(self, NewSubscriptionDialog):
-        NewSubscriptionDialog.setWindowTitle(_translate("NewSubscriptionDialog", "Add new entry", None))
+        NewSubscriptionDialog.setWindowTitle(_translate("NewSubscriptionDialog", "Add new subscription entry", None))
         self.label_2.setText(_translate("NewSubscriptionDialog", "Label", None))
         self.label.setText(_translate("NewSubscriptionDialog", "Address", None))
         self.checkBoxDisplayMessagesAlreadyInInventory.setText(_translate("NewSubscriptionDialog", "CheckBox", None))
