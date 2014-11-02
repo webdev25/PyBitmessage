@@ -685,28 +685,22 @@ class MyForm(QtGui.QMainWindow):
         # Changes by webdev25
 
         if shared.safeConfigGetBoolean('bitmessagesettings','layout_view'):
-            self.ui.splitter.setOrientation(QtCore.Qt.Horizontal)
-            self.ui.splitter_2.setOrientation(QtCore.Qt.Horizontal)
+            self.toggleLayoutHoriz()
             
         else:
-            self.ui.splitter.setOrientation(QtCore.Qt.Vertical)
-            self.ui.splitter_2.setOrientation(QtCore.Qt.Vertical)
+            self.toggleLayoutVert()
 
 
         if shared.safeConfigGetBoolean('bitmessagesettings','filter_view'):
-            self.ui.widgetInboxFilters.setVisible(False)
-            self.ui.widgetSentFilters.setVisible(False)
-            
+            self.toggleFiltersHide()
         else:
-            self.ui.widgetInboxFilters.setVisible(True)
-            self.ui.widgetSentFilters.setVisible(True)
+            self.toggleFiltersShow()
 
 
         if shared.safeConfigGetBoolean('bitmessagesettings','statusbar_view'):
-            self.ui.statusbar.setVisible(False)
-            
+            self.toggleStatusBarHide()
         else:
-            self.ui.statusbar.setVisible(True)
+            self.toggleStatusBarShow()
 
         try:
             self.toggleTabPosition( shared.config.get('bitmessagesettings', 'tab_position_view') )
@@ -3436,40 +3430,66 @@ class MyForm(QtGui.QMainWindow):
     def toggleLayout(self):
 
         if not shared.safeConfigGetBoolean('bitmessagesettings','layout_view'):
-            self.ui.splitter.setOrientation(QtCore.Qt.Horizontal)
-            self.ui.splitter_2.setOrientation(QtCore.Qt.Horizontal)
-            shared.config.set('bitmessagesettings', 'layout_view', 'true')
-            
+            self.toggleLayoutHoriz()    
         else:
-            self.ui.splitter.setOrientation(QtCore.Qt.Vertical)
-            self.ui.splitter_2.setOrientation(QtCore.Qt.Vertical)
-            shared.config.set('bitmessagesettings', 'layout_view', 'false')
+            self.toggleLayoutVert()
 
+        
+
+    def toggleLayoutHoriz(self):
+        self.ui.splitter.setOrientation(QtCore.Qt.Horizontal)
+        self.ui.splitter_2.setOrientation(QtCore.Qt.Horizontal)
+        shared.config.set('bitmessagesettings', 'layout_view', 'true')
         self.saveConfigSettings()
+
+    def toggleLayoutVert(self):
+        self.ui.splitter.setOrientation(QtCore.Qt.Vertical)
+        self.ui.splitter_2.setOrientation(QtCore.Qt.Vertical)
+        shared.config.set('bitmessagesettings', 'layout_view', 'false')
+        self.saveConfigSettings()
+
+
 
     def toggleFilters(self):
 
         if not shared.safeConfigGetBoolean('bitmessagesettings','filter_view'):
-            self.ui.widgetInboxFilters.setVisible(False)
-            self.ui.widgetSentFilters.setVisible(False)
-            shared.config.set('bitmessagesettings', 'filter_view', 'true')
-
+            self.toggleFiltersHide()
         else:
-            self.ui.widgetInboxFilters.setVisible(True)
-            self.ui.widgetSentFilters.setVisible(True)
-            shared.config.set('bitmessagesettings', 'filter_view', 'false')
+            self.toggleFiltersShow()
 
+    def toggleFiltersHide(self):
+
+        self.ui.widgetInboxFilters.setVisible(False)
+        self.ui.widgetSentFilters.setVisible(False)
+        shared.config.set('bitmessagesettings', 'filter_view', 'true')
+        self.saveConfigSettings()
+
+    def toggleFiltersShow(self):
+
+        self.ui.widgetInboxFilters.setVisible(True)
+        self.ui.widgetSentFilters.setVisible(True)
+        shared.config.set('bitmessagesettings', 'filter_view', 'false')
         self.saveConfigSettings()
 
     def toggleStatusBar(self):
 
-        if not shared.safeConfigGetBoolean('bitmessagesettings','statusbar_view'):
-            self.ui.statusbar.setVisible(False)
-            shared.config.set('bitmessagesettings', 'statusbar_view', 'true')
-        else:
-            self.ui.statusbar.setVisible(True)
-            shared.config.set('bitmessagesettings', 'statusbar_view', 'false') 
 
+
+        if not shared.safeConfigGetBoolean('bitmessagesettings','statusbar_view'):
+            self.toggleStatusBarHide()
+        else:
+            self.toggleStatusBarShow()
+
+    def toggleStatusBarHide(self):
+        
+        self.ui.statusbar.setVisible(False)
+        shared.config.set('bitmessagesettings', 'statusbar_view', 'true')
+        self.saveConfigSettings()
+
+    def toggleStatusBarShow(self):
+
+        self.ui.statusbar.setVisible(True)
+        shared.config.set('bitmessagesettings', 'statusbar_view', 'false')
         self.saveConfigSettings()
 
     def toggleTabPositionNorth(self):
