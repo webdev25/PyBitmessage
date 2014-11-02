@@ -250,6 +250,9 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.actionNewMessage, QtCore.SIGNAL(
             "triggered()"), self.click_NewMessage)
 
+        QtCore.QObject.connect(self.ui.actionViewToggleHints, QtCore.SIGNAL(
+            "triggered()"), self.toggleHints)
+
 
         
 
@@ -686,7 +689,6 @@ class MyForm(QtGui.QMainWindow):
 
         if shared.safeConfigGetBoolean('bitmessagesettings','layout_view'):
             self.toggleLayoutHoriz()
-            
         else:
             self.toggleLayoutVert()
 
@@ -706,6 +708,11 @@ class MyForm(QtGui.QMainWindow):
             self.toggleTabPosition( shared.config.get('bitmessagesettings', 'tab_position_view') )
         except:
             self.toggleTabPosition('north')
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','hints_view'):
+            self.toggleHintsHide()
+        else:
+            self.toggleHintsShow()
 
             
             
@@ -3471,9 +3478,28 @@ class MyForm(QtGui.QMainWindow):
         shared.config.set('bitmessagesettings', 'filter_view', 'false')
         self.saveConfigSettings()
 
+    def toggleHints(self):
+
+        if not shared.safeConfigGetBoolean('bitmessagesettings','hints_view'):
+            self.toggleHintsHide()
+        else:
+            self.toggleHintsShow()
+
+    def toggleHintsHide(self):
+
+        self.ui.labelHintSubscriptions.setVisible(False)
+        self.ui.labelHintAddressBook.setVisible(False)
+        shared.config.set('bitmessagesettings', 'hints_view', 'true')
+        self.saveConfigSettings()
+
+    def toggleHintsShow(self):
+
+        self.ui.labelHintSubscriptions.setVisible(True)
+        self.ui.labelHintAddressBook.setVisible(True)
+        shared.config.set('bitmessagesettings', 'hints_view', 'false')
+        self.saveConfigSettings()
+
     def toggleStatusBar(self):
-
-
 
         if not shared.safeConfigGetBoolean('bitmessagesettings','statusbar_view'):
             self.toggleStatusBarHide()

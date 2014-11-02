@@ -664,36 +664,6 @@ p, li { white-space: pre-wrap; }
         <string>Subscriptions</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>Here you can subscribe to 'broadcast messages' that are sent by other users. Messages will appear in your Inbox. Addresses here override those on the Blacklist tab.</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="pushButtonAddSubscription">
-          <property name="text">
-           <string>Add new Subscription</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>689</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="2" column="0" colspan="2">
          <widget class="QTableWidget" name="tableWidgetSubscriptions">
           <property name="alternatingRowColors">
@@ -738,36 +708,15 @@ p, li { white-space: pre-wrap; }
           </column>
          </widget>
         </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="addressbook">
-       <attribute name="icon">
-        <iconset resource="bitmessage_icons.qrc">
-         <normaloff>:/newPrefix/images/addressbook.png</normaloff>:/newPrefix/images/addressbook.png</iconset>
-       </attribute>
-       <attribute name="title">
-        <string>Address Book</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>The Address book is useful for adding names or labels to other people's Bitmessage addresses so that you can recognize them more easily in your inbox. You can add entries here using the 'Add' button, or from your inbox by right-clicking on a message.</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
-         <widget class="QPushButton" name="pushButtonAddAddressBook">
+         <widget class="QPushButton" name="pushButtonAddSubscription">
           <property name="text">
-           <string>Add new entry</string>
+           <string>Add new Subscription</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <spacer name="horizontalSpacer_5">
+         <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -779,6 +728,33 @@ p, li { white-space: pre-wrap; }
           </property>
          </spacer>
         </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="labelHintSubscriptions">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>Here you can subscribe to 'broadcast messages' that are sent by other users. Messages will appear in your Inbox. Addresses here override those on the Blacklist tab.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="addressbook">
+       <attribute name="icon">
+        <iconset resource="bitmessage_icons.qrc">
+         <normaloff>:/newPrefix/images/addressbook.png</normaloff>:/newPrefix/images/addressbook.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Address Book</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
         <item row="2" column="0" colspan="2">
          <widget class="QTableWidget" name="tableWidgetAddressBook">
           <property name="alternatingRowColors">
@@ -818,6 +794,36 @@ p, li { white-space: pre-wrap; }
             <string>Address</string>
            </property>
           </column>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="pushButtonAddAddressBook">
+          <property name="text">
+           <string>Add new entry</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>689</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="labelHintAddressBook">
+          <property name="text">
+           <string>The Address book is useful for adding names or labels to other people's Bitmessage addresses so that you can recognize them more easily in your inbox. You can add entries here using the 'Add' button, or from your inbox by right-clicking on a message.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
        </layout>
@@ -1189,6 +1195,7 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionViewToggleLayout"/>
      <addaction name="actionViewToggleFilters"/>
      <addaction name="actionViewToggleStatusBar"/>
+     <addaction name="actionViewToggleHints"/>
     </widget>
     <widget class="QMenu" name="menuViewTabPosition">
      <property name="title">
@@ -1381,6 +1388,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionNewBlackWhiteList">
    <property name="text">
     <string>Black/White list entry</string>
+   </property>
+  </action>
+  <action name="actionViewToggleHints">
+   <property name="text">
+    <string>Hints</string>
    </property>
   </action>
  </widget>
