@@ -1159,10 +1159,10 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionNewBlackWhiteList"/>
     </widget>
     <addaction name="menuNew"/>
-    <addaction name="actionManageKeys"/>
-    <addaction name="actionDeleteAllTrashedMessages"/>
-    <addaction name="actionRegenerateDeterministicAddresses"/>
     <addaction name="actionJoinChan"/>
+    <addaction name="actionRegenerateDeterministicAddresses"/>
+    <addaction name="actionDeleteAllTrashedMessages"/>
+    <addaction name="actionManageKeys"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuSettings">

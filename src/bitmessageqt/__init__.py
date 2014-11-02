@@ -3435,7 +3435,7 @@ class MyForm(QtGui.QMainWindow):
 
     def toggleLayout(self):
 
-        if self.ui.splitter.orientation() == QtCore.Qt.Vertical:
+        if not shared.safeConfigGetBoolean('bitmessagesettings','layout_view'):
             self.ui.splitter.setOrientation(QtCore.Qt.Horizontal)
             self.ui.splitter_2.setOrientation(QtCore.Qt.Horizontal)
             shared.config.set('bitmessagesettings', 'layout_view', 'true')
@@ -3449,7 +3449,7 @@ class MyForm(QtGui.QMainWindow):
 
     def toggleFilters(self):
 
-        if self.ui.widgetInboxFilters.isVisible() or self.ui.widgetSentFilters.isVisible():
+        if not shared.safeConfigGetBoolean('bitmessagesettings','filter_view'):
             self.ui.widgetInboxFilters.setVisible(False)
             self.ui.widgetSentFilters.setVisible(False)
             shared.config.set('bitmessagesettings', 'filter_view', 'true')
@@ -3463,7 +3463,7 @@ class MyForm(QtGui.QMainWindow):
 
     def toggleStatusBar(self):
 
-        if self.ui.statusbar.isVisible():
+        if not shared.safeConfigGetBoolean('bitmessagesettings','statusbar_view'):
             self.ui.statusbar.setVisible(False)
             shared.config.set('bitmessagesettings', 'statusbar_view', 'true')
         else:
