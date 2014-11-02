@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'bitmessageqt/bitmessageui.ui'
 #
-# Created: Sun Nov  2 17:11:32 2014
+# Created: Sun Nov  2 17:46:55 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -681,7 +681,7 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Label", None))
         item = self.tableWidgetSubscriptions.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Address", None))
-        self.pushButtonAddSubscription.setText(_translate("MainWindow", "Add new Subscription", None))
+        self.pushButtonAddSubscription.setText(_translate("MainWindow", "New", None))
         self.labelHintSubscriptions.setText(_translate("MainWindow", "Here you can subscribe to \'broadcast messages\' that are sent by other users. Messages will appear in your Inbox. Addresses here override those on the Blacklist tab.", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.subscriptions), _translate("MainWindow", "Subscriptions", None))
         self.tableWidgetAddressBook.setSortingEnabled(True)
@@ -689,12 +689,12 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Name or Label", None))
         item = self.tableWidgetAddressBook.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Address", None))
-        self.pushButtonAddAddressBook.setText(_translate("MainWindow", "Add new entry", None))
+        self.pushButtonAddAddressBook.setText(_translate("MainWindow", "New", None))
         self.labelHintAddressBook.setText(_translate("MainWindow", "The Address book is useful for adding names or labels to other people\'s Bitmessage addresses so that you can recognize them more easily in your inbox. You can add entries here using the \'Add\' button, or from your inbox by right-clicking on a message.", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.addressbook), _translate("MainWindow", "Address Book", None))
         self.radioButtonBlacklist.setText(_translate("MainWindow", "Use a Blacklist (Allow all incoming messages except those on the Blacklist)", None))
         self.radioButtonWhitelist.setText(_translate("MainWindow", "Use a Whitelist (Block all incoming messages except those on the Whitelist)", None))
-        self.pushButtonAddBlacklist.setText(_translate("MainWindow", "Add new entry", None))
+        self.pushButtonAddBlacklist.setText(_translate("MainWindow", "New", None))
         self.tableWidgetBlacklist.setSortingEnabled(True)
         item = self.tableWidgetBlacklist.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Name or Label", None))
