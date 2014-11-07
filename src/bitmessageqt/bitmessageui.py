@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Fri Nov  7 19:37:55 2014
+# Created: Fri Nov  7 19:50:51 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -884,9 +884,9 @@ class Ui_MainWindow(object):
         self.actionViewTabPositionWest.setText(_translate("MainWindow", "West", None))
         self.actionNewMessage.setText(_translate("MainWindow", "Message", None))
         self.actionNewIdentity.setText(_translate("MainWindow", "Identity", None))
-        self.actionNewAddressBook.setText(_translate("MainWindow", "Address book entry", None))
+        self.actionNewAddressBook.setText(_translate("MainWindow", "Address book", None))
         self.actionNewSubscription.setText(_translate("MainWindow", "Subscription", None))
-        self.actionNewBlackWhiteList.setText(_translate("MainWindow", "Black/White list entry", None))
+        self.actionNewBlackWhiteList.setText(_translate("MainWindow", "Blacklist", None))
         self.actionViewToggleHints.setText(_translate("MainWindow", "Show Hints", None))
         self.actionViewToggleSubjectBar.setText(_translate("MainWindow", "Show Subject Bar", None))
 

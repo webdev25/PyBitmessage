@@ -598,6 +598,8 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tabWidget.setTabText(6, 'Whitelist')
             self.ui.radioButtonWhitelist.click()
             self.loadBlackWhiteList()
+            #added by webdev25
+            self.ui.actionNewBlackWhiteList.setText('Whitelist')
 
         QtCore.QObject.connect(self.ui.tableWidgetYourIdentities, QtCore.SIGNAL(
             "itemChanged(QTableWidgetItem *)"), self.tableWidgetYourIdentitiesItemChanged)
@@ -2571,6 +2573,8 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetBlacklist.setRowCount(0)
             self.loadBlackWhiteList()
             self.ui.tabWidget.setTabText(6, 'Blacklist')
+            #added by webdev25
+            self.ui.actionNewBlackWhiteList.setText('Blacklist')
 
     def click_radioButtonWhitelist(self):
         if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
@@ -2581,6 +2585,8 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetBlacklist.setRowCount(0)
             self.loadBlackWhiteList()
             self.ui.tabWidget.setTabText(6, 'Whitelist')
+            #added by webdev25
+            self.ui.actionNewBlackWhiteList.setText('Whitelist')
 
     def click_pushButtonAddBlacklist(self):
 

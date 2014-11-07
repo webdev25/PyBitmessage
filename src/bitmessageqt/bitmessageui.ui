@@ -1764,7 +1764,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionNewAddressBook">
    <property name="text">
-    <string>Address book entry</string>
+    <string>Address book</string>
    </property>
   </action>
   <action name="actionNewSubscription">
@@ -1774,7 +1774,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionNewBlackWhiteList">
    <property name="text">
-    <string>Black/White list entry</string>
+    <string>Blacklist</string>
    </property>
   </action>
   <action name="actionViewToggleHints">
