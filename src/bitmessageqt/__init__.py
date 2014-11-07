@@ -3329,13 +3329,19 @@ class MyForm(QtGui.QMainWindow):
                 currentRow, 1).data(Qt.UserRole).toPyObject())
             msgid = str(self.ui.tableWidgetInbox.item(
                 currentRow, 3).data(Qt.UserRole).toPyObject())
+            #changed by webdev25
             queryreturn = sqlQuery(
-                '''select message from inbox where msgid=?''', msgid)
+                '''select message, subject, fromaddress from inbox where msgid=?''', msgid)
             if queryreturn != []:
                 for row in queryreturn:
-                    messageText, = row
+                    messageText, subjectText, fromAddressText, = row
             messageText = shared.fixPotentiallyInvalidUTF8Data(messageText)
             messageText = unicode(messageText, 'utf-8)')
+            # added by webdev25
+            subjectText = shared.fixPotentiallyInvalidUTF8Data(subjectText)
+            subjectText = unicode(subjectText, 'utf-8)')
+            fromAddressText = unicode(fromAddressText, 'utf-8)')
+            # end changes by webdev25
             if len(messageText) > 30000:
                 messageText = (
                         messageText[:30000] + '\n' +
@@ -3353,6 +3359,19 @@ class MyForm(QtGui.QMainWindow):
                 self.ui.textEditInboxMessage.setText(messageText)
             else:
                 self.ui.textEditInboxMessage.setPlainText(messageText)
+
+            #added by webdev25
+
+            self.ui.labelInboxSubjectBarSubject.setText(subjectText)
+            self.ui.labelInboxSubjectBarFrom.setText(fromAddressText)
+
+            avatarpixmap = avatarize(fromAddressText)
+            scene = QGraphicsScene()
+            scene.addPixmap( avatarpixmap.pixmap(48,48) )
+            self.ui.graphicsViewInboxSubjectIcon.setScene(scene)
+            self.ui.graphicsViewInboxSubjectIcon.show()
+
+            #end of changes by webdev25
 
             self.ui.tableWidgetInbox.item(currentRow, 0).setFont(font)
             self.ui.tableWidgetInbox.item(currentRow, 1).setFont(font)
