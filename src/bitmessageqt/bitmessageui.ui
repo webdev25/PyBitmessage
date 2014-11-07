@@ -1524,6 +1524,7 @@ p, li { white-space: pre-wrap; }
      <property name="title">
       <string>New</string>
      </property>
+     <addaction name="actionJoinChan"/>
      <addaction name="actionNewMessage"/>
      <addaction name="actionNewIdentity"/>
      <addaction name="actionNewAddressBook"/>
@@ -1531,7 +1532,6 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionNewBlackWhiteList"/>
     </widget>
     <addaction name="menuNew"/>
-    <addaction name="actionJoinChan"/>
     <addaction name="actionSettings"/>
     <addaction name="actionExit"/>
    </widget>
@@ -1679,6 +1679,9 @@ p, li { white-space: pre-wrap; }
     </iconset>
    </property>
    <property name="text">
+    <string>Chan</string>
+   </property>
+   <property name="toolTip">
     <string>Join / Create chan</string>
    </property>
   </action>

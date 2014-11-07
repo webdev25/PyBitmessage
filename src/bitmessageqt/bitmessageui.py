@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Fri Nov  7 19:09:15 2014
+# Created: Fri Nov  7 19:37:55 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -699,13 +699,13 @@ class Ui_MainWindow(object):
         self.actionViewToggleSubjectBar = QtGui.QAction(MainWindow)
         self.actionViewToggleSubjectBar.setCheckable(True)
         self.actionViewToggleSubjectBar.setObjectName(_fromUtf8("actionViewToggleSubjectBar"))
+        self.menuNew.addAction(self.actionJoinChan)
         self.menuNew.addAction(self.actionNewMessage)
         self.menuNew.addAction(self.actionNewIdentity)
         self.menuNew.addAction(self.actionNewAddressBook)
         self.menuNew.addAction(self.actionNewSubscription)
         self.menuNew.addAction(self.actionNewBlackWhiteList)
         self.menuFile.addAction(self.menuNew.menuAction())
-        self.menuFile.addAction(self.actionJoinChan)
         self.menuFile.addAction(self.actionSettings)
         self.menuFile.addAction(self.actionExit)
         self.menuHelp.addAction(self.actionHelp)
@@ -872,7 +872,8 @@ class Ui_MainWindow(object):
         self.actionSettings.setText(_translate("MainWindow", "Settings", None))
         self.actionRegenerateDeterministicAddresses.setText(_translate("MainWindow", "Regenerate deterministic addresses", None))
         self.actionDeleteAllTrashedMessages.setText(_translate("MainWindow", "Delete all trashed messages", None))
-        self.actionJoinChan.setText(_translate("MainWindow", "Join / Create chan", None))
+        self.actionJoinChan.setText(_translate("MainWindow", "Chan", None))
+        self.actionJoinChan.setToolTip(_translate("MainWindow", "Join / Create chan", None))
         self.actionViewToggleLayout.setText(_translate("MainWindow", "Toggle Layout", None))
         self.actionViewToggleFilters.setText(_translate("MainWindow", "Show Filters", None))
         self.actionViewToggleStatusBar.setText(_translate("MainWindow", "Show Status Bar", None))
