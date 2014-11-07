@@ -2583,10 +2583,16 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tabWidget.setTabText(6, 'Whitelist')
 
     def click_pushButtonAddBlacklist(self):
-        #added by webdev25
-        self.ui.tabWidget.setCurrentIndex(6)
 
         self.NewBlacklistDialogInstance = AddAddressDialog(self)
+
+        #added by webdev25
+        self.ui.tabWidget.setCurrentIndex(6)
+        if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'white':
+            self.NewBlacklistDialogInstance.setWindowTitle('Add new whitelist entry')
+        else:
+            self.NewBlacklistDialogInstance.setWindowTitle('Add new blacklist entry')
+
         if self.NewBlacklistDialogInstance.exec_():
             if self.NewBlacklistDialogInstance.ui.labelAddressCheck.text() == _translate("MainWindow", "Address is valid."):
                 address = addBMIfNotPresent(str(
