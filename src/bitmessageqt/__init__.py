@@ -3404,12 +3404,31 @@ class MyForm(QtGui.QMainWindow):
             ackdata = str(self.ui.tableWidgetSent.item(
                 currentRow, 3).data(Qt.UserRole).toPyObject())
             queryreturn = sqlQuery(
-                '''select message from sent where ackdata=?''', ackdata)
+                '''select message, subject, fromaddress from sent where ackdata=?''', ackdata)
             if queryreturn != []:
                 for row in queryreturn:
-                    message, = row
+                    message, subjectText, fromAddressText, = row
+                    # added by webdev25
+                    subjectText = shared.fixPotentiallyInvalidUTF8Data(subjectText)
+                    subjectText = unicode(subjectText, 'utf-8)')
+                    fromAddressText = unicode(fromAddressText, 'utf-8)')
+                    # end changes by webdev25
             else:
                 message = "Error occurred: could not load message from disk."
+
+            #changes by webdev25
+
+            self.ui.labelSentSubjectBarSubject.setText(subjectText)
+            self.ui.labelSentSubjectBarFrom.setText(fromAddressText)
+
+            avatarpixmap = avatarize(fromAddressText)
+            scene = QGraphicsScene()
+            scene.addPixmap( avatarpixmap.pixmap(48,48) )
+            self.ui.graphicsViewSentSubjectIcon.setScene(scene)
+            self.ui.graphicsViewSentSubjectIcon.show()
+
+            #end changes by webdev25
+
             message = unicode(message, 'utf-8)')
             self.ui.textEditSentMessage.setPlainText(message)
 
@@ -3558,6 +3577,7 @@ class MyForm(QtGui.QMainWindow):
     def toggleSubjectBarHide(self):
 
         self.ui.widgetInboxSubjectBar.setVisible(False)
+        self.ui.widgetSentSubjectBar.setVisible(False)
         self.ui.actionViewToggleSubjectBar.setChecked(False)
         shared.config.set('bitmessagesettings', 'subjectbar_view', 'false')
         self.saveConfigSettings()
@@ -3565,6 +3585,7 @@ class MyForm(QtGui.QMainWindow):
     def toggleSubjectBarShow(self):
 
         self.ui.widgetInboxSubjectBar.setVisible(True)
+        self.ui.widgetSentSubjectBar.setVisible(True)
         self.ui.actionViewToggleSubjectBar.setChecked(True)
         shared.config.set('bitmessagesettings', 'subjectbar_view', 'true')
         self.saveConfigSettings()

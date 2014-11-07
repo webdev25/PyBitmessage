@@ -213,16 +213,202 @@
             </property>
            </column>
           </widget>
-          <widget class="QTextEdit" name="textEditInboxMessage">
-           <property name="baseSize">
-            <size>
-             <width>0</width>
-             <height>500</height>
-            </size>
+          <widget class="QWidget" name="widgetInboxMessageView" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QWidget" name="widgetInboxSubjectBar" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>54</height>
+               </size>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QGraphicsView" name="graphicsViewInboxSubjectIcon">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>48</width>
+                   <height>48</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>48</width>
+                   <height>48</height>
+                  </size>
+                 </property>
+                 <property name="baseSize">
+                  <size>
+                   <width>48</width>
+                   <height>48</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background:rgba(0, 0, 0, 0)</string>
+                 </property>
+                 <property name="backgroundBrush">
+                  <brush brushstyle="NoBrush">
+                   <color alpha="0">
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                   </color>
+                  </brush>
+                 </property>
+                 <property name="foregroundBrush">
+                  <brush brushstyle="NoBrush">
+                   <color alpha="0">
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                   </color>
+                  </brush>
+                 </property>
+                 <property name="sceneRect">
+                  <rectf>
+                   <x>0.000000000000000</x>
+                   <y>0.000000000000000</y>
+                   <width>48.000000000000000</width>
+                   <height>48.000000000000000</height>
+                  </rectf>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget" native="true">
+                 <layout class="QVBoxLayout" name="verticalLayout_4">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="labelInboxSubjectBarSubject">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="textInteractionFlags">
+                     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="labelInboxSubjectBarFrom">
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="textInteractionFlags">
+                     <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>17</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTextEdit" name="textEditInboxMessage">
+              <property name="baseSize">
+               <size>
+                <width>0</width>
+                <height>500</height>
+               </size>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -546,10 +732,190 @@ p, li { white-space: pre-wrap; }
             </property>
            </column>
           </widget>
-          <widget class="QTextEdit" name="textEditSentMessage">
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
+          <widget class="QWidget" name="widgetSentMessageView" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QWidget" name="widgetSentSubjectBar" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>48</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>54</height>
+               </size>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QGraphicsView" name="graphicsViewSentSubjectIcon">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>48</width>
+                   <height>48</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>48</width>
+                   <height>48</height>
+                  </size>
+                 </property>
+                 <property name="baseSize">
+                  <size>
+                   <width>48</width>
+                   <height>48</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background:rgba(0, 0, 0, 0)</string>
+                 </property>
+                 <property name="backgroundBrush">
+                  <brush brushstyle="NoBrush">
+                   <color alpha="0">
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                   </color>
+                  </brush>
+                 </property>
+                 <property name="foregroundBrush">
+                  <brush brushstyle="NoBrush">
+                   <color alpha="0">
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                   </color>
+                  </brush>
+                 </property>
+                 <property name="sceneRect">
+                  <rectf>
+                   <x>0.000000000000000</x>
+                   <y>0.000000000000000</y>
+                   <width>48.000000000000000</width>
+                   <height>48.000000000000000</height>
+                  </rectf>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_2" native="true">
+                 <layout class="QVBoxLayout" name="verticalLayout_5">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="labelSentSubjectBarSubject">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="textInteractionFlags">
+                     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="labelSentSubjectBarFrom">
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="textInteractionFlags">
+                     <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_3">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>17</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTextEdit" name="textEditSentMessage">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -561,7 +927,7 @@ p, li { white-space: pre-wrap; }
          <normaloff>:/newPrefix/images/identities.png</normaloff>:/newPrefix/images/identities.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Your Identities</string>
+        <string>Identities</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
@@ -664,36 +1030,6 @@ p, li { white-space: pre-wrap; }
         <string>Subscriptions</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>Here you can subscribe to 'broadcast messages' that are sent by other users. Messages will appear in your Inbox. Addresses here override those on the Blacklist tab.</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="pushButtonAddSubscription">
-          <property name="text">
-           <string>Add new Subscription</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>689</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="2" column="0" colspan="2">
          <widget class="QTableWidget" name="tableWidgetSubscriptions">
           <property name="alternatingRowColors">
@@ -738,36 +1074,15 @@ p, li { white-space: pre-wrap; }
           </column>
          </widget>
         </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="addressbook">
-       <attribute name="icon">
-        <iconset resource="bitmessage_icons.qrc">
-         <normaloff>:/newPrefix/images/addressbook.png</normaloff>:/newPrefix/images/addressbook.png</iconset>
-       </attribute>
-       <attribute name="title">
-        <string>Address Book</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>The Address book is useful for adding names or labels to other people's Bitmessage addresses so that you can recognize them more easily in your inbox. You can add entries here using the 'Add' button, or from your inbox by right-clicking on a message.</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
-         <widget class="QPushButton" name="pushButtonAddAddressBook">
+         <widget class="QPushButton" name="pushButtonAddSubscription">
           <property name="text">
-           <string>Add new entry</string>
+           <string>New</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <spacer name="horizontalSpacer_5">
+         <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -779,6 +1094,33 @@ p, li { white-space: pre-wrap; }
           </property>
          </spacer>
         </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="labelHintSubscriptions">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>Here you can subscribe to 'broadcast messages' that are sent by other users. Messages will appear in your Inbox. Addresses here override those on the Blacklist tab.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="addressbook">
+       <attribute name="icon">
+        <iconset resource="bitmessage_icons.qrc">
+         <normaloff>:/newPrefix/images/addressbook.png</normaloff>:/newPrefix/images/addressbook.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Address Book</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
         <item row="2" column="0" colspan="2">
          <widget class="QTableWidget" name="tableWidgetAddressBook">
           <property name="alternatingRowColors">
@@ -820,6 +1162,36 @@ p, li { white-space: pre-wrap; }
           </column>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="pushButtonAddAddressBook">
+          <property name="text">
+           <string>New</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>689</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="labelHintAddressBook">
+          <property name="text">
+           <string>The Address book is useful for adding names or labels to other people's Bitmessage addresses so that you can recognize them more easily in your inbox. You can add entries here using the 'Add' button, or from your inbox by right-clicking on a message.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="blackwhitelist">
@@ -851,7 +1223,7 @@ p, li { white-space: pre-wrap; }
         <item row="2" column="0">
          <widget class="QPushButton" name="pushButtonAddBlacklist">
           <property name="text">
-           <string>Add new entry</string>
+           <string>New</string>
           </property>
          </widget>
         </item>
@@ -920,7 +1292,7 @@ p, li { white-space: pre-wrap; }
          <normaloff>:/newPrefix/images/networkstatus.png</normaloff>:/newPrefix/images/networkstatus.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Network Status</string>
+        <string>Network</string>
        </attribute>
        <widget class="QPushButton" name="pushButtonStatusIcon">
         <property name="geometry">
@@ -1159,17 +1531,9 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionNewBlackWhiteList"/>
     </widget>
     <addaction name="menuNew"/>
-    <addaction name="actionManageKeys"/>
-    <addaction name="actionDeleteAllTrashedMessages"/>
-    <addaction name="actionRegenerateDeterministicAddresses"/>
     <addaction name="actionJoinChan"/>
-    <addaction name="actionExit"/>
-   </widget>
-   <widget class="QMenu" name="menuSettings">
-    <property name="title">
-     <string>Settings</string>
-    </property>
     <addaction name="actionSettings"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -1182,29 +1546,35 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>View</string>
     </property>
-    <widget class="QMenu" name="menuToggle">
-     <property name="title">
-      <string>Toggle</string>
-     </property>
-     <addaction name="actionViewToggleLayout"/>
-     <addaction name="actionViewToggleFilters"/>
-     <addaction name="actionViewToggleStatusBar"/>
-    </widget>
     <widget class="QMenu" name="menuViewTabPosition">
      <property name="title">
-      <string>Tab position</string>
+      <string>Tab Position</string>
      </property>
      <addaction name="actionViewTabPositionNorth"/>
-     <addaction name="actionViewTabPositionSouth"/>
      <addaction name="actionViewTabPositionEast"/>
+     <addaction name="actionViewTabPositionSouth"/>
      <addaction name="actionViewTabPositionWest"/>
     </widget>
-    <addaction name="menuToggle"/>
+    <addaction name="actionViewToggleLayout"/>
+    <addaction name="separator"/>
+    <addaction name="actionViewToggleFilters"/>
+    <addaction name="actionViewToggleSubjectBar"/>
+    <addaction name="actionViewToggleStatusBar"/>
+    <addaction name="actionViewToggleHints"/>
+    <addaction name="separator"/>
     <addaction name="menuViewTabPosition"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionDeleteAllTrashedMessages"/>
+    <addaction name="actionRegenerateDeterministicAddresses"/>
+    <addaction name="actionManageKeys"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
-   <addaction name="menuSettings"/>
+   <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">
@@ -1320,17 +1690,26 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Layout</string>
+    <string>Toggle Layout</string>
    </property>
   </action>
   <action name="actionViewToggleFilters">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Filters</string>
+    <string>Show Filters</string>
    </property>
   </action>
   <action name="actionViewToggleStatusBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Status Bar</string>
+    <string>Show Status Bar</string>
    </property>
   </action>
   <action name="actionViewToggleTabs">
@@ -1339,21 +1718,33 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionViewTabPositionNorth">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>North</string>
    </property>
   </action>
   <action name="actionViewTabPositionSouth">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>South</string>
    </property>
   </action>
   <action name="actionViewTabPositionEast">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>East</string>
    </property>
   </action>
   <action name="actionViewTabPositionWest">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>West</string>
    </property>
@@ -1383,11 +1774,26 @@ p, li { white-space: pre-wrap; }
     <string>Black/White list entry</string>
    </property>
   </action>
+  <action name="actionViewToggleHints">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Hints</string>
+   </property>
+  </action>
+  <action name="actionViewToggleSubjectBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Subject Bar</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>tabWidget</tabstop>
   <tabstop>tableWidgetInbox</tabstop>
-  <tabstop>textEditInboxMessage</tabstop>
   <tabstop>radioButtonSpecific</tabstop>
   <tabstop>radioButtonBroadcast</tabstop>
   <tabstop>comboBoxSendFrom</tabstop>
@@ -1397,7 +1803,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>textEditMessage</tabstop>
   <tabstop>pushButtonSend</tabstop>
   <tabstop>tableWidgetSent</tabstop>
-  <tabstop>textEditSentMessage</tabstop>
   <tabstop>pushButtonNewAddress</tabstop>
   <tabstop>tableWidgetYourIdentities</tabstop>
   <tabstop>pushButtonAddSubscription</tabstop>
