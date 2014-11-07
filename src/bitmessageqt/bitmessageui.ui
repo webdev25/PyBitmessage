@@ -1366,26 +1366,22 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>View</string>
     </property>
-    <widget class="QMenu" name="menuToggle">
-     <property name="title">
-      <string>Toggle</string>
-     </property>
-     <addaction name="actionViewToggleLayout"/>
-     <addaction name="actionViewToggleFilters"/>
-     <addaction name="actionViewToggleStatusBar"/>
-     <addaction name="actionViewToggleHints"/>
-     <addaction name="actionViewToggleSubjectBar"/>
-    </widget>
     <widget class="QMenu" name="menuViewTabPosition">
      <property name="title">
-      <string>Tab position</string>
+      <string>Tab Position</string>
      </property>
      <addaction name="actionViewTabPositionNorth"/>
      <addaction name="actionViewTabPositionEast"/>
      <addaction name="actionViewTabPositionSouth"/>
      <addaction name="actionViewTabPositionWest"/>
     </widget>
-    <addaction name="menuToggle"/>
+    <addaction name="actionViewToggleLayout"/>
+    <addaction name="separator"/>
+    <addaction name="actionViewToggleFilters"/>
+    <addaction name="actionViewToggleSubjectBar"/>
+    <addaction name="actionViewToggleStatusBar"/>
+    <addaction name="actionViewToggleHints"/>
+    <addaction name="separator"/>
     <addaction name="menuViewTabPosition"/>
    </widget>
    <widget class="QMenu" name="menuTools">
@@ -1514,17 +1510,26 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Layout</string>
+    <string>Toggle Layout</string>
    </property>
   </action>
   <action name="actionViewToggleFilters">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Filters</string>
+    <string>Show Filters</string>
    </property>
   </action>
   <action name="actionViewToggleStatusBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Status Bar</string>
+    <string>Show Status Bar</string>
    </property>
   </action>
   <action name="actionViewToggleTabs">
@@ -1533,21 +1538,33 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionViewTabPositionNorth">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>North</string>
    </property>
   </action>
   <action name="actionViewTabPositionSouth">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>South</string>
    </property>
   </action>
   <action name="actionViewTabPositionEast">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>East</string>
    </property>
   </action>
   <action name="actionViewTabPositionWest">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>West</string>
    </property>
@@ -1578,13 +1595,19 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionViewToggleHints">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Hints</string>
+    <string>Show Hints</string>
    </property>
   </action>
   <action name="actionViewToggleSubjectBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Subject Bar</string>
+    <string>Show Subject Bar</string>
    </property>
   </action>
  </widget>

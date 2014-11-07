@@ -3507,6 +3507,7 @@ class MyForm(QtGui.QMainWindow):
 
         self.ui.widgetInboxFilters.setVisible(False)
         self.ui.widgetSentFilters.setVisible(False)
+        self.ui.actionViewToggleFilters.setChecked(False)
         shared.config.set('bitmessagesettings', 'filter_view', 'true')
         self.saveConfigSettings()
 
@@ -3514,6 +3515,7 @@ class MyForm(QtGui.QMainWindow):
 
         self.ui.widgetInboxFilters.setVisible(True)
         self.ui.widgetSentFilters.setVisible(True)
+        self.ui.actionViewToggleFilters.setChecked(True)
         shared.config.set('bitmessagesettings', 'filter_view', 'false')
         self.saveConfigSettings()
 
@@ -3528,6 +3530,7 @@ class MyForm(QtGui.QMainWindow):
 
         self.ui.labelHintSubscriptions.setVisible(False)
         self.ui.labelHintAddressBook.setVisible(False)
+        self.ui.actionViewToggleHints.setChecked(False)
         shared.config.set('bitmessagesettings', 'hints_view', 'true')
         self.saveConfigSettings()
 
@@ -3535,6 +3538,7 @@ class MyForm(QtGui.QMainWindow):
 
         self.ui.labelHintSubscriptions.setVisible(True)
         self.ui.labelHintAddressBook.setVisible(True)
+        self.ui.actionViewToggleHints.setChecked(True)
         shared.config.set('bitmessagesettings', 'hints_view', 'false')
         self.saveConfigSettings()
 
@@ -3548,12 +3552,14 @@ class MyForm(QtGui.QMainWindow):
     def toggleSubjectBarHide(self):
 
         self.ui.widgetInboxSubjectBar.setVisible(False)
+        self.ui.actionViewToggleSubjectBar.setChecked(False)
         shared.config.set('bitmessagesettings', 'subjectbar_view', 'false')
         self.saveConfigSettings()
 
     def toggleSubjectBarShow(self):
 
         self.ui.widgetInboxSubjectBar.setVisible(True)
+        self.ui.actionViewToggleSubjectBar.setChecked(True)
         shared.config.set('bitmessagesettings', 'subjectbar_view', 'true')
         self.saveConfigSettings()
 
@@ -3567,12 +3573,14 @@ class MyForm(QtGui.QMainWindow):
     def toggleStatusBarHide(self):
         
         self.ui.statusbar.setVisible(False)
+        self.ui.actionViewToggleStatusBar.setChecked(False)
         shared.config.set('bitmessagesettings', 'statusbar_view', 'true')
         self.saveConfigSettings()
 
     def toggleStatusBarShow(self):
 
         self.ui.statusbar.setVisible(True)
+        self.ui.actionViewToggleStatusBar.setChecked(True)
         shared.config.set('bitmessagesettings', 'statusbar_view', 'false')
         self.saveConfigSettings()
 
@@ -3594,18 +3602,27 @@ class MyForm(QtGui.QMainWindow):
 
     def toggleTabPosition(self,position):
 
+        self.ui.actionViewTabPositionNorth.setChecked(False)
+        self.ui.actionViewTabPositionEast.setChecked(False)
+        self.ui.actionViewTabPositionSouth.setChecked(False)
+        self.ui.actionViewTabPositionWest.setChecked(False)
+
         if position == 'south':
             self.ui.tabWidget.setTabPosition( QTabWidget.South )
             shared.config.set('bitmessagesettings', 'tab_position_view', 'south')
+            self.ui.actionViewTabPositionSouth.setChecked(True)
         elif position == 'east':
             self.ui.tabWidget.setTabPosition( QTabWidget.East )
             shared.config.set('bitmessagesettings', 'tab_position_view', 'east')
+            self.ui.actionViewTabPositionEast.setChecked(True)
         elif position == 'west':
             self.ui.tabWidget.setTabPosition( QTabWidget.West )
             shared.config.set('bitmessagesettings', 'tab_position_view', 'west')
+            self.ui.actionViewTabPositionWest.setChecked(True)
         else:
             self.ui.tabWidget.setTabPosition( QTabWidget.North )
             shared.config.set('bitmessagesettings', 'tab_position_view', 'north')
+            self.ui.actionViewTabPositionNorth.setChecked(True)
 
         self.saveConfigSettings()
 
