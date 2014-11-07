@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Fri Nov  7 18:01:22 2014
+# Created: Fri Nov  7 18:09:38 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -163,10 +163,12 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.labelInboxSubjectBarSubject.setFont(font)
+        self.labelInboxSubjectBarSubject.setText(_fromUtf8(""))
         self.labelInboxSubjectBarSubject.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.labelInboxSubjectBarSubject.setObjectName(_fromUtf8("labelInboxSubjectBarSubject"))
         self.verticalLayout_4.addWidget(self.labelInboxSubjectBarSubject)
         self.labelInboxSubjectBarFrom = QtGui.QLabel(self.widget)
+        self.labelInboxSubjectBarFrom.setText(_fromUtf8(""))
         self.labelInboxSubjectBarFrom.setTextInteractionFlags(QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.labelInboxSubjectBarFrom.setObjectName(_fromUtf8("labelInboxSubjectBarFrom"))
         self.verticalLayout_4.addWidget(self.labelInboxSubjectBarFrom)
@@ -624,6 +626,8 @@ class Ui_MainWindow(object):
         self.actionNewBlackWhiteList.setObjectName(_fromUtf8("actionNewBlackWhiteList"))
         self.actionViewToggleHints = QtGui.QAction(MainWindow)
         self.actionViewToggleHints.setObjectName(_fromUtf8("actionViewToggleHints"))
+        self.actionViewToggleSubjectBar = QtGui.QAction(MainWindow)
+        self.actionViewToggleSubjectBar.setObjectName(_fromUtf8("actionViewToggleSubjectBar"))
         self.menuNew.addAction(self.actionNewMessage)
         self.menuNew.addAction(self.actionNewIdentity)
         self.menuNew.addAction(self.actionNewAddressBook)
@@ -639,6 +643,7 @@ class Ui_MainWindow(object):
         self.menuToggle.addAction(self.actionViewToggleFilters)
         self.menuToggle.addAction(self.actionViewToggleStatusBar)
         self.menuToggle.addAction(self.actionViewToggleHints)
+        self.menuToggle.addAction(self.actionViewToggleSubjectBar)
         self.menuViewTabPosition.addAction(self.actionViewTabPositionNorth)
         self.menuViewTabPosition.addAction(self.actionViewTabPositionEast)
         self.menuViewTabPosition.addAction(self.actionViewTabPositionSouth)
@@ -700,8 +705,6 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Subject", None))
         item = self.tableWidgetInbox.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Received", None))
-        self.labelInboxSubjectBarSubject.setText(_translate("MainWindow", "SUBJECT", None))
-        self.labelInboxSubjectBarFrom.setText(_translate("MainWindow", "FROM", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.inbox), _translate("MainWindow", "Inbox", None))
         self.pushButtonLoadFromAddressBook.setText(_translate("MainWindow", "Load from Address book", None))
         self.pushButtonFetchNamecoinID.setText(_translate("MainWindow", "Fetch Namecoin ID", None))
@@ -814,5 +817,6 @@ class Ui_MainWindow(object):
         self.actionNewSubscription.setText(_translate("MainWindow", "Subscription", None))
         self.actionNewBlackWhiteList.setText(_translate("MainWindow", "Black/White list entry", None))
         self.actionViewToggleHints.setText(_translate("MainWindow", "Hints", None))
+        self.actionViewToggleSubjectBar.setText(_translate("MainWindow", "Subject Bar", None))
 
 import bitmessage_icons_rc

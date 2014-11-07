@@ -1374,6 +1374,7 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionViewToggleFilters"/>
      <addaction name="actionViewToggleStatusBar"/>
      <addaction name="actionViewToggleHints"/>
+     <addaction name="actionViewToggleSubjectBar"/>
     </widget>
     <widget class="QMenu" name="menuViewTabPosition">
      <property name="title">
@@ -1579,6 +1580,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionViewToggleHints">
    <property name="text">
     <string>Hints</string>
+   </property>
+  </action>
+  <action name="actionViewToggleSubjectBar">
+   <property name="text">
+    <string>Subject Bar</string>
    </property>
   </action>
  </widget>

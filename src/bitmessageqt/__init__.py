@@ -253,6 +253,9 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.actionViewToggleHints, QtCore.SIGNAL(
             "triggered()"), self.toggleHints)
 
+        QtCore.QObject.connect(self.ui.actionViewToggleSubjectBar, QtCore.SIGNAL(
+            "triggered()"), self.toggleSubjectBar)
+
 
         
 
@@ -713,6 +716,11 @@ class MyForm(QtGui.QMainWindow):
             self.toggleHintsHide()
         else:
             self.toggleHintsShow()
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','subjectbar_view'):
+            self.toggleSubjectBarShow()
+        else:
+            self.toggleSubjectBarHide()
 
             
             
@@ -3528,6 +3536,25 @@ class MyForm(QtGui.QMainWindow):
         self.ui.labelHintSubscriptions.setVisible(True)
         self.ui.labelHintAddressBook.setVisible(True)
         shared.config.set('bitmessagesettings', 'hints_view', 'false')
+        self.saveConfigSettings()
+
+    def toggleSubjectBar(self):
+
+        if not shared.safeConfigGetBoolean('bitmessagesettings','subjectbar_view'):
+            self.toggleSubjectBarShow()
+        else:
+            self.toggleSubjectBarHide()
+
+    def toggleSubjectBarHide(self):
+
+        self.ui.widgetInboxSubjectBar.setVisible(False)
+        shared.config.set('bitmessagesettings', 'subjectbar_view', 'false')
+        self.saveConfigSettings()
+
+    def toggleSubjectBarShow(self):
+
+        self.ui.widgetInboxSubjectBar.setVisible(True)
+        shared.config.set('bitmessagesettings', 'subjectbar_view', 'true')
         self.saveConfigSettings()
 
     def toggleStatusBar(self):
