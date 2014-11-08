@@ -2286,6 +2286,7 @@ class MyForm(QtGui.QMainWindow):
             sqlExecute('''INSERT INTO addressbook VALUES (?,?)''', str(label), address)
             self.rerenderInboxFromLabels()
             self.rerenderSentToLabels()
+            self.loadComposeToValues()
         else:
             self.statusBar().showMessage(_translate(
                         "MainWindow", "Error: You cannot add the same address to your address book twice. Try renaming the existing one if you want."))
