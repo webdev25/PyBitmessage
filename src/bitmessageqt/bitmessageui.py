@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Sat Nov  8 08:16:47 2014
+# Created: Sat Nov  8 08:17:54 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -418,6 +418,8 @@ class Ui_MainWindow(object):
         self.graphicsViewSentSubjectIcon.setMaximumSize(QtCore.QSize(48, 48))
         self.graphicsViewSentSubjectIcon.setBaseSize(QtCore.QSize(48, 48))
         self.graphicsViewSentSubjectIcon.setStyleSheet(_fromUtf8("background:rgba(0, 0, 0, 0)"))
+        self.graphicsViewSentSubjectIcon.setFrameShape(QtGui.QFrame.NoFrame)
+        self.graphicsViewSentSubjectIcon.setFrameShadow(QtGui.QFrame.Plain)
         self.graphicsViewSentSubjectIcon.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.graphicsViewSentSubjectIcon.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 0))
