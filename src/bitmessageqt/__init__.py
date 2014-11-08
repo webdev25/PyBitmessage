@@ -259,7 +259,14 @@ class MyForm(QtGui.QMainWindow):
             "triggered()"), self.toggleSubjectBar)
 
 
-        
+
+        QtCore.QObject.connect(self.ui.lineEditTo, QtCore.SIGNAL(
+            "activated(int)"), self.composeDropdownActivated)
+        QtCore.QObject.connect(self.ui.lineEditTo, QtCore.SIGNAL(
+            "editTextChanged(const QString&)"), self.composeDropdownEditTextChanged)
+
+
+        self.temp_sendto = ''
 
         
 
@@ -1895,6 +1902,7 @@ class MyForm(QtGui.QMainWindow):
     def rerenderAddressBook(self):
         self.ui.tableWidgetAddressBook.setRowCount(0)
         queryreturn = sqlQuery('SELECT * FROM addressbook')
+        
         for row in queryreturn:
             label, address = row
             self.ui.tableWidgetAddressBook.insertRow(0)
@@ -1905,6 +1913,8 @@ class MyForm(QtGui.QMainWindow):
             newItem.setFlags(
                 QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
             self.ui.tableWidgetAddressBook.setItem(0, 1, newItem)
+        #added by webdev25
+        self.loadComposeToValues()
 
     def rerenderSubscriptions(self):
         self.ui.tableWidgetSubscriptions.setRowCount(0)
@@ -1926,7 +1936,7 @@ class MyForm(QtGui.QMainWindow):
 
     def click_pushButtonSend(self):
         self.statusBar().showMessage('')
-        toAddresses = str(self.ui.lineEditTo.text())
+        toAddresses = str(self.ui.lineEditTo.currentText())
         fromAddress = str(self.ui.labelFrom.text())
         subject = str(self.ui.lineEditSubject.text().toUtf8())
         message = str(
@@ -2027,7 +2037,10 @@ class MyForm(QtGui.QMainWindow):
 
                         self.ui.comboBoxSendFrom.setCurrentIndex(0)
                         self.ui.labelFrom.setText('')
-                        self.ui.lineEditTo.setText('')
+                        #changed by webdev25
+                        self.ui.lineEditTo.setEditText('')
+                        self.temp_sendto = ''
+
                         self.ui.lineEditSubject.setText('')
                         self.ui.textEditMessage.setText('')
                         self.ui.tabWidget.setCurrentIndex(2)
@@ -2061,7 +2074,10 @@ class MyForm(QtGui.QMainWindow):
 
                 self.ui.comboBoxSendFrom.setCurrentIndex(0)
                 self.ui.labelFrom.setText('')
-                self.ui.lineEditTo.setText('')
+                #changed by webdev25
+                self.ui.lineEditTo.setEditText('')
+                self.temp_sendto = ''
+
                 self.ui.lineEditSubject.setText('')
                 self.ui.textEditMessage.setText('')
                 self.ui.tabWidget.setCurrentIndex(2)
@@ -2078,12 +2094,12 @@ class MyForm(QtGui.QMainWindow):
 
     def click_pushButtonFetchNamecoinID(self):
         nc = namecoinConnection()
-        err, addr = nc.query(str(self.ui.lineEditTo.text()))
+        err, addr = nc.query(str(self.ui.lineEditTo.currentText()))
         if err is not None:
             self.statusBar().showMessage(_translate(
                 "MainWindow", "Error: " + err))
         else:
-            self.ui.lineEditTo.setText(addr)
+            self.ui.lineEditTo.setEditText(addr)
             self.statusBar().showMessage(_translate(
                 "MainWindow", "Fetched address from namecoin identity."))
 
@@ -2846,13 +2862,13 @@ class MyForm(QtGui.QMainWindow):
             self.ui.labelFrom.setText(toAddressAtCurrentInboxRow)
             self.setBroadcastEnablementDependingOnWhetherThisIsAChanAddress(toAddressAtCurrentInboxRow)
 
-        self.ui.lineEditTo.setText(str(fromAddressAtCurrentInboxRow))
+        self.ui.lineEditTo.setEditText(str(fromAddressAtCurrentInboxRow))
         
         # If the previous message was to a chan then we should send our reply to the chan rather than to the particular person who sent the message.
         if shared.config.has_section(toAddressAtCurrentInboxRow):
             if shared.safeConfigGetBoolean(toAddressAtCurrentInboxRow, 'chan'):
                 print 'original sent to a chan. Setting the to address in the reply to the chan address.'
-                self.ui.lineEditTo.setText(str(toAddressAtCurrentInboxRow))
+                self.ui.lineEditTo.setEditText(str(toAddressAtCurrentInboxRow))
         
         listOfAddressesInComboBoxSendFrom = [str(self.ui.comboBoxSendFrom.itemData(i).toPyObject()) for i in range(self.ui.comboBoxSendFrom.count())]
         if toAddressAtCurrentInboxRow in listOfAddressesInComboBoxSendFrom:
@@ -3037,11 +3053,11 @@ class MyForm(QtGui.QMainWindow):
         for currentRow in listOfSelectedRows:
             addressAtCurrentRow = self.ui.tableWidgetAddressBook.item(
                 currentRow, 1).text()
-            if self.ui.lineEditTo.text() == '':
-                self.ui.lineEditTo.setText(str(addressAtCurrentRow))
+            if self.ui.lineEditTo.currentText() == '':
+                self.ui.lineEditTo.setEditText(str(addressAtCurrentRow))
             else:
-                self.ui.lineEditTo.setText(str(
-                    self.ui.lineEditTo.text()) + '; ' + str(addressAtCurrentRow))
+                self.ui.lineEditTo.setEditText(str(
+                    self.ui.lineEditTo.currentText()) + '; ' + str(addressAtCurrentRow))
         if listOfSelectedRows == {}:
             self.statusBar().showMessage(_translate(
                 "MainWindow", "No addresses selected."))
@@ -3494,6 +3510,8 @@ class MyForm(QtGui.QMainWindow):
                        str(addressAtCurrentRow))
         self.rerenderInboxFromLabels()
         self.rerenderSentToLabels()
+        #added by webdev25
+        self.loadComposeToValues()
 
     def tableWidgetSubscriptionsItemChanged(self):
         currentRow = self.ui.tableWidgetSubscriptions.currentRow()
@@ -3733,11 +3751,52 @@ class MyForm(QtGui.QMainWindow):
 
     def click_NewMessage(self):
         self.ui.tabWidget.setCurrentIndex(1)
+        self.ui.lineEditTo.setEditText('')
+        self.temp_sendto = ''
+        self.ui.comboBoxSendFrom.setCurrentIndex(0)
+        self.ui.lineEditSubject.setText('')
+        self.ui.textEditMessage.setText('')
+        self.ui.labelFrom.setText('')
 
     def saveConfigSettings(self):
         with open(shared.appdata + 'keys.dat', 'wb') as configfile:
             shared.config.write(configfile)
 
+    def loadComposeToValues(self):
+        
+        currentText = self.ui.lineEditTo.currentText()
+        self.ui.lineEditTo.clear()
+
+        queryreturn = sqlQuery('SELECT * FROM addressbook')
+        for row in queryreturn:
+            label, address = row
+            self.ui.lineEditTo.insertItem(0, avatarize(address), unicode(label, 'utf-8'), address)
+
+        self.ui.lineEditTo.insertItem(0,'')
+        self.ui.lineEditTo.setCurrentIndex(0)
+        self.ui.lineEditTo.setEditText(currentText)
+            
+    def composeDropdownActivated(self):
+        
+        currentIndex = self.ui.lineEditTo.currentIndex()
+        toAddress = str(self.ui.lineEditTo.itemData(currentIndex).toPyObject())
+        self.ui.lineEditTo.setCurrentIndex(0)
+
+        if toAddress != 'None':
+            if self.temp_sendto == '':
+                    self.ui.lineEditTo.setEditText(str(toAddress))
+            else:
+                self.ui.lineEditTo.setEditText(str(self.temp_sendto) + '; ' + str(toAddress))
+        else:
+            self.ui.lineEditTo.setEditText(str(self.temp_sendto))
+        
+    def composeDropdownEditTextChanged(self,newtext):
+        currentIndex = self.ui.lineEditTo.currentIndex()
+        toAddressText = str(self.ui.lineEditTo.itemText(currentIndex))
+
+        if self.temp_sendto != newtext and newtext != toAddressText:
+            self.temp_sendto = newtext
+        
     # End of changes made by webdev25
 
 
