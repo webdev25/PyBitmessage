@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Sat Nov  8 07:52:35 2014
+# Created: Sat Nov  8 08:15:29 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -418,6 +418,8 @@ class Ui_MainWindow(object):
         self.graphicsViewSentSubjectIcon.setMaximumSize(QtCore.QSize(48, 48))
         self.graphicsViewSentSubjectIcon.setBaseSize(QtCore.QSize(48, 48))
         self.graphicsViewSentSubjectIcon.setStyleSheet(_fromUtf8("background:rgba(0, 0, 0, 0)"))
+        self.graphicsViewSentSubjectIcon.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.graphicsViewSentSubjectIcon.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 0))
         brush.setStyle(QtCore.Qt.NoBrush)
         self.graphicsViewSentSubjectIcon.setBackgroundBrush(brush)
@@ -868,7 +870,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QObject.connect(self.radioButtonSpecific, QtCore.SIGNAL(_fromUtf8("clicked(bool)")), self.labelSendBroadcastWarning.hide)
         QtCore.QObject.connect(self.radioButtonBroadcast, QtCore.SIGNAL(_fromUtf8("clicked()")), self.labelSendBroadcastWarning.show)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
