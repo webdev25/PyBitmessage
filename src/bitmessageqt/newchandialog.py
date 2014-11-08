@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'newchandialog.ui'
+# Form implementation generated from reading ui file 'src/bitmessageqt/newchandialog.ui'
 #
-# Created: Wed Aug  7 16:51:29 2013
+# Created: Sat Nov  8 08:45:03 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_newChanDialog(object):
     def setupUi(self, newChanDialog):
         newChanDialog.setObjectName(_fromUtf8("newChanDialog"))
-        newChanDialog.resize(553, 422)
+        newChanDialog.resize(563, 468)
         newChanDialog.setMinimumSize(QtCore.QSize(0, 0))
         self.formLayout = QtGui.QFormLayout(newChanDialog)
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
@@ -94,7 +94,7 @@ class Ui_newChanDialog(object):
         newChanDialog.setTabOrder(self.lineEditChanBitmessageAddress, self.buttonBox)
 
     def retranslateUi(self, newChanDialog):
-        newChanDialog.setWindowTitle(_translate("newChanDialog", "Dialog", None))
+        newChanDialog.setWindowTitle(_translate("newChanDialog", "Join or Create a Chan", None))
         self.radioButtonCreateChan.setText(_translate("newChanDialog", "Create a new chan", None))
         self.radioButtonJoinChan.setText(_translate("newChanDialog", "Join a chan", None))
         self.groupBoxCreateChan.setTitle(_translate("newChanDialog", "Create a chan", None))
