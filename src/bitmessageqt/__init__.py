@@ -238,6 +238,8 @@ class MyForm(QtGui.QMainWindow):
             "triggered()"), self.toggleTabPositionEast)
         QtCore.QObject.connect(self.ui.actionViewTabPositionWest, QtCore.SIGNAL(
             "triggered()"), self.toggleTabPositionWest)
+        QtCore.QObject.connect(self.ui.actionViewToggleTabLabels, QtCore.SIGNAL(
+            "triggered()"), self.toggleTabLabels)
 
         QtCore.QObject.connect(self.ui.actionNewIdentity, QtCore.SIGNAL(
             "triggered()"), self.click_NewAddressDialog)
@@ -595,11 +597,14 @@ class MyForm(QtGui.QMainWindow):
         if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
             self.loadBlackWhiteList()
         else:
-            self.ui.tabWidget.setTabText(6, 'Whitelist')
             self.ui.radioButtonWhitelist.click()
             self.loadBlackWhiteList()
             #added by webdev25
             self.ui.actionNewBlackWhiteList.setText('Whitelist')
+            self.ui.tabWidget.setTabToolTip(6, 'Whitelist')
+            if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
+                self.ui.tabWidget.setTabText(6, 'Whitelist')
+            #end changes by webdev25
 
         QtCore.QObject.connect(self.ui.tableWidgetYourIdentities, QtCore.SIGNAL(
             "itemChanged(QTableWidgetItem *)"), self.tableWidgetYourIdentitiesItemChanged)
@@ -708,6 +713,11 @@ class MyForm(QtGui.QMainWindow):
             self.toggleStatusBarHide()
         else:
             self.toggleStatusBarShow()
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
+            self.toggleTabLabelsHide()
+        else:
+            self.toggleTabLabelsShow()
 
         try:
             self.toggleTabPosition( shared.config.get('bitmessagesettings', 'tab_position_view') )
@@ -2572,9 +2582,11 @@ class MyForm(QtGui.QMainWindow):
             # self.ui.tableWidgetBlacklist.clearContents()
             self.ui.tableWidgetBlacklist.setRowCount(0)
             self.loadBlackWhiteList()
-            self.ui.tabWidget.setTabText(6, 'Blacklist')
+            self.ui.tabWidget.setTabToolTip(6, 'Blacklist')
             #added by webdev25
             self.ui.actionNewBlackWhiteList.setText('Blacklist')
+            if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
+                self.ui.tabWidget.setTabText(6, 'Blacklist')
 
     def click_radioButtonWhitelist(self):
         if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
@@ -2584,9 +2596,12 @@ class MyForm(QtGui.QMainWindow):
             # self.ui.tableWidgetBlacklist.clearContents()
             self.ui.tableWidgetBlacklist.setRowCount(0)
             self.loadBlackWhiteList()
-            self.ui.tabWidget.setTabText(6, 'Whitelist')
             #added by webdev25
             self.ui.actionNewBlackWhiteList.setText('Whitelist')
+            self.ui.tabWidget.setTabToolTip(6, 'Whitelist')
+            if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
+                self.ui.tabWidget.setTabText(6, 'Whitelist')
+            #end changes by webdev25
 
     def click_pushButtonAddBlacklist(self):
 
@@ -3631,6 +3646,47 @@ class MyForm(QtGui.QMainWindow):
         self.ui.statusbar.setVisible(True)
         self.ui.actionViewToggleStatusBar.setChecked(True)
         shared.config.set('bitmessagesettings', 'statusbar_view', 'false')
+        self.saveConfigSettings()
+
+    def toggleTabLabels(self):
+
+        if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
+            self.toggleTabLabelsHide()
+        else:
+            self.toggleTabLabelsShow()
+
+    def toggleTabLabelsHide(self):
+        
+        
+        self.ui.tabWidget.setTabText(0,'')
+        self.ui.tabWidget.setTabText(1,'')
+        self.ui.tabWidget.setTabText(2,'')
+        self.ui.tabWidget.setTabText(3,'')
+        self.ui.tabWidget.setTabText(4,'')
+        self.ui.tabWidget.setTabText(5,'')
+        self.ui.tabWidget.setTabText(6,'')
+        self.ui.tabWidget.setTabText(7,'')
+
+        self.ui.actionViewToggleTabLabels.setChecked(False)
+        shared.config.set('bitmessagesettings', 'tablabel_view', 'true')
+        self.saveConfigSettings()
+
+    def toggleTabLabelsShow(self):
+
+        self.ui.tabWidget.setTabText(0,'Inbox')
+        self.ui.tabWidget.setTabText(1,'Compose')
+        self.ui.tabWidget.setTabText(2,'Semt')
+        self.ui.tabWidget.setTabText(3,'Identities')
+        self.ui.tabWidget.setTabText(4,'Subscriptions')
+        self.ui.tabWidget.setTabText(5,'Address Book')
+        if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'white':
+            self.ui.tabWidget.setTabText(6,'Whitelist')
+        else:
+            self.ui.tabWidget.setTabText(6,'Blacklist')
+        self.ui.tabWidget.setTabText(7,'Network')
+
+        self.ui.actionViewToggleTabLabels.setChecked(True)
+        shared.config.set('bitmessagesettings', 'tablabel_view', 'false')
         self.saveConfigSettings()
 
     def toggleTabPositionNorth(self):

@@ -69,11 +69,17 @@
        <number>0</number>
       </property>
       <widget class="QWidget" name="inbox">
+       <property name="toolTip">
+        <string>Inbox</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/inbox.png</normaloff>:/newPrefix/images/inbox.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Inbox</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Inbox</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -571,11 +577,17 @@
        </layout>
       </widget>
       <widget class="QWidget" name="send">
+       <property name="toolTip">
+        <string>Compose</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/send.png</normaloff>:/newPrefix/images/send.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Compose</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Compose</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -744,11 +756,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="sent">
+       <property name="toolTip">
+        <string>Sent</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/sent.png</normaloff>:/newPrefix/images/sent.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Sent</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Sent</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -1210,11 +1228,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="youridentities">
+       <property name="toolTip">
+        <string>Identities</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/identities.png</normaloff>:/newPrefix/images/identities.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Identities</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Identities</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
@@ -1310,11 +1334,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="subscriptions">
+       <property name="toolTip">
+        <string>Subscriptions</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/subscriptions.png</normaloff>:/newPrefix/images/subscriptions.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Subscriptions</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Subscriptions</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
@@ -1401,11 +1431,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="addressbook">
+       <property name="toolTip">
+        <string>Address Book</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/addressbook.png</normaloff>:/newPrefix/images/addressbook.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Address Book</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Address Book</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
@@ -1483,11 +1519,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="blackwhitelist">
+       <property name="toolTip">
+        <string>Blacklist</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/blacklist.png</normaloff>:/newPrefix/images/blacklist.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Blacklist</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Blacklist</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
@@ -1575,11 +1617,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="networkstatus">
+       <property name="toolTip">
+        <string>Network</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/networkstatus.png</normaloff>:/newPrefix/images/networkstatus.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Network</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Network</string>
        </attribute>
        <widget class="QPushButton" name="pushButtonStatusIcon">
@@ -1845,6 +1893,7 @@ p, li { white-space: pre-wrap; }
     </widget>
     <addaction name="actionViewToggleLayout"/>
     <addaction name="separator"/>
+    <addaction name="actionViewToggleTabLabels"/>
     <addaction name="actionViewToggleFilters"/>
     <addaction name="actionViewToggleSubjectBar"/>
     <addaction name="actionViewToggleStatusBar"/>
@@ -2079,6 +2128,14 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Show Subject Bar</string>
+   </property>
+  </action>
+  <action name="actionViewToggleTabLabels">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Tab Labels</string>
    </property>
   </action>
  </widget>

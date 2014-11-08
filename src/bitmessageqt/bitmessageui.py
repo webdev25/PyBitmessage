@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Sat Nov  8 05:23:51 2014
+# Created: Sat Nov  8 06:03:32 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -826,6 +826,9 @@ class Ui_MainWindow(object):
         self.actionViewToggleSubjectBar = QtGui.QAction(MainWindow)
         self.actionViewToggleSubjectBar.setCheckable(True)
         self.actionViewToggleSubjectBar.setObjectName(_fromUtf8("actionViewToggleSubjectBar"))
+        self.actionViewToggleTabLabels = QtGui.QAction(MainWindow)
+        self.actionViewToggleTabLabels.setCheckable(True)
+        self.actionViewToggleTabLabels.setObjectName(_fromUtf8("actionViewToggleTabLabels"))
         self.menuNew.addAction(self.actionJoinChan)
         self.menuNew.addAction(self.actionNewMessage)
         self.menuNew.addAction(self.actionNewIdentity)
@@ -843,6 +846,7 @@ class Ui_MainWindow(object):
         self.menuViewTabPosition.addAction(self.actionViewTabPositionWest)
         self.menuView.addAction(self.actionViewToggleLayout)
         self.menuView.addSeparator()
+        self.menuView.addAction(self.actionViewToggleTabLabels)
         self.menuView.addAction(self.actionViewToggleFilters)
         self.menuView.addAction(self.actionViewToggleSubjectBar)
         self.menuView.addAction(self.actionViewToggleStatusBar)
@@ -888,6 +892,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Bitmessage", None))
+        self.inbox.setToolTip(_translate("MainWindow", "Inbox", None))
         self.inboxSearchLineEdit.setPlaceholderText(_translate("MainWindow", "Search", None))
         self.inboxSearchOptionCB.setItemText(0, _translate("MainWindow", "All", None))
         self.inboxSearchOptionCB.setItemText(1, _translate("MainWindow", "To", None))
@@ -906,6 +911,8 @@ class Ui_MainWindow(object):
         self.labelInboxSubjectBarFrom.setToolTip(_translate("MainWindow", "From Address", None))
         self.widget_3.setToolTip(_translate("MainWindow", "To Address", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.inbox), _translate("MainWindow", "Inbox", None))
+        self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.inbox), _translate("MainWindow", "Inbox", None))
+        self.send.setToolTip(_translate("MainWindow", "Compose", None))
         self.pushButtonLoadFromAddressBook.setText(_translate("MainWindow", "Load from Address book", None))
         self.pushButtonFetchNamecoinID.setText(_translate("MainWindow", "Fetch Namecoin ID", None))
         self.label_4.setText(_translate("MainWindow", "Message:", None))
@@ -922,6 +929,8 @@ class Ui_MainWindow(object):
         self.pushButtonSend.setText(_translate("MainWindow", "Send", None))
         self.labelSendBroadcastWarning.setText(_translate("MainWindow", "Be aware that broadcasts are only encrypted with your address. Anyone who knows your address can read them.", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.send), _translate("MainWindow", "Compose", None))
+        self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.send), _translate("MainWindow", "Compose", None))
+        self.sent.setToolTip(_translate("MainWindow", "Sent", None))
         self.sentSearchLineEdit.setPlaceholderText(_translate("MainWindow", "Search", None))
         self.sentSearchOptionCB.setItemText(0, _translate("MainWindow", "All", None))
         self.sentSearchOptionCB.setItemText(1, _translate("MainWindow", "To", None))
@@ -939,6 +948,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Status", None))
         self.widget_4.setToolTip(_translate("MainWindow", "To Address", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.sent), _translate("MainWindow", "Sent", None))
+        self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.sent), _translate("MainWindow", "Sent", None))
+        self.youridentities.setToolTip(_translate("MainWindow", "Identities", None))
         self.pushButtonNewAddress.setText(_translate("MainWindow", "New", None))
         self.tableWidgetYourIdentities.setSortingEnabled(True)
         item = self.tableWidgetYourIdentities.horizontalHeaderItem(0)
@@ -948,6 +959,8 @@ class Ui_MainWindow(object):
         item = self.tableWidgetYourIdentities.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Stream", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.youridentities), _translate("MainWindow", "Identities", None))
+        self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.youridentities), _translate("MainWindow", "Identities", None))
+        self.subscriptions.setToolTip(_translate("MainWindow", "Subscriptions", None))
         self.tableWidgetSubscriptions.setSortingEnabled(True)
         item = self.tableWidgetSubscriptions.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Label", None))
@@ -956,6 +969,8 @@ class Ui_MainWindow(object):
         self.pushButtonAddSubscription.setText(_translate("MainWindow", "New", None))
         self.labelHintSubscriptions.setText(_translate("MainWindow", "Here you can subscribe to \'broadcast messages\' that are sent by other users. Messages will appear in your Inbox. Addresses here override those on the Blacklist tab.", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.subscriptions), _translate("MainWindow", "Subscriptions", None))
+        self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.subscriptions), _translate("MainWindow", "Subscriptions", None))
+        self.addressbook.setToolTip(_translate("MainWindow", "Address Book", None))
         self.tableWidgetAddressBook.setSortingEnabled(True)
         item = self.tableWidgetAddressBook.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Name or Label", None))
@@ -964,6 +979,8 @@ class Ui_MainWindow(object):
         self.pushButtonAddAddressBook.setText(_translate("MainWindow", "New", None))
         self.labelHintAddressBook.setText(_translate("MainWindow", "The Address book is useful for adding names or labels to other people\'s Bitmessage addresses so that you can recognize them more easily in your inbox. You can add entries here using the \'Add\' button, or from your inbox by right-clicking on a message.", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.addressbook), _translate("MainWindow", "Address Book", None))
+        self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.addressbook), _translate("MainWindow", "Address Book", None))
+        self.blackwhitelist.setToolTip(_translate("MainWindow", "Blacklist", None))
         self.radioButtonBlacklist.setText(_translate("MainWindow", "Use a Blacklist (Allow all incoming messages except those on the Blacklist)", None))
         self.radioButtonWhitelist.setText(_translate("MainWindow", "Use a Whitelist (Block all incoming messages except those on the Whitelist)", None))
         self.pushButtonAddBlacklist.setText(_translate("MainWindow", "New", None))
@@ -973,6 +990,8 @@ class Ui_MainWindow(object):
         item = self.tableWidgetBlacklist.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Address", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.blackwhitelist), _translate("MainWindow", "Blacklist", None))
+        self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.blackwhitelist), _translate("MainWindow", "Blacklist", None))
+        self.networkstatus.setToolTip(_translate("MainWindow", "Network", None))
         item = self.tableWidgetConnectionCount.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Stream #", None))
         item = self.tableWidgetConnectionCount.horizontalHeaderItem(1)
@@ -986,6 +1005,7 @@ class Ui_MainWindow(object):
         self.labelBytesRecvCount.setText(_translate("MainWindow", "Down: 0 KB/s", None))
         self.labelBytesSentCount.setText(_translate("MainWindow", "Up: 0 KB/s", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.networkstatus), _translate("MainWindow", "Network", None))
+        self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.networkstatus), _translate("MainWindow", "Network", None))
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.menuNew.setTitle(_translate("MainWindow", "New", None))
         self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
@@ -1019,5 +1039,6 @@ class Ui_MainWindow(object):
         self.actionNewBlackWhiteList.setText(_translate("MainWindow", "Blacklist", None))
         self.actionViewToggleHints.setText(_translate("MainWindow", "Show Hints", None))
         self.actionViewToggleSubjectBar.setText(_translate("MainWindow", "Show Subject Bar", None))
+        self.actionViewToggleTabLabels.setText(_translate("MainWindow", "Show Tab Labels", None))
 
 import bitmessage_icons_rc
