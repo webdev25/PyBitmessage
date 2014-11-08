@@ -3693,7 +3693,7 @@ class MyForm(QtGui.QMainWindow):
 
         self.ui.tabWidget.setTabText(0,'Inbox')
         self.ui.tabWidget.setTabText(1,'Compose')
-        self.ui.tabWidget.setTabText(2,'Semt')
+        self.ui.tabWidget.setTabText(2,'Sent')
         self.ui.tabWidget.setTabText(3,'Identities')
         self.ui.tabWidget.setTabText(4,'Subscriptions')
         self.ui.tabWidget.setTabText(5,'Address Book')
