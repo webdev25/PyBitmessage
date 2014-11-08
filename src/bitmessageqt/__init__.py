@@ -3351,16 +3351,17 @@ class MyForm(QtGui.QMainWindow):
                 currentRow, 3).data(Qt.UserRole).toPyObject())
             #changed by webdev25
             queryreturn = sqlQuery(
-                '''select message, subject, fromaddress from inbox where msgid=?''', msgid)
+                '''select message, subject, fromaddress, toaddress from inbox where msgid=?''', msgid)
             if queryreturn != []:
                 for row in queryreturn:
-                    messageText, subjectText, fromAddressText, = row
+                    messageText, subjectText, fromAddressText, toAddressText, = row
             messageText = shared.fixPotentiallyInvalidUTF8Data(messageText)
             messageText = unicode(messageText, 'utf-8)')
             # added by webdev25
             subjectText = shared.fixPotentiallyInvalidUTF8Data(subjectText)
             subjectText = unicode(subjectText, 'utf-8)')
             fromAddressText = unicode(fromAddressText, 'utf-8)')
+            toAddressText = unicode(toAddressText, 'utf-8)')
             # end changes by webdev25
             if len(messageText) > 30000:
                 messageText = (
@@ -3384,12 +3385,19 @@ class MyForm(QtGui.QMainWindow):
 
             self.ui.labelInboxSubjectBarSubject.setText(subjectText)
             self.ui.labelInboxSubjectBarFrom.setText(fromAddressText)
+            self.ui.labelInboxSubjectBarTo.setText(toAddressText)
 
             avatarpixmap = avatarize(fromAddressText)
             scene = QGraphicsScene()
             scene.addPixmap( avatarpixmap.pixmap(48,48) )
             self.ui.graphicsViewInboxSubjectIcon.setScene(scene)
             self.ui.graphicsViewInboxSubjectIcon.show()
+
+            avatarpixmap2 = avatarize(toAddressText)
+            scene2 = QGraphicsScene()
+            scene2.addPixmap( avatarpixmap2.pixmap(16,16) )
+            self.ui.graphicsViewInboxSubjectIconTo.setScene(scene2)
+            self.ui.graphicsViewInboxSubjectIconTo.show()
 
             #end of changes by webdev25
 
@@ -3410,14 +3418,15 @@ class MyForm(QtGui.QMainWindow):
             ackdata = str(self.ui.tableWidgetSent.item(
                 currentRow, 3).data(Qt.UserRole).toPyObject())
             queryreturn = sqlQuery(
-                '''select message, subject, fromaddress from sent where ackdata=?''', ackdata)
+                '''select message, subject, fromaddress, toaddress from sent where ackdata=?''', ackdata)
             if queryreturn != []:
                 for row in queryreturn:
-                    message, subjectText, fromAddressText, = row
+                    message, subjectText, fromAddressText, toAddressText, = row
                     # added by webdev25
                     subjectText = shared.fixPotentiallyInvalidUTF8Data(subjectText)
                     subjectText = unicode(subjectText, 'utf-8)')
                     fromAddressText = unicode(fromAddressText, 'utf-8)')
+                    toAddressText = unicode(toAddressText, 'utf-8)')
                     # end changes by webdev25
             else:
                 message = "Error occurred: could not load message from disk."
@@ -3426,12 +3435,19 @@ class MyForm(QtGui.QMainWindow):
 
             self.ui.labelSentSubjectBarSubject.setText(subjectText)
             self.ui.labelSentSubjectBarFrom.setText(fromAddressText)
+            self.ui.labelSentSubjectBarTo.setText(toAddressText)
 
             avatarpixmap = avatarize(fromAddressText)
             scene = QGraphicsScene()
             scene.addPixmap( avatarpixmap.pixmap(48,48) )
             self.ui.graphicsViewSentSubjectIcon.setScene(scene)
             self.ui.graphicsViewSentSubjectIcon.show()
+
+            avatarpixmap2 = avatarize(toAddressText)
+            scene2 = QGraphicsScene()
+            scene2.addPixmap( avatarpixmap2.pixmap(16,16) )
+            self.ui.graphicsViewSentSubjectIconTo.setScene(scene2)
+            self.ui.graphicsViewSentSubjectIconTo.show()
 
             #end changes by webdev25
 
