@@ -3,6 +3,8 @@ PyBitmessage Enhancements
 
 Aims to improve the usability, usefulness and speed of PyBitmessage.
 
+By webdev25 : BM-NBZsrkhNbuSoSfPsYbrS7f5Sao2kiCLH
+
 PyBitmessage
 ============
 
