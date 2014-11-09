@@ -326,6 +326,16 @@ class MyForm(QtGui.QMainWindow):
             _translate(
                 "MainWindow", "Add sender to your Subscriptions"),
             self.on_action_InboxAddSenderToSubscriptions)
+        if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
+            self.actionAddSenderToBlacklist = self.ui.inboxContextMenuToolbar.addAction(
+                _translate(
+                    "MainWindow", "Add sender to your Blacklist"),
+                self.on_action_InboxAddSenderToBlacklist)
+        else:
+            self.actionAddSenderToBlacklist = self.ui.inboxContextMenuToolbar.addAction(
+                _translate(
+                    "MainWindow", "Add sender to your Whitelist"),
+                self.on_action_InboxAddSenderToBlacklist)
         #end changes by webdev25
         self.popMenuInbox = QtGui.QMenu(self)
         self.popMenuInbox.addAction(self.actionForceHtml)
@@ -340,6 +350,7 @@ class MyForm(QtGui.QMainWindow):
         self.popMenuInbox.addAction(self.actionAddSenderToAddressBook)
         #changes by webdev25
         self.popMenuInbox.addAction(self.actionAddSenderToSubscriptions)
+        self.popMenuInbox.addAction(self.actionAddSenderToBlacklist)
         #end changes by webdev25
         self.popMenuInbox.addSeparator()
         self.popMenuInbox.addAction(self.actionSaveMessageAs)
@@ -2662,6 +2673,7 @@ class MyForm(QtGui.QMainWindow):
             self.loadBlackWhiteList()
             self.ui.tabWidget.setTabToolTip(6, 'Blacklist')
             #added by webdev25
+            self.actionAddSenderToBlacklist.setText('Add sender to your Blacklist')
             self.ui.actionNewBlackWhiteList.setText('Blacklist')
             if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
                 self.ui.tabWidget.setTabText(6, 'Blacklist')
@@ -2675,6 +2687,7 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetBlacklist.setRowCount(0)
             self.loadBlackWhiteList()
             #added by webdev25
+            self.actionAddSenderToBlacklist.setText('Add sender to your Whitelist')
             self.ui.actionNewBlackWhiteList.setText('Whitelist')
             self.ui.tabWidget.setTabToolTip(6, 'Whitelist')
             if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
@@ -4029,6 +4042,56 @@ class MyForm(QtGui.QMainWindow):
         else:
             self.statusBar().showMessage(_translate(
                 "MainWindow", "Error: You cannot add the same address to your subscriptions twice. Try renaming the existing one if you want."))
+
+    def on_action_InboxAddSenderToBlacklist(self):
+        currentInboxRow = self.ui.tableWidgetInbox.currentRow()
+        # self.ui.tableWidgetInbox.item(currentRow,1).data(Qt.UserRole).toPyObject()
+        addressAtCurrentInboxRow = str(self.ui.tableWidgetInbox.item(
+            currentInboxRow, 1).data(Qt.UserRole).toPyObject())
+        # Let's make sure that it isn't already in the address book
+        if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
+            sql = '''select * from blacklist where address=?'''
+            entry_label = '--New entry. Change label in Blacklist.--'
+        else:
+            sql = '''select * from whitelist where address=?'''
+            entry_label = '--New entry. Change label in Whitelist.--'
+        queryreturn = sqlQuery( sql ,
+                               addressAtCurrentInboxRow)
+        if queryreturn == []:
+            self.ui.tableWidgetBlacklist.insertRow(0)
+            newItem = QtGui.QTableWidgetItem(
+                entry_label )
+            self.ui.tableWidgetBlacklist.setItem(0, 0, newItem)
+            newItem.setIcon(avatarize(addressAtCurrentInboxRow))
+            newItem = QtGui.QTableWidgetItem(addressAtCurrentInboxRow)
+            newItem.setFlags(
+                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+            self.ui.tableWidgetBlacklist.setItem(0, 1, newItem)
+            if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
+                sql = '''INSERT INTO blacklist VALUES (?,?,?)'''
+            else:
+                sql = '''INSERT INTO whitelist VALUES (?,?,?)'''
+            sqlExecute( sql,
+                        entry_label,
+                       addressAtCurrentInboxRow,
+                       '1')
+            self.ui.tabWidget.setCurrentIndex(6)
+            self.ui.tableWidgetBlacklist.setCurrentCell(0, 0)
+            if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
+                self.statusBar().showMessage(_translate(
+                    "MainWindow", "Entry added to Blacklist. Edit the label to your liking."))
+            else:
+                self.statusBar().showMessage(_translate(
+                    "MainWindow", "Entry added to Whitelist. Edit the label to your liking."))
+        else:
+            if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
+                self.statusBar().showMessage(_translate(
+                    "MainWindow", "Error: You cannot add the same address to your blacklist twice. Try renaming the existing one if you want."))
+            else:
+                self.statusBar().showMessage(_translate(
+                    "MainWindow", "Error: You cannot add the same address to your whitelist twice. Try renaming the existing one if you want."))
+
+
 
     # End of changes made by webdev25
 
