@@ -322,6 +322,10 @@ class MyForm(QtGui.QMainWindow):
             _translate(
                 "MainWindow", "Copy sender address to clipboard"),
             self.on_action_InboxCopySenderClipboard)
+        self.actionAddSenderToSubscriptions = self.ui.inboxContextMenuToolbar.addAction(
+            _translate(
+                "MainWindow", "Add sender to your Subscriptions"),
+            self.on_action_InboxAddSenderToSubscriptions)
         #end changes by webdev25
         self.popMenuInbox = QtGui.QMenu(self)
         self.popMenuInbox.addAction(self.actionForceHtml)
@@ -334,6 +338,9 @@ class MyForm(QtGui.QMainWindow):
         self.popMenuInbox.addSeparator()
         self.popMenuInbox.addAction(self.actionReply)
         self.popMenuInbox.addAction(self.actionAddSenderToAddressBook)
+        #changes by webdev25
+        self.popMenuInbox.addAction(self.actionAddSenderToSubscriptions)
+        #end changes by webdev25
         self.popMenuInbox.addSeparator()
         self.popMenuInbox.addAction(self.actionSaveMessageAs)
         self.popMenuInbox.addAction(self.actionTrashInboxMessage)
@@ -3992,6 +3999,37 @@ class MyForm(QtGui.QMainWindow):
             currentRow, 1).data(Qt.UserRole).toPyObject()
         clipboard = QtGui.QApplication.clipboard()
         clipboard.setText(str(addressAtCurrentRow))
+
+    def on_action_InboxAddSenderToSubscriptions(self):
+        currentInboxRow = self.ui.tableWidgetInbox.currentRow()
+        # self.ui.tableWidgetInbox.item(currentRow,1).data(Qt.UserRole).toPyObject()
+        addressAtCurrentInboxRow = str(self.ui.tableWidgetInbox.item(
+            currentInboxRow, 1).data(Qt.UserRole).toPyObject())
+        # Let's make sure that it isn't already in the address book
+        queryreturn = sqlQuery('''select * from subscriptions where address=?''',
+                               addressAtCurrentInboxRow)
+        if queryreturn == []:
+            self.ui.tableWidgetSubscriptions.insertRow(0)
+            newItem = QtGui.QTableWidgetItem(
+                '--New entry. Change label in Subscriptions.--')
+            self.ui.tableWidgetSubscriptions.setItem(0, 0, newItem)
+            newItem.setIcon(avatarize(addressAtCurrentInboxRow))
+            newItem = QtGui.QTableWidgetItem(addressAtCurrentInboxRow)
+            newItem.setFlags(
+                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+            self.ui.tableWidgetSubscriptions.setItem(0, 1, newItem)
+            sqlExecute('''INSERT INTO subscriptions VALUES (?,?,?)''',
+                       '--New entry. Change label in Subscriptions.--',
+                       addressAtCurrentInboxRow,
+                       '1')
+            self.ui.tabWidget.setCurrentIndex(4)
+            self.ui.tableWidgetSubscriptions.setCurrentCell(0, 0)
+            self.statusBar().showMessage(_translate(
+                "MainWindow", "Entry added to Subscriptions. Edit the label to your liking."))
+        else:
+            self.statusBar().showMessage(_translate(
+                "MainWindow", "Error: You cannot add the same address to your subscriptions twice. Try renaming the existing one if you want."))
+
     # End of changes made by webdev25
 
 
