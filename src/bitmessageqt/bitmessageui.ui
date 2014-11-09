@@ -152,6 +152,9 @@
         </item>
         <item>
          <widget class="QSplitter" name="splitter">
+          <property name="toolTip">
+           <string>&lt;span style=&quot;display:none&quot;&gt;&lt;/span&gt;</string>
+          </property>
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>

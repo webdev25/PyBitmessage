@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Sat Nov  8 08:17:54 2014
+# Created: Sat Nov  8 08:52:08 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -907,6 +907,7 @@ class Ui_MainWindow(object):
         self.inboxSearchOptionCB.setItemText(2, _translate("MainWindow", "From", None))
         self.inboxSearchOptionCB.setItemText(3, _translate("MainWindow", "Subject", None))
         self.inboxSearchOptionCB.setItemText(4, _translate("MainWindow", "Message", None))
+        self.splitter.setToolTip(_translate("MainWindow", "<span style=\"display:none\"></span>", None))
         self.tableWidgetInbox.setSortingEnabled(True)
         item = self.tableWidgetInbox.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "To", None))

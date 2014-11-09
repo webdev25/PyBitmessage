@@ -301,9 +301,24 @@ class MyForm(QtGui.QMainWindow):
         self.connect(self.ui.tableWidgetInbox, QtCore.SIGNAL(
             'customContextMenuRequested(const QPoint&)'),
                      self.on_context_menuInbox)
+        # changes by webdev25
+        self.actionInboxCopyDestinationClipboard = self.ui.inboxContextMenuToolbar.addAction(
+            _translate(
+                "MainWindow", "Copy destination address to clipboard"),
+            self.on_action_InboxCopyDestinationClipboard)
+        self.actionInboxCopySenderClipboard = self.ui.inboxContextMenuToolbar.addAction(
+            _translate(
+                "MainWindow", "Copy sender address to clipboard"),
+            self.on_action_InboxCopySenderClipboard)
+        #end changes by webdev25
         self.popMenuInbox = QtGui.QMenu(self)
         self.popMenuInbox.addAction(self.actionForceHtml)
         self.popMenuInbox.addAction(self.actionMarkUnread)
+        #changes by webdev25
+        self.popMenuInbox.addSeparator()
+        self.popMenuInbox.addAction(self.actionInboxCopyDestinationClipboard)
+        self.popMenuInbox.addAction(self.actionInboxCopySenderClipboard)
+        #end changes by webdev25
         self.popMenuInbox.addSeparator()
         self.popMenuInbox.addAction(self.actionReply)
         self.popMenuInbox.addAction(self.actionAddSenderToAddressBook)
@@ -3797,7 +3812,20 @@ class MyForm(QtGui.QMainWindow):
 
         if self.temp_sendto != newtext and newtext != toAddressText:
             self.temp_sendto = newtext
-        
+    
+    def on_action_InboxCopyDestinationClipboard(self):
+        currentRow = self.ui.tableWidgetInbox.currentRow()
+        addressAtCurrentRow = self.ui.tableWidgetInbox.item(
+            currentRow, 0).data(Qt.UserRole).toPyObject()
+        clipboard = QtGui.QApplication.clipboard()
+        clipboard.setText(str(addressAtCurrentRow))
+
+    def on_action_InboxCopySenderClipboard(self):
+        currentRow = self.ui.tableWidgetInbox.currentRow()
+        addressAtCurrentRow = self.ui.tableWidgetInbox.item(
+            currentRow, 1).data(Qt.UserRole).toPyObject()
+        clipboard = QtGui.QApplication.clipboard()
+        clipboard.setText(str(addressAtCurrentRow))
     # End of changes made by webdev25
 
 
