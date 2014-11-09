@@ -1916,6 +1916,22 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionViewTabPositionSouth"/>
      <addaction name="actionViewTabPositionWest"/>
     </widget>
+    <widget class="QMenu" name="actionViewToggleInbox">
+     <property name="title">
+      <string>Inbox Columns</string>
+     </property>
+     <addaction name="actionViewToggleInboxTo"/>
+     <addaction name="actionViewToggleInboxFrom"/>
+     <addaction name="actionViewToggleInboxReceived"/>
+    </widget>
+    <widget class="QMenu" name="actionViewToggleSent">
+     <property name="title">
+      <string>Sent Columns</string>
+     </property>
+     <addaction name="actionViewToggleSentTo"/>
+     <addaction name="actionViewToggleSentFrom"/>
+     <addaction name="actionViewToggleSentStatus"/>
+    </widget>
     <addaction name="actionViewToggleLayout"/>
     <addaction name="separator"/>
     <addaction name="actionViewToggleTabLabels"/>
@@ -1923,6 +1939,8 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionViewToggleSubjectBar"/>
     <addaction name="actionViewToggleStatusBar"/>
     <addaction name="actionViewToggleHints"/>
+    <addaction name="actionViewToggleInbox"/>
+    <addaction name="actionViewToggleSent"/>
     <addaction name="separator"/>
     <addaction name="menuViewTabPosition"/>
    </widget>
@@ -2161,6 +2179,54 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Show Tab Labels</string>
+   </property>
+  </action>
+  <action name="actionViewToggleInboxTo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>To</string>
+   </property>
+  </action>
+  <action name="actionViewToggleInboxFrom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>From</string>
+   </property>
+  </action>
+  <action name="actionViewToggleInboxReceived">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Received</string>
+   </property>
+  </action>
+  <action name="actionViewToggleSentTo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>To</string>
+   </property>
+  </action>
+  <action name="actionViewToggleSentFrom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>From</string>
+   </property>
+  </action>
+  <action name="actionViewToggleSentStatus">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Status</string>
    </property>
   </action>
  </widget>

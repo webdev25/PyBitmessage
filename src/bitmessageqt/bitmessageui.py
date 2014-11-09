@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Sat Nov  8 08:52:08 2014
+# Created: Sun Nov  9 15:24:09 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -752,6 +752,10 @@ class Ui_MainWindow(object):
         self.menuView.setObjectName(_fromUtf8("menuView"))
         self.menuViewTabPosition = QtGui.QMenu(self.menuView)
         self.menuViewTabPosition.setObjectName(_fromUtf8("menuViewTabPosition"))
+        self.actionViewToggleInbox = QtGui.QMenu(self.menuView)
+        self.actionViewToggleInbox.setObjectName(_fromUtf8("actionViewToggleInbox"))
+        self.actionViewToggleSent = QtGui.QMenu(self.menuView)
+        self.actionViewToggleSent.setObjectName(_fromUtf8("actionViewToggleSent"))
         self.menuTools = QtGui.QMenu(self.menubar)
         self.menuTools.setObjectName(_fromUtf8("menuTools"))
         MainWindow.setMenuBar(self.menubar)
@@ -839,6 +843,24 @@ class Ui_MainWindow(object):
         self.actionViewToggleTabLabels = QtGui.QAction(MainWindow)
         self.actionViewToggleTabLabels.setCheckable(True)
         self.actionViewToggleTabLabels.setObjectName(_fromUtf8("actionViewToggleTabLabels"))
+        self.actionViewToggleInboxTo = QtGui.QAction(MainWindow)
+        self.actionViewToggleInboxTo.setCheckable(True)
+        self.actionViewToggleInboxTo.setObjectName(_fromUtf8("actionViewToggleInboxTo"))
+        self.actionViewToggleInboxFrom = QtGui.QAction(MainWindow)
+        self.actionViewToggleInboxFrom.setCheckable(True)
+        self.actionViewToggleInboxFrom.setObjectName(_fromUtf8("actionViewToggleInboxFrom"))
+        self.actionViewToggleInboxReceived = QtGui.QAction(MainWindow)
+        self.actionViewToggleInboxReceived.setCheckable(True)
+        self.actionViewToggleInboxReceived.setObjectName(_fromUtf8("actionViewToggleInboxReceived"))
+        self.actionViewToggleSentTo = QtGui.QAction(MainWindow)
+        self.actionViewToggleSentTo.setCheckable(True)
+        self.actionViewToggleSentTo.setObjectName(_fromUtf8("actionViewToggleSentTo"))
+        self.actionViewToggleSentFrom = QtGui.QAction(MainWindow)
+        self.actionViewToggleSentFrom.setCheckable(True)
+        self.actionViewToggleSentFrom.setObjectName(_fromUtf8("actionViewToggleSentFrom"))
+        self.actionViewToggleSentStatus = QtGui.QAction(MainWindow)
+        self.actionViewToggleSentStatus.setCheckable(True)
+        self.actionViewToggleSentStatus.setObjectName(_fromUtf8("actionViewToggleSentStatus"))
         self.menuNew.addAction(self.actionJoinChan)
         self.menuNew.addAction(self.actionNewMessage)
         self.menuNew.addAction(self.actionNewIdentity)
@@ -854,6 +876,12 @@ class Ui_MainWindow(object):
         self.menuViewTabPosition.addAction(self.actionViewTabPositionEast)
         self.menuViewTabPosition.addAction(self.actionViewTabPositionSouth)
         self.menuViewTabPosition.addAction(self.actionViewTabPositionWest)
+        self.actionViewToggleInbox.addAction(self.actionViewToggleInboxTo)
+        self.actionViewToggleInbox.addAction(self.actionViewToggleInboxFrom)
+        self.actionViewToggleInbox.addAction(self.actionViewToggleInboxReceived)
+        self.actionViewToggleSent.addAction(self.actionViewToggleSentTo)
+        self.actionViewToggleSent.addAction(self.actionViewToggleSentFrom)
+        self.actionViewToggleSent.addAction(self.actionViewToggleSentStatus)
         self.menuView.addAction(self.actionViewToggleLayout)
         self.menuView.addSeparator()
         self.menuView.addAction(self.actionViewToggleTabLabels)
@@ -861,6 +889,8 @@ class Ui_MainWindow(object):
         self.menuView.addAction(self.actionViewToggleSubjectBar)
         self.menuView.addAction(self.actionViewToggleStatusBar)
         self.menuView.addAction(self.actionViewToggleHints)
+        self.menuView.addAction(self.actionViewToggleInbox.menuAction())
+        self.menuView.addAction(self.actionViewToggleSent.menuAction())
         self.menuView.addSeparator()
         self.menuView.addAction(self.menuViewTabPosition.menuAction())
         self.menuTools.addAction(self.actionDeleteAllTrashedMessages)
@@ -1020,6 +1050,8 @@ class Ui_MainWindow(object):
         self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
         self.menuView.setTitle(_translate("MainWindow", "View", None))
         self.menuViewTabPosition.setTitle(_translate("MainWindow", "Tab Position", None))
+        self.actionViewToggleInbox.setTitle(_translate("MainWindow", "Inbox Columns", None))
+        self.actionViewToggleSent.setTitle(_translate("MainWindow", "Sent Columns", None))
         self.menuTools.setTitle(_translate("MainWindow", "Tools", None))
         self.actionImport_keys.setText(_translate("MainWindow", "Import keys", None))
         self.actionManageKeys.setText(_translate("MainWindow", "Manage keys", None))
@@ -1049,5 +1081,11 @@ class Ui_MainWindow(object):
         self.actionViewToggleHints.setText(_translate("MainWindow", "Show Hints", None))
         self.actionViewToggleSubjectBar.setText(_translate("MainWindow", "Show Subject Bar", None))
         self.actionViewToggleTabLabels.setText(_translate("MainWindow", "Show Tab Labels", None))
+        self.actionViewToggleInboxTo.setText(_translate("MainWindow", "To", None))
+        self.actionViewToggleInboxFrom.setText(_translate("MainWindow", "From", None))
+        self.actionViewToggleInboxReceived.setText(_translate("MainWindow", "Received", None))
+        self.actionViewToggleSentTo.setText(_translate("MainWindow", "To", None))
+        self.actionViewToggleSentFrom.setText(_translate("MainWindow", "From", None))
+        self.actionViewToggleSentStatus.setText(_translate("MainWindow", "Status", None))
 
 import bitmessage_icons_rc

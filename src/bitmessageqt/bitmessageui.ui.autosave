@@ -69,11 +69,17 @@
        <number>0</number>
       </property>
       <widget class="QWidget" name="inbox">
+       <property name="toolTip">
+        <string>Inbox</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/inbox.png</normaloff>:/newPrefix/images/inbox.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Inbox</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Inbox</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -146,6 +152,9 @@
         </item>
         <item>
          <widget class="QSplitter" name="splitter">
+          <property name="toolTip">
+           <string>&lt;span style=&quot;display:none&quot;&gt;&lt;/span&gt;</string>
+          </property>
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -571,6 +580,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="send">
+       <property name="toolTip">
+        <string>Compose</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/send.png</normaloff>:/newPrefix/images/send.png</iconset>
@@ -578,8 +590,11 @@
        <attribute name="title">
         <string>Compose</string>
        </attribute>
+       <attribute name="toolTip">
+        <string>Compose</string>
+       </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="3" column="2">
+        <item row="3" column="3">
          <widget class="QPushButton" name="pushButtonLoadFromAddressBook">
           <property name="font">
            <font>
@@ -591,7 +606,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="3">
+        <item row="3" column="4">
          <widget class="QPushButton" name="pushButtonFetchNamecoinID">
           <property name="font">
            <font>
@@ -627,7 +642,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2" colspan="3">
+        <item row="2" column="3" colspan="3">
          <widget class="QLabel" name="labelFrom">
           <property name="text">
            <string/>
@@ -647,20 +662,6 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="lineEditTo"/>
-        </item>
-        <item row="5" column="1" rowspan="2" colspan="5">
-         <widget class="QTextEdit" name="textEditMessage">
-          <property name="html">
-           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Open Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
@@ -672,6 +673,31 @@ p, li { white-space: pre-wrap; }
          <widget class="QLabel" name="label_2">
           <property name="text">
            <string>From:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1" rowspan="2" colspan="6">
+         <widget class="QTextEdit" name="textEditMessage">
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Open Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="4">
+         <widget class="QRadioButton" name="radioButtonBroadcast">
+          <property name="text">
+           <string>Broadcast to everyone who is subscribed to your address</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1" colspan="6">
+         <widget class="QLineEdit" name="lineEditSubject">
+          <property name="text">
+           <string/>
           </property>
          </widget>
         </item>
@@ -688,21 +714,14 @@ p, li { white-space: pre-wrap; }
           </property>
          </spacer>
         </item>
-        <item row="1" column="1" colspan="3">
-         <widget class="QRadioButton" name="radioButtonBroadcast">
+        <item row="7" column="6">
+         <widget class="QPushButton" name="pushButtonSend">
           <property name="text">
-           <string>Broadcast to everyone who is subscribed to your address</string>
+           <string>Send</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="1" colspan="5">
-         <widget class="QLineEdit" name="lineEditSubject">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="4">
+        <item row="3" column="5">
          <spacer name="horizontalSpacer_6">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -715,14 +734,7 @@ p, li { white-space: pre-wrap; }
           </property>
          </spacer>
         </item>
-        <item row="7" column="5">
-         <widget class="QPushButton" name="pushButtonSend">
-          <property name="text">
-           <string>Send</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="1" colspan="4">
+        <item row="7" column="1" colspan="5">
          <widget class="QLabel" name="labelSendBroadcastWarning">
           <property name="enabled">
            <bool>true</bool>
@@ -741,14 +753,33 @@ p, li { white-space: pre-wrap; }
           </property>
          </widget>
         </item>
+        <item row="3" column="1">
+         <widget class="QComboBox" name="lineEditTo">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="editable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="sent">
+       <property name="toolTip">
+        <string>Sent</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/sent.png</normaloff>:/newPrefix/images/sent.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Sent</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Sent</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -972,6 +1003,18 @@ p, li { white-space: pre-wrap; }
                  </property>
                  <property name="styleSheet">
                   <string notr="true">background:rgba(0, 0, 0, 0)</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="verticalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                 <property name="horizontalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
                  </property>
                  <property name="backgroundBrush">
                   <brush brushstyle="NoBrush">
@@ -1210,11 +1253,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="youridentities">
+       <property name="toolTip">
+        <string>Identities</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/identities.png</normaloff>:/newPrefix/images/identities.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Identities</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Identities</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
@@ -1310,11 +1359,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="subscriptions">
+       <property name="toolTip">
+        <string>Subscriptions</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/subscriptions.png</normaloff>:/newPrefix/images/subscriptions.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Subscriptions</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Subscriptions</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
@@ -1401,11 +1456,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="addressbook">
+       <property name="toolTip">
+        <string>Address Book</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/addressbook.png</normaloff>:/newPrefix/images/addressbook.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Address Book</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Address Book</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
@@ -1483,11 +1544,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="blackwhitelist">
+       <property name="toolTip">
+        <string>Blacklist</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/blacklist.png</normaloff>:/newPrefix/images/blacklist.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Blacklist</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Blacklist</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
@@ -1575,11 +1642,17 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="networkstatus">
+       <property name="toolTip">
+        <string>Network</string>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/networkstatus.png</normaloff>:/newPrefix/images/networkstatus.png</iconset>
        </attribute>
        <attribute name="title">
+        <string>Network</string>
+       </attribute>
+       <attribute name="toolTip">
         <string>Network</string>
        </attribute>
        <widget class="QPushButton" name="pushButtonStatusIcon">
@@ -1843,12 +1916,31 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionViewTabPositionSouth"/>
      <addaction name="actionViewTabPositionWest"/>
     </widget>
+    <widget class="QMenu" name="actionViewToggleInbox">
+     <property name="title">
+      <string>Inbox Columns</string>
+     </property>
+     <addaction name="actionViewToggleInboxTo"/>
+     <addaction name="actionViewToggleInboxFrom"/>
+     <addaction name="actionViewToggleInboxReceived"/>
+    </widget>
+    <widget class="QMenu" name="actionViewToggleSent">
+     <property name="title">
+      <string>Sent Columns</string>
+     </property>
+     <addaction name="actionViewToggleSentTo"/>
+     <addaction name="actionViewToggleSentFrom"/>
+     <addaction name="actionViewToggleSentStatus"/>
+    </widget>
     <addaction name="actionViewToggleLayout"/>
     <addaction name="separator"/>
+    <addaction name="actionViewToggleTabLabels"/>
     <addaction name="actionViewToggleFilters"/>
     <addaction name="actionViewToggleSubjectBar"/>
     <addaction name="actionViewToggleStatusBar"/>
     <addaction name="actionViewToggleHints"/>
+    <addaction name="actionViewToggleInbox"/>
+    <addaction name="actionViewToggleSent"/>
     <addaction name="separator"/>
     <addaction name="menuViewTabPosition"/>
    </widget>
@@ -2081,6 +2173,62 @@ p, li { white-space: pre-wrap; }
     <string>Show Subject Bar</string>
    </property>
   </action>
+  <action name="actionViewToggleTabLabels">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Tab Labels</string>
+   </property>
+  </action>
+  <action name="actionViewToggleInboxTo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>To</string>
+   </property>
+  </action>
+  <action name="actionViewToggleInboxFrom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>From</string>
+   </property>
+  </action>
+  <action name="actionViewToggleInboxReceived">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Received</string>
+   </property>
+  </action>
+  <action name="actionViewToggleSentTo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>To</string>
+   </property>
+  </action>
+  <action name="actionViewToggleSentFrom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>From</string>
+   </property>
+  </action>
+  <action name="actionViewToggleSentStatus">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Status</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>tabWidget</tabstop>
@@ -2088,7 +2236,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>radioButtonSpecific</tabstop>
   <tabstop>radioButtonBroadcast</tabstop>
   <tabstop>comboBoxSendFrom</tabstop>
-  <tabstop>lineEditTo</tabstop>
   <tabstop>pushButtonLoadFromAddressBook</tabstop>
   <tabstop>lineEditSubject</tabstop>
   <tabstop>textEditMessage</tabstop>
@@ -2111,22 +2258,6 @@ p, li { white-space: pre-wrap; }
   <include location="bitmessage_icons.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>radioButtonSpecific</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lineEditTo</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>121</x>
-     <y>60</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>175</x>
-     <y>147</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>radioButtonSpecific</sender>
    <signal>clicked(bool)</signal>

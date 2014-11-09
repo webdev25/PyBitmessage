@@ -268,7 +268,19 @@ class MyForm(QtGui.QMainWindow):
 
         self.temp_sendto = ''
 
-        
+        QtCore.QObject.connect(self.ui.actionViewToggleInboxTo, QtCore.SIGNAL(
+            "triggered()"), self.toggleInboxColTo)
+        QtCore.QObject.connect(self.ui.actionViewToggleInboxFrom, QtCore.SIGNAL(
+            "triggered()"), self.toggleInboxColFrom)
+        QtCore.QObject.connect(self.ui.actionViewToggleInboxReceived, QtCore.SIGNAL(
+            "triggered()"), self.toggleInboxColReceived)
+
+        QtCore.QObject.connect(self.ui.actionViewToggleSentTo, QtCore.SIGNAL(
+            "triggered()"), self.toggleSentColTo)
+        QtCore.QObject.connect(self.ui.actionViewToggleSentFrom, QtCore.SIGNAL(
+            "triggered()"), self.toggleSentColFrom)
+        QtCore.QObject.connect(self.ui.actionViewToggleSentStatus, QtCore.SIGNAL(
+            "triggered()"), self.toggleSentColStatus)
 
         # End changes by webdev25
 
@@ -756,8 +768,35 @@ class MyForm(QtGui.QMainWindow):
         else:
             self.toggleSubjectBarHide()
 
-            
-            
+        if shared.safeConfigGetBoolean('bitmessagesettings','inbox_col_to_view'):
+            self.toggleInboxColToHide()
+        else:
+            self.toggleInboxColToShow()
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','inbox_col_from_view'):
+            self.toggleInboxColFromHide()
+        else:
+            self.toggleInboxColFromShow()
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','inbox_col_received_view'):
+            self.toggleInboxColReceivedHide()
+        else:
+            self.toggleInboxColReceivedShow()
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','sent_col_to_view'):
+            self.toggleSentColToHide()
+        else:
+            self.toggleSentColToShow()
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','sent_col_from_view'):
+            self.toggleSentColFromHide()
+        else:
+            self.toggleSentColFromShow()
+
+        if shared.safeConfigGetBoolean('bitmessagesettings','sent_col_status_view'):
+            self.toggleSentColStatusHide()
+        else:
+            self.toggleSentColStatusShow()
 
         # End changes by webdev25
 
@@ -3722,6 +3761,133 @@ class MyForm(QtGui.QMainWindow):
         self.ui.actionViewToggleTabLabels.setChecked(True)
         shared.config.set('bitmessagesettings', 'tablabel_view', 'false')
         self.saveConfigSettings()
+
+    def toggleInboxColTo(self):
+
+        if not shared.safeConfigGetBoolean('bitmessagesettings','inbox_col_to_view'):
+            self.toggleInboxColToHide()
+        else:
+            self.toggleInboxColToShow()
+
+    def toggleInboxColToHide(self):
+
+        self.ui.tableWidgetInbox.setColumnHidden(0,True)
+        self.ui.actionViewToggleInboxTo.setChecked(False)
+        shared.config.set('bitmessagesettings', 'inbox_col_to_view', 'true')
+        self.saveConfigSettings()
+
+    def toggleInboxColToShow(self):
+
+        self.ui.tableWidgetInbox.setColumnHidden(0,False)
+        self.ui.actionViewToggleInboxTo.setChecked(True)
+        shared.config.set('bitmessagesettings', 'inbox_col_to_view', 'false')
+        self.saveConfigSettings()
+
+    def toggleInboxColFrom(self):
+
+        if not shared.safeConfigGetBoolean('bitmessagesettings','inbox_col_from_view'):
+            self.toggleInboxColFromHide()
+        else:
+            self.toggleInboxColFromShow()
+
+    def toggleInboxColFromHide(self):
+
+        self.ui.tableWidgetInbox.setColumnHidden(1,True)
+        self.ui.actionViewToggleInboxFrom.setChecked(False)
+        shared.config.set('bitmessagesettings', 'inbox_col_from_view', 'true')
+        self.saveConfigSettings()
+
+    def toggleInboxColFromShow(self):
+
+        self.ui.tableWidgetInbox.setColumnHidden(1,False)
+        self.ui.actionViewToggleInboxFrom.setChecked(True)
+        shared.config.set('bitmessagesettings', 'inbox_col_from_view', 'false')
+        self.saveConfigSettings()
+
+    def toggleInboxColReceived(self):
+
+        if not shared.safeConfigGetBoolean('bitmessagesettings','inbox_col_received_view'):
+            self.toggleInboxColReceivedHide()
+        else:
+            self.toggleInboxColReceivedShow()
+
+    def toggleInboxColReceivedHide(self):
+
+        self.ui.tableWidgetInbox.setColumnHidden(3,True)
+        self.ui.actionViewToggleInboxReceived.setChecked(False)
+        shared.config.set('bitmessagesettings', 'inbox_col_received_view', 'true')
+        self.saveConfigSettings()
+
+    def toggleInboxColReceivedShow(self):
+
+        self.ui.tableWidgetInbox.setColumnHidden(3,False)
+        self.ui.actionViewToggleInboxReceived.setChecked(True)
+        shared.config.set('bitmessagesettings', 'inbox_col_received_view', 'false')
+        self.saveConfigSettings()
+
+    def toggleSentColTo(self):
+
+        if not shared.safeConfigGetBoolean('bitmessagesettings','sent_col_to_view'):
+            self.toggleSentColToHide()
+        else:
+            self.toggleSentColToShow()
+
+    def toggleSentColToHide(self):
+
+        self.ui.tableWidgetSent.setColumnHidden(0,True)
+        self.ui.actionViewToggleSentTo.setChecked(False)
+        shared.config.set('bitmessagesettings', 'sent_col_to_view', 'true')
+        self.saveConfigSettings()
+
+    def toggleSentColToShow(self):
+
+        self.ui.tableWidgetSent.setColumnHidden(0,False)
+        self.ui.actionViewToggleSentTo.setChecked(True)
+        shared.config.set('bitmessagesettings', 'sent_col_to_view', 'false')
+        self.saveConfigSettings()
+
+    def toggleSentColFrom(self):
+
+        if not shared.safeConfigGetBoolean('bitmessagesettings','sent_col_from_view'):
+            self.toggleSentColFromHide()
+        else:
+            self.toggleSentColFromShow()
+
+    def toggleSentColFromHide(self):
+
+        self.ui.tableWidgetSent.setColumnHidden(1,True)
+        self.ui.actionViewToggleSentFrom.setChecked(False)
+        shared.config.set('bitmessagesettings', 'sent_col_from_view', 'true')
+        self.saveConfigSettings()
+
+    def toggleSentColFromShow(self):
+
+        self.ui.tableWidgetSent.setColumnHidden(1,False)
+        self.ui.actionViewToggleSentFrom.setChecked(True)
+        shared.config.set('bitmessagesettings', 'sent_col_from_view', 'false')
+        self.saveConfigSettings()
+
+    def toggleSentColStatus(self):
+
+        if not shared.safeConfigGetBoolean('bitmessagesettings','sent_col_status_view'):
+            self.toggleSentColStatusHide()
+        else:
+            self.toggleSentColStatusShow()
+
+    def toggleSentColStatusHide(self):
+
+        self.ui.tableWidgetSent.setColumnHidden(3,True)
+        self.ui.actionViewToggleSentStatus.setChecked(False)
+        shared.config.set('bitmessagesettings', 'sent_col_status_view', 'true')
+        self.saveConfigSettings()
+
+    def toggleSentColStatusShow(self):
+
+        self.ui.tableWidgetSent.setColumnHidden(3,False)
+        self.ui.actionViewToggleSentStatus.setChecked(True)
+        shared.config.set('bitmessagesettings', 'sent_col_status_view', 'false')
+        self.saveConfigSettings()
+
 
     def toggleTabPositionNorth(self):
 
