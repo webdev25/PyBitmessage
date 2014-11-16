@@ -819,6 +819,9 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.addressBookSearchLineEdit, QtCore.SIGNAL(
             "returnPressed()"), self.addressBookSearchLineEditPressed)
 
+        QtCore.QObject.connect(self.ui.subscriptionsSearchLineEdit, QtCore.SIGNAL(
+            "returnPressed()"), self.subscriptionsSearchLineEditPressed)
+
         # End changes by webdev25
 
 
@@ -1977,7 +1980,6 @@ class MyForm(QtGui.QMainWindow):
     #function changed by webdev25
     def rerenderAddressBook(self,what=""):
 
-
         #changes by webdev25
         self.ui.tableWidgetAddressBook.blockSignals(True)
         self.ui.tableWidgetAddressBook.setRowCount(0)
@@ -1999,9 +2001,16 @@ class MyForm(QtGui.QMainWindow):
         self.ui.tableWidgetAddressBook.blockSignals(False)
         self.loadComposeToValues()
 
-    def rerenderSubscriptions(self):
+    # function changed by webdev25
+    def rerenderSubscriptions(self,what=""):
+
+        #changes by webdev25
+        self.ui.tableWidgetSubscriptions.blockSignals(True)
         self.ui.tableWidgetSubscriptions.setRowCount(0)
-        queryreturn = sqlQuery('SELECT label, address, enabled FROM subscriptions')
+        what = "%" + what + "%"
+        queryreturn = sqlQuery('SELECT label, address, enabled FROM subscriptions WHERE label LIKE ? OR address LIKE ?',what,what)
+        #end changes webdev25
+
         for row in queryreturn:
             label, address, enabled = row
             self.ui.tableWidgetSubscriptions.insertRow(0)
@@ -2016,6 +2025,9 @@ class MyForm(QtGui.QMainWindow):
             if not enabled:
                 newItem.setTextColor(QtGui.QColor(128, 128, 128))
             self.ui.tableWidgetSubscriptions.setItem(0, 1, newItem)
+
+        #added by webdev25
+        self.ui.tableWidgetSubscriptions.blockSignals(False)
 
     def click_pushButtonSend(self):
         self.statusBar().showMessage('')
@@ -3674,6 +3686,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.widgetInboxFilters.setVisible(False)
         self.ui.widgetSentFilters.setVisible(False)
         self.ui.widgetAddressBookFilters.setVisible(False)
+        self.ui.widgetSubscriptionsFilters.setVisible(False)
         self.ui.actionViewToggleFilters.setChecked(False)
         shared.config.set('bitmessagesettings', 'filter_view', 'true')
         self.saveConfigSettings()
@@ -3683,6 +3696,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.widgetInboxFilters.setVisible(True)
         self.ui.widgetSentFilters.setVisible(True)
         self.ui.widgetAddressBookFilters.setVisible(True)
+        self.ui.widgetSubscriptionsFilters.setVisible(True)
         self.ui.actionViewToggleFilters.setChecked(True)
         shared.config.set('bitmessagesettings', 'filter_view', 'false')
         self.saveConfigSettings()
@@ -4106,10 +4120,13 @@ class MyForm(QtGui.QMainWindow):
 
     def addressBookSearchLineEditPressed(self):
         searchKeyword = self.ui.addressBookSearchLineEdit.text().toUtf8().data()
-        #searchOption = self.ui.inboxSearchOptionCB.currentText().toUtf8().data()
         self.ui.addressBookSearchLineEdit.setText(QString(""))
-        #self.ui.textEditInboxMessage.setPlainText(QString(""))
         self.rerenderAddressBook(searchKeyword)
+
+    def subscriptionsSearchLineEditPressed(self):
+        searchKeyword = self.ui.subscriptionsSearchLineEdit.text().toUtf8().data()
+        self.ui.subscriptionsSearchLineEdit.setText(QString(""))
+        self.rerenderSubscriptions(searchKeyword)
 
     # End of changes made by webdev25
 
