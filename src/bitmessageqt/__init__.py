@@ -3673,6 +3673,7 @@ class MyForm(QtGui.QMainWindow):
 
         self.ui.widgetInboxFilters.setVisible(False)
         self.ui.widgetSentFilters.setVisible(False)
+        self.ui.widgetAddressBookFilters.setVisible(False)
         self.ui.actionViewToggleFilters.setChecked(False)
         shared.config.set('bitmessagesettings', 'filter_view', 'true')
         self.saveConfigSettings()
@@ -3681,6 +3682,7 @@ class MyForm(QtGui.QMainWindow):
 
         self.ui.widgetInboxFilters.setVisible(True)
         self.ui.widgetSentFilters.setVisible(True)
+        self.ui.widgetAddressBookFilters.setVisible(True)
         self.ui.actionViewToggleFilters.setChecked(True)
         shared.config.set('bitmessagesettings', 'filter_view', 'false')
         self.saveConfigSettings()

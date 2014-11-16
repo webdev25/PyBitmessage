@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Sun Nov 16 19:45:44 2014
+# Created: Sun Nov 16 20:13:44 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -627,23 +627,23 @@ class Ui_MainWindow(object):
         self.labelHintAddressBook.setWordWrap(True)
         self.labelHintAddressBook.setObjectName(_fromUtf8("labelHintAddressBook"))
         self.gridLayout_5.addWidget(self.labelHintAddressBook, 0, 0, 1, 2)
-        self.widget_5 = QtGui.QWidget(self.addressbook)
+        self.widgetAddressBookFilters = QtGui.QWidget(self.addressbook)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_5.sizePolicy().hasHeightForWidth())
-        self.widget_5.setSizePolicy(sizePolicy)
-        self.widget_5.setObjectName(_fromUtf8("widget_5"))
-        self.horizontalLayout_7 = QtGui.QHBoxLayout(self.widget_5)
+        sizePolicy.setHeightForWidth(self.widgetAddressBookFilters.sizePolicy().hasHeightForWidth())
+        self.widgetAddressBookFilters.setSizePolicy(sizePolicy)
+        self.widgetAddressBookFilters.setObjectName(_fromUtf8("widgetAddressBookFilters"))
+        self.horizontalLayout_7 = QtGui.QHBoxLayout(self.widgetAddressBookFilters)
         self.horizontalLayout_7.setMargin(0)
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
-        self.pushButtonAddAddressBook = QtGui.QPushButton(self.widget_5)
+        self.pushButtonAddAddressBook = QtGui.QPushButton(self.widgetAddressBookFilters)
         self.pushButtonAddAddressBook.setObjectName(_fromUtf8("pushButtonAddAddressBook"))
         self.horizontalLayout_7.addWidget(self.pushButtonAddAddressBook)
-        self.addressBookSearchLineEdit = QtGui.QLineEdit(self.widget_5)
+        self.addressBookSearchLineEdit = QtGui.QLineEdit(self.widgetAddressBookFilters)
         self.addressBookSearchLineEdit.setObjectName(_fromUtf8("addressBookSearchLineEdit"))
         self.horizontalLayout_7.addWidget(self.addressBookSearchLineEdit)
-        self.gridLayout_5.addWidget(self.widget_5, 1, 0, 1, 2)
+        self.gridLayout_5.addWidget(self.widgetAddressBookFilters, 1, 0, 1, 2)
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/images/addressbook.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.addressbook, icon6, _fromUtf8(""))
