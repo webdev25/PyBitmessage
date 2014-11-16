@@ -830,6 +830,9 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.tableWidgetBlacklist, QtCore.SIGNAL(
             "itemChanged(QTableWidgetItem *)"), self.tableWidgetBlacklistItemChanged)
 
+        QtCore.QObject.connect(self.ui.blacklistSearchLineEdit, QtCore.SIGNAL(
+            "returnPressed()"), self.blacklistSearchLineEditPressed)
+
         # End changes by webdev25
 
 
@@ -2447,13 +2450,20 @@ class MyForm(QtGui.QMainWindow):
                         shared.objectProcessorQueueSize += len(payload)
                         shared.objectProcessorQueue.put((objectType,payload))
 
-    def loadBlackWhiteList(self):
+    #function changed by webdev25
+    def loadBlackWhiteList(self,what=""):
+
+        #added by webdev25
+        what = "%" + what + "%"
         # Initialize the Blacklist or Whitelist table
         listType = shared.config.get('bitmessagesettings', 'blackwhitelist')
+
+        #changes by webdev25
         if listType == 'black':
-            queryreturn = sqlQuery('''SELECT label, address, enabled FROM blacklist''')
+            queryreturn = sqlQuery('''SELECT label, address, enabled FROM blacklist WHERE label LIKE ? OR address LIKE ?''',what,what)
         else:
-            queryreturn = sqlQuery('''SELECT label, address, enabled FROM whitelist''')
+            queryreturn = sqlQuery('''SELECT label, address, enabled FROM whitelist WHERE label LIKE ? OR address LIKE ?''',what,what)
+        #end changes by webdev25
         for row in queryreturn:
             label, address, enabled = row
             self.ui.tableWidgetBlacklist.insertRow(0)
@@ -3697,6 +3707,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.widgetSentFilters.setVisible(False)
         self.ui.widgetAddressBookFilters.setVisible(False)
         self.ui.widgetSubscriptionsFilters.setVisible(False)
+        self.ui.widgetBlacklistFilters.setVisible(False)
         self.ui.actionViewToggleFilters.setChecked(False)
         shared.config.set('bitmessagesettings', 'filter_view', 'true')
         self.saveConfigSettings()
@@ -3707,6 +3718,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.widgetSentFilters.setVisible(True)
         self.ui.widgetAddressBookFilters.setVisible(True)
         self.ui.widgetSubscriptionsFilters.setVisible(True)
+        self.ui.widgetBlacklistFilters.setVisible(True)
         self.ui.actionViewToggleFilters.setChecked(True)
         shared.config.set('bitmessagesettings', 'filter_view', 'false')
         self.saveConfigSettings()
@@ -4184,7 +4196,13 @@ class MyForm(QtGui.QMainWindow):
             sqlExecute( sql,
                str(self.ui.tableWidgetBlacklist.item(currentRow, 0).text().toUtf8()),
                str(addressAtCurrentRow))
-        
+    
+    def blacklistSearchLineEditPressed(self):
+        searchKeyword = self.ui.blacklistSearchLineEdit.text().toUtf8().data()
+        self.ui.blacklistSearchLineEdit.setText(QString(""))
+        self.ui.tableWidgetBlacklist.setRowCount(0)
+        self.loadBlackWhiteList(searchKeyword)
+
     # End of changes made by webdev25
 
 

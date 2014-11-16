@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Sun Nov 16 21:19:56 2014
+# Created: Sun Nov 16 22:08:19 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -676,15 +676,15 @@ class Ui_MainWindow(object):
         self.tableWidgetBlacklist.horizontalHeader().setStretchLastSection(True)
         self.tableWidgetBlacklist.verticalHeader().setVisible(False)
         self.gridLayout_6.addWidget(self.tableWidgetBlacklist, 1, 0, 1, 2)
-        self.widget_5 = QtGui.QWidget(self.blackwhitelist)
-        self.widget_5.setObjectName(_fromUtf8("widget_5"))
-        self.horizontalLayout_9 = QtGui.QHBoxLayout(self.widget_5)
+        self.widgetBlacklistFilters = QtGui.QWidget(self.blackwhitelist)
+        self.widgetBlacklistFilters.setObjectName(_fromUtf8("widgetBlacklistFilters"))
+        self.horizontalLayout_9 = QtGui.QHBoxLayout(self.widgetBlacklistFilters)
         self.horizontalLayout_9.setMargin(0)
         self.horizontalLayout_9.setObjectName(_fromUtf8("horizontalLayout_9"))
-        self.pushButtonAddBlacklist = QtGui.QPushButton(self.widget_5)
+        self.pushButtonAddBlacklist = QtGui.QPushButton(self.widgetBlacklistFilters)
         self.pushButtonAddBlacklist.setObjectName(_fromUtf8("pushButtonAddBlacklist"))
         self.horizontalLayout_9.addWidget(self.pushButtonAddBlacklist)
-        self.comboBlacklist = QtGui.QComboBox(self.widget_5)
+        self.comboBlacklist = QtGui.QComboBox(self.widgetBlacklistFilters)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -695,10 +695,10 @@ class Ui_MainWindow(object):
         self.comboBlacklist.addItem(_fromUtf8(""))
         self.comboBlacklist.addItem(_fromUtf8(""))
         self.horizontalLayout_9.addWidget(self.comboBlacklist)
-        self.lineEdit = QtGui.QLineEdit(self.widget_5)
-        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
-        self.horizontalLayout_9.addWidget(self.lineEdit)
-        self.gridLayout_6.addWidget(self.widget_5, 0, 0, 1, 2)
+        self.blacklistSearchLineEdit = QtGui.QLineEdit(self.widgetBlacklistFilters)
+        self.blacklistSearchLineEdit.setObjectName(_fromUtf8("blacklistSearchLineEdit"))
+        self.horizontalLayout_9.addWidget(self.blacklistSearchLineEdit)
+        self.gridLayout_6.addWidget(self.widgetBlacklistFilters, 0, 0, 1, 2)
         icon7 = QtGui.QIcon()
         icon7.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/images/blacklist.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.blackwhitelist, icon7, _fromUtf8(""))
@@ -1066,7 +1066,7 @@ class Ui_MainWindow(object):
         self.comboBlacklist.setToolTip(_translate("MainWindow", "Allow all incoming messages except for those on the Blacklist", None))
         self.comboBlacklist.setItemText(0, _translate("MainWindow", "Use a Blacklist", None))
         self.comboBlacklist.setItemText(1, _translate("MainWindow", "Use a Whitelist", None))
-        self.lineEdit.setPlaceholderText(_translate("MainWindow", "Search", None))
+        self.blacklistSearchLineEdit.setPlaceholderText(_translate("MainWindow", "Search", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.blackwhitelist), _translate("MainWindow", "Blacklist", None))
         self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.blackwhitelist), _translate("MainWindow", "Blacklist", None))
         self.networkstatus.setToolTip(_translate("MainWindow", "Network", None))
