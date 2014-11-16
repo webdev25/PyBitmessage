@@ -1270,25 +1270,68 @@ p, li { white-space: pre-wrap; }
         <string>Identities</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="pushButtonNewAddress">
-          <property name="text">
-           <string>New</string>
-          </property>
+        <item row="0" column="0" colspan="2">
+         <widget class="QWidget" name="widgetIdentitiesFilters" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="pushButtonNewAddress">
+             <property name="text">
+              <string>New</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboIdentityType">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>110</width>
+               <height>0</height>
+              </size>
+             </property>
+             <item>
+              <property name="text">
+               <string>All Identities</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Private Only</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Chans Only</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="identitiesSearchLineEdit">
+             <property name="placeholderText">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-        <item row="0" column="1">
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>689</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="1" column="0" colspan="2">
          <widget class="QTableWidget" name="tableWidgetYourIdentities">
@@ -2325,7 +2368,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>textEditMessage</tabstop>
   <tabstop>pushButtonSend</tabstop>
   <tabstop>tableWidgetSent</tabstop>
-  <tabstop>pushButtonNewAddress</tabstop>
   <tabstop>tableWidgetYourIdentities</tabstop>
   <tabstop>tableWidgetSubscriptions</tabstop>
   <tabstop>tableWidgetAddressBook</tabstop>

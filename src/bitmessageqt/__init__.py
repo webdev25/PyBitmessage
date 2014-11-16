@@ -833,6 +833,9 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.blacklistSearchLineEdit, QtCore.SIGNAL(
             "returnPressed()"), self.blacklistSearchLineEditPressed)
 
+        QtCore.QObject.connect(self.ui.comboIdentityType, QtCore.SIGNAL(
+            "activated(int)"), self.comboIdentityTypeChanged)
+
         # End changes by webdev25
 
 
@@ -4202,6 +4205,67 @@ class MyForm(QtGui.QMainWindow):
         self.ui.blacklistSearchLineEdit.setText(QString(""))
         self.ui.tableWidgetBlacklist.setRowCount(0)
         self.loadBlackWhiteList(searchKeyword)
+
+    def rerenderIdentities(self, what="",identType=0):
+
+        what = '' + what
+        self.ui.tableWidgetYourIdentities.setRowCount(0)
+        
+        configSections = shared.config.sections()
+        for addressInKeysFile in configSections:
+            if addressInKeysFile != 'bitmessagesettings':
+
+                addToList = True
+
+                if(what != ""):
+                    matched = addressInKeysFile.lower().find(what.lower())
+                    if( matched == -1):
+                        addToList = False
+
+                if(identType == 1):
+                    if shared.safeConfigGetBoolean(str(addressInKeysFile), 'chan'):
+                        addToList = False
+                elif(identType == 2):
+                    if not shared.safeConfigGetBoolean(str(addressInKeysFile), 'chan'):
+                        addToList = False
+
+                if( addToList == True ):
+                    isEnabled = shared.config.getboolean(
+                        addressInKeysFile, 'enabled')
+                    newItem = QtGui.QTableWidgetItem(unicode(
+                        shared.config.get(addressInKeysFile, 'label'), 'utf-8)'))
+                    if not isEnabled:
+                        newItem.setTextColor(QtGui.QColor(128, 128, 128))
+                    self.ui.tableWidgetYourIdentities.insertRow(0)
+                    newItem.setIcon(avatarize(addressInKeysFile))
+                    self.ui.tableWidgetYourIdentities.setItem(0, 0, newItem)
+                    newItem = QtGui.QTableWidgetItem(addressInKeysFile)
+                    newItem.setFlags(
+                        QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+                    if shared.safeConfigGetBoolean(addressInKeysFile, 'chan'):
+                        newItem.setTextColor(QtGui.QColor(216, 119, 0)) # orange
+                    if not isEnabled:
+                        newItem.setTextColor(QtGui.QColor(128, 128, 128))
+                    if shared.safeConfigGetBoolean(addressInKeysFile, 'mailinglist'):
+                        newItem.setTextColor(QtGui.QColor(137, 04, 177)) # magenta
+                    self.ui.tableWidgetYourIdentities.setItem(0, 1, newItem)
+                    newItem = QtGui.QTableWidgetItem(str(
+                        decodeAddress(addressInKeysFile)[2]))
+                    newItem.setFlags(
+                        QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+                    if not isEnabled:
+                        newItem.setTextColor(QtGui.QColor(128, 128, 128))
+
+                    self.ui.tableWidgetYourIdentities.setItem(0, 2, newItem)
+
+                    if isEnabled:
+                        status, addressVersionNumber, streamNumber, hash = decodeAddress(
+                            addressInKeysFile)
+
+    def comboIdentityTypeChanged(self,index):
+        self.rerenderIdentities('',index)
+
+    #if shared.safeConfigGetBoolean(str(address), 'chan'):
 
     # End of changes made by webdev25
 
