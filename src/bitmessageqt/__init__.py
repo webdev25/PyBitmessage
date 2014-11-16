@@ -827,6 +827,9 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.subscriptionsSearchLineEdit, QtCore.SIGNAL(
             "returnPressed()"), self.subscriptionsSearchLineEditPressed)
 
+        QtCore.QObject.connect(self.ui.tableWidgetBlacklist, QtCore.SIGNAL(
+            "itemChanged(QTableWidgetItem *)"), self.tableWidgetBlacklistItemChanged)
+
         # End changes by webdev25
 
 
@@ -4169,7 +4172,19 @@ class MyForm(QtGui.QMainWindow):
             if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
                 self.ui.tabWidget.setTabText(6, 'Whitelist')
             
-
+    def tableWidgetBlacklistItemChanged(self):
+        currentRow = self.ui.tableWidgetBlacklist.currentRow()
+        if currentRow >= 0:
+            addressAtCurrentRow = self.ui.tableWidgetBlacklist.item(
+                currentRow, 1).text()
+            if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'white':
+                sql = '''UPDATE whitelist set label=? WHERE address=?'''
+            else:
+                sql = '''UPDATE blacklist set label=? WHERE address=?'''
+            sqlExecute( sql,
+               str(self.ui.tableWidgetBlacklist.item(currentRow, 0).text().toUtf8()),
+               str(addressAtCurrentRow))
+        
     # End of changes made by webdev25
 
 

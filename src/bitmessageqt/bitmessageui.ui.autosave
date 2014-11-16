@@ -66,7 +66,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="inbox">
        <property name="toolTip">
@@ -1420,26 +1420,6 @@ p, li { white-space: pre-wrap; }
           </column>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="pushButtonAddSubscription">
-          <property name="text">
-           <string>New</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>689</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="0" column="0" colspan="2">
          <widget class="QLabel" name="labelHintSubscriptions">
           <property name="enabled">
@@ -1454,6 +1434,38 @@ p, li { white-space: pre-wrap; }
           <property name="wordWrap">
            <bool>true</bool>
           </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QWidget" name="widgetSubscriptionsFilters" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="pushButtonAddSubscription">
+             <property name="text">
+              <string>New</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="subscriptionsSearchLineEdit">
+             <property name="placeholderText">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -1525,7 +1537,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item row="1" column="0" colspan="2">
-         <widget class="QWidget" name="widget_5" native="true">
+         <widget class="QWidget" name="widgetAddressBookFilters" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -1579,44 +1591,7 @@ p, li { white-space: pre-wrap; }
         <string>Blacklist</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0" colspan="2">
-         <widget class="QRadioButton" name="radioButtonBlacklist">
-          <property name="text">
-           <string>Use a Blacklist (Allow all incoming messages except those on the Blacklist)</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0" colspan="2">
-         <widget class="QRadioButton" name="radioButtonWhitelist">
-          <property name="text">
-           <string>Use a Whitelist (Block all incoming messages except those on the Whitelist)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="pushButtonAddBlacklist">
-          <property name="text">
-           <string>New</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <spacer name="horizontalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>689</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="3" column="0" colspan="2">
          <widget class="QTableWidget" name="tableWidgetBlacklist">
           <property name="alternatingRowColors">
            <bool>true</bool>
@@ -1658,6 +1633,67 @@ p, li { white-space: pre-wrap; }
             <string>Address</string>
            </property>
           </column>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QWidget" name="widget_5" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="pushButtonAddBlacklist">
+             <property name="text">
+              <string>New</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBlacklist">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Allow all incoming messages except for those on the Blacklist</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>Use a Blacklist</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Use a Whitelist</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit">
+             <property name="placeholderText">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -2291,12 +2327,8 @@ p, li { white-space: pre-wrap; }
   <tabstop>tableWidgetSent</tabstop>
   <tabstop>pushButtonNewAddress</tabstop>
   <tabstop>tableWidgetYourIdentities</tabstop>
-  <tabstop>pushButtonAddSubscription</tabstop>
   <tabstop>tableWidgetSubscriptions</tabstop>
   <tabstop>tableWidgetAddressBook</tabstop>
-  <tabstop>radioButtonBlacklist</tabstop>
-  <tabstop>radioButtonWhitelist</tabstop>
-  <tabstop>pushButtonAddBlacklist</tabstop>
   <tabstop>tableWidgetBlacklist</tabstop>
   <tabstop>tableWidgetConnectionCount</tabstop>
   <tabstop>pushButtonStatusIcon</tabstop>
