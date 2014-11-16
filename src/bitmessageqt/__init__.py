@@ -209,10 +209,11 @@ class MyForm(QtGui.QMainWindow):
                                self.click_pushButtonLoadFromAddressBook)
         QtCore.QObject.connect(self.ui.pushButtonFetchNamecoinID, QtCore.SIGNAL(
             "clicked()"), self.click_pushButtonFetchNamecoinID)
-        QtCore.QObject.connect(self.ui.radioButtonBlacklist, QtCore.SIGNAL(
-            "clicked()"), self.click_radioButtonBlacklist)
-        QtCore.QObject.connect(self.ui.radioButtonWhitelist, QtCore.SIGNAL(
-            "clicked()"), self.click_radioButtonWhitelist)
+        # commented out by webdev25
+        #QtCore.QObject.connect(self.ui.radioButtonBlacklist, QtCore.SIGNAL(
+        #    "clicked()"), self.click_radioButtonBlacklist)
+        #QtCore.QObject.connect(self.ui.radioButtonWhitelist, QtCore.SIGNAL(
+        #    "clicked()"), self.click_radioButtonWhitelist)
         QtCore.QObject.connect(self.ui.pushButtonStatusIcon, QtCore.SIGNAL(
             "clicked()"), self.click_pushButtonStatusIcon)
         QtCore.QObject.connect(self.ui.actionSettings, QtCore.SIGNAL(
@@ -646,16 +647,20 @@ class MyForm(QtGui.QMainWindow):
             "returnPressed()"), self.sentSearchLineEditPressed)
 
         # Initialize the Blacklist or Whitelist
+
+        #added by webdev25
+        QtCore.QObject.connect(self.ui.comboBlacklist, QtCore.SIGNAL(
+            "activated(int)"), self.comboBlacklistChanged)
+        #end changes by webdev25
+
         if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
             self.loadBlackWhiteList()
         else:
-            self.ui.radioButtonWhitelist.click()
+            #self.ui.radioButtonWhitelist.click()
             self.loadBlackWhiteList()
             #added by webdev25
-            self.ui.actionNewBlackWhiteList.setText('Whitelist')
-            self.ui.tabWidget.setTabToolTip(6, 'Whitelist')
-            if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
-                self.ui.tabWidget.setTabText(6, 'Whitelist')
+            self.ui.comboBlacklist.setCurrentIndex(1)
+            self.comboBlacklistChanged(1)
             #end changes by webdev25
 
         QtCore.QObject.connect(self.ui.tableWidgetYourIdentities, QtCore.SIGNAL(
@@ -2686,36 +2691,38 @@ class MyForm(QtGui.QMainWindow):
                 except:
                     pass
 
-    def click_radioButtonBlacklist(self):
-        if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'white':
-            shared.config.set('bitmessagesettings', 'blackwhitelist', 'black')
-            with open(shared.appdata + 'keys.dat', 'wb') as configfile:
-                shared.config.write(configfile)
-            # self.ui.tableWidgetBlacklist.clearContents()
-            self.ui.tableWidgetBlacklist.setRowCount(0)
-            self.loadBlackWhiteList()
-            self.ui.tabWidget.setTabToolTip(6, 'Blacklist')
-            #added by webdev25
-            self.actionAddSenderToBlacklist.setText('Add sender to your Blacklist')
-            self.ui.actionNewBlackWhiteList.setText('Blacklist')
-            if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
-                self.ui.tabWidget.setTabText(6, 'Blacklist')
+    # commented out by webdev25
+    #def click_radioButtonBlacklist(self):
+    #    if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'white':
+    #        shared.config.set('bitmessagesettings', 'blackwhitelist', 'black')
+    #        with open(shared.appdata + 'keys.dat', 'wb') as configfile:
+    #            shared.config.write(configfile)
+    #        # self.ui.tableWidgetBlacklist.clearContents()
+    #        self.ui.tableWidgetBlacklist.setRowCount(0)
+    #        self.loadBlackWhiteList()
+    #        self.ui.tabWidget.setTabToolTip(6, 'Blacklist')
+    #        #added by webdev25
+    #        self.actionAddSenderToBlacklist.setText('Add sender to your Blacklist')
+    #        self.ui.actionNewBlackWhiteList.setText('Blacklist')
+    #        if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
+    #            self.ui.tabWidget.setTabText(6, 'Blacklist')
 
-    def click_radioButtonWhitelist(self):
-        if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
-            shared.config.set('bitmessagesettings', 'blackwhitelist', 'white')
-            with open(shared.appdata + 'keys.dat', 'wb') as configfile:
-                shared.config.write(configfile)
-            # self.ui.tableWidgetBlacklist.clearContents()
-            self.ui.tableWidgetBlacklist.setRowCount(0)
-            self.loadBlackWhiteList()
-            #added by webdev25
-            self.actionAddSenderToBlacklist.setText('Add sender to your Whitelist')
-            self.ui.actionNewBlackWhiteList.setText('Whitelist')
-            self.ui.tabWidget.setTabToolTip(6, 'Whitelist')
-            if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
-                self.ui.tabWidget.setTabText(6, 'Whitelist')
-            #end changes by webdev25
+    # commented out by webdev25
+    #def click_radioButtonWhitelist(self):
+    #    if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
+    #        shared.config.set('bitmessagesettings', 'blackwhitelist', 'white')
+    #        with open(shared.appdata + 'keys.dat', 'wb') as configfile:
+    #            shared.config.write(configfile)
+    #        # self.ui.tableWidgetBlacklist.clearContents()
+    #        self.ui.tableWidgetBlacklist.setRowCount(0)
+    #        self.loadBlackWhiteList()
+    #        #added by webdev25
+    #        self.actionAddSenderToBlacklist.setText('Add sender to your Whitelist')
+    #        self.ui.actionNewBlackWhiteList.setText('Whitelist')
+    #        self.ui.tabWidget.setTabToolTip(6, 'Whitelist')
+    #        if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
+    #            self.ui.tabWidget.setTabText(6, 'Whitelist')
+    #        #end changes by webdev25
 
     def click_pushButtonAddBlacklist(self):
 
@@ -4127,6 +4134,41 @@ class MyForm(QtGui.QMainWindow):
         searchKeyword = self.ui.subscriptionsSearchLineEdit.text().toUtf8().data()
         self.ui.subscriptionsSearchLineEdit.setText(QString(""))
         self.rerenderSubscriptions(searchKeyword)
+
+    def comboBlacklistChanged(self,index):
+        
+        if( index == 0 ):
+            if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'white':
+                shared.config.set('bitmessagesettings', 'blackwhitelist', 'black')
+                with open(shared.appdata + 'keys.dat', 'wb') as configfile:
+                    shared.config.write(configfile)
+                # self.ui.tableWidgetBlacklist.clearContents()
+                self.ui.tableWidgetBlacklist.setRowCount(0)
+                self.loadBlackWhiteList()
+                self.ui.tabWidget.setTabToolTip(6, 'Blacklist')
+                #added by webdev25
+            self.actionAddSenderToBlacklist.setText('Add sender to your Blacklist')
+            self.ui.actionNewBlackWhiteList.setText('Blacklist')
+            self.ui.comboBlacklist.setToolTip('Allow all incoming messages except for those on the Blacklist')
+            if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
+                self.ui.tabWidget.setTabText(6, 'Blacklist')
+
+        elif( index == 1 ):
+            if shared.config.get('bitmessagesettings', 'blackwhitelist') == 'black':
+                shared.config.set('bitmessagesettings', 'blackwhitelist', 'white')
+                with open(shared.appdata + 'keys.dat', 'wb') as configfile:
+                    shared.config.write(configfile)
+                # self.ui.tableWidgetBlacklist.clearContents()
+                self.ui.tableWidgetBlacklist.setRowCount(0)
+                self.loadBlackWhiteList()
+                #added by webdev25
+            self.actionAddSenderToBlacklist.setText('Add sender to your Whitelist')
+            self.ui.actionNewBlackWhiteList.setText('Whitelist')
+            self.ui.comboBlacklist.setToolTip('Allow all incoming messages except for those on the Whitelist')
+            self.ui.tabWidget.setTabToolTip(6, 'Whitelist')
+            if not shared.safeConfigGetBoolean('bitmessagesettings','tablabel_view'):
+                self.ui.tabWidget.setTabText(6, 'Whitelist')
+            
 
     # End of changes made by webdev25
 
