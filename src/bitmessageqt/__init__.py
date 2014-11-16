@@ -3742,6 +3742,7 @@ class MyForm(QtGui.QMainWindow):
 
         self.ui.labelHintSubscriptions.setVisible(False)
         self.ui.labelHintAddressBook.setVisible(False)
+        self.ui.labelHintBlacklist.setVisible(False)
         self.ui.actionViewToggleHints.setChecked(False)
         shared.config.set('bitmessagesettings', 'hints_view', 'true')
         self.saveConfigSettings()
@@ -3750,6 +3751,7 @@ class MyForm(QtGui.QMainWindow):
 
         self.ui.labelHintSubscriptions.setVisible(True)
         self.ui.labelHintAddressBook.setVisible(True)
+        self.ui.labelHintBlacklist.setVisible(True)
         self.ui.actionViewToggleHints.setChecked(True)
         shared.config.set('bitmessagesettings', 'hints_view', 'false')
         self.saveConfigSettings()

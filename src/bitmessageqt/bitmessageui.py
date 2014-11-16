@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Sun Nov 16 23:22:51 2014
+# Created: Sun Nov 16 23:39:08 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -694,7 +694,7 @@ class Ui_MainWindow(object):
         self.tableWidgetBlacklist.horizontalHeader().setSortIndicatorShown(False)
         self.tableWidgetBlacklist.horizontalHeader().setStretchLastSection(True)
         self.tableWidgetBlacklist.verticalHeader().setVisible(False)
-        self.gridLayout_6.addWidget(self.tableWidgetBlacklist, 1, 0, 1, 2)
+        self.gridLayout_6.addWidget(self.tableWidgetBlacklist, 2, 0, 1, 2)
         self.widgetBlacklistFilters = QtGui.QWidget(self.blackwhitelist)
         self.widgetBlacklistFilters.setObjectName(_fromUtf8("widgetBlacklistFilters"))
         self.horizontalLayout_9 = QtGui.QHBoxLayout(self.widgetBlacklistFilters)
@@ -717,7 +717,10 @@ class Ui_MainWindow(object):
         self.blacklistSearchLineEdit = QtGui.QLineEdit(self.widgetBlacklistFilters)
         self.blacklistSearchLineEdit.setObjectName(_fromUtf8("blacklistSearchLineEdit"))
         self.horizontalLayout_9.addWidget(self.blacklistSearchLineEdit)
-        self.gridLayout_6.addWidget(self.widgetBlacklistFilters, 0, 0, 1, 2)
+        self.gridLayout_6.addWidget(self.widgetBlacklistFilters, 1, 0, 1, 2)
+        self.labelHintBlacklist = QtGui.QLabel(self.blackwhitelist)
+        self.labelHintBlacklist.setObjectName(_fromUtf8("labelHintBlacklist"))
+        self.gridLayout_6.addWidget(self.labelHintBlacklist, 0, 0, 1, 2)
         icon7 = QtGui.QIcon()
         icon7.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/images/blacklist.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.blackwhitelist, icon7, _fromUtf8(""))
@@ -1089,6 +1092,8 @@ class Ui_MainWindow(object):
         self.comboBlacklist.setItemText(0, _translate("MainWindow", "Use a Blacklist", None))
         self.comboBlacklist.setItemText(1, _translate("MainWindow", "Use a Whitelist", None))
         self.blacklistSearchLineEdit.setPlaceholderText(_translate("MainWindow", "Search", None))
+        self.labelHintBlacklist.setText(_translate("MainWindow", "Use a Blacklist: Allow all incoming messages except for those on the Blacklist.\n"
+"Use a Whitelist: Allow all incoming messages except for those on the Whitelist.", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.blackwhitelist), _translate("MainWindow", "Blacklist", None))
         self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.blackwhitelist), _translate("MainWindow", "Blacklist", None))
         self.networkstatus.setToolTip(_translate("MainWindow", "Network", None))
