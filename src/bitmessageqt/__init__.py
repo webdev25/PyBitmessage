@@ -3152,6 +3152,8 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetAddressBook.removeRow(currentRow)
             self.rerenderInboxFromLabels()
             self.rerenderSentToLabels()
+        #added by webdev25
+        self.loadComposeToValues()
 
     def on_action_AddressBookClipboard(self):
         fullStringOfAddresses = ''
@@ -4028,6 +4030,13 @@ class MyForm(QtGui.QMainWindow):
         currentText = self.ui.lineEditTo.currentText()
         self.ui.lineEditTo.clear()
 
+        configSections = shared.config.sections()
+        for addressInKeysFile in configSections:
+            if addressInKeysFile != 'bitmessagesettings':
+                if shared.safeConfigGetBoolean(str(addressInKeysFile), 'chan'):
+                    lbl = shared.config.get(addressInKeysFile, 'label')
+                    self.ui.lineEditTo.insertItem(0, avatarize(addressInKeysFile), unicode(lbl, 'utf-8'), addressInKeysFile)
+
         queryreturn = sqlQuery('SELECT * FROM addressbook')
         for row in queryreturn:
             label, address = row
@@ -4225,7 +4234,7 @@ class MyForm(QtGui.QMainWindow):
                 addToList = True
 
                 if(what != ""):
-                    #addr = str(addressInKeysFile)
+                    
                     lbl = shared.config.get(addressInKeysFile, 'label')
                     matchedAddr = addressInKeysFile.lower().find(what.lower())
                     matchedLbl = lbl.lower().find(what.lower())
