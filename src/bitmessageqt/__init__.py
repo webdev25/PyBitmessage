@@ -836,6 +836,9 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.comboIdentityType, QtCore.SIGNAL(
             "activated(int)"), self.comboIdentityTypeChanged)
 
+        QtCore.QObject.connect(self.ui.identitiesSearchLineEdit, QtCore.SIGNAL(
+            "returnPressed()"), self.identitiesSearchLineEditPressed)
+
         # End changes by webdev25
 
 
@@ -3711,6 +3714,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.widgetAddressBookFilters.setVisible(False)
         self.ui.widgetSubscriptionsFilters.setVisible(False)
         self.ui.widgetBlacklistFilters.setVisible(False)
+        self.ui.widgetIdentitiesFilters.setVisible(False)
         self.ui.actionViewToggleFilters.setChecked(False)
         shared.config.set('bitmessagesettings', 'filter_view', 'true')
         self.saveConfigSettings()
@@ -3722,6 +3726,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.widgetAddressBookFilters.setVisible(True)
         self.ui.widgetSubscriptionsFilters.setVisible(True)
         self.ui.widgetBlacklistFilters.setVisible(True)
+        self.ui.widgetIdentitiesFilters.setVisible(True)
         self.ui.actionViewToggleFilters.setChecked(True)
         shared.config.set('bitmessagesettings', 'filter_view', 'false')
         self.saveConfigSettings()
@@ -4210,7 +4215,7 @@ class MyForm(QtGui.QMainWindow):
 
         what = '' + what
         self.ui.tableWidgetYourIdentities.setRowCount(0)
-        
+
         configSections = shared.config.sections()
         for addressInKeysFile in configSections:
             if addressInKeysFile != 'bitmessagesettings':
@@ -4218,8 +4223,11 @@ class MyForm(QtGui.QMainWindow):
                 addToList = True
 
                 if(what != ""):
-                    matched = addressInKeysFile.lower().find(what.lower())
-                    if( matched == -1):
+                    #addr = str(addressInKeysFile)
+                    lbl = shared.config.get(addressInKeysFile, 'label')
+                    matchedAddr = addressInKeysFile.lower().find(what.lower())
+                    matchedLbl = lbl.lower().find(what.lower())
+                    if( matchedAddr == -1 and matchedLbl == -1):
                         addToList = False
 
                 if(identType == 1):
@@ -4264,6 +4272,12 @@ class MyForm(QtGui.QMainWindow):
 
     def comboIdentityTypeChanged(self,index):
         self.rerenderIdentities('',index)
+
+    def identitiesSearchLineEditPressed(self):
+        searchKeyword = self.ui.identitiesSearchLineEdit.text().toUtf8().data()
+        identType = self.ui.comboIdentityType.currentIndex()
+        self.ui.identitiesSearchLineEdit.setText(QString(""))
+        self.rerenderIdentities(searchKeyword,identType)
 
     #if shared.safeConfigGetBoolean(str(address), 'chan'):
 
