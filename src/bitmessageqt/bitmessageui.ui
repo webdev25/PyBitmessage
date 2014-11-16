@@ -72,6 +72,9 @@
        <property name="toolTip">
         <string>Inbox</string>
        </property>
+       <property name="statusTip">
+        <string/>
+       </property>
        <attribute name="icon">
         <iconset resource="bitmessage_icons.qrc">
          <normaloff>:/newPrefix/images/inbox.png</normaloff>:/newPrefix/images/inbox.png</iconset>
@@ -1511,26 +1514,6 @@ p, li { white-space: pre-wrap; }
           </column>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="pushButtonAddAddressBook">
-          <property name="text">
-           <string>New</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <spacer name="horizontalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>689</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="0" column="0" colspan="2">
          <widget class="QLabel" name="labelHintAddressBook">
           <property name="text">
@@ -1539,6 +1522,44 @@ p, li { white-space: pre-wrap; }
           <property name="wordWrap">
            <bool>true</bool>
           </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QWidget" name="widget_5" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="pushButtonAddAddressBook">
+             <property name="text">
+              <string>New</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="addressBookSearchLineEdit">
+             <property name="placeholderText">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -2075,6 +2096,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Toggle Layout</string>
    </property>
+   <property name="statusTip">
+    <string/>
+   </property>
   </action>
   <action name="actionViewToggleFilters">
    <property name="checkable">
@@ -2086,6 +2110,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Show Filters</string>
    </property>
+   <property name="statusTip">
+    <string/>
+   </property>
   </action>
   <action name="actionViewToggleStatusBar">
    <property name="checkable">
@@ -2093,6 +2120,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Show Status Bar</string>
+   </property>
+   <property name="statusTip">
+    <string/>
    </property>
   </action>
   <action name="actionViewToggleTabs">
@@ -2164,6 +2194,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Show Hints</string>
    </property>
+   <property name="statusTip">
+    <string/>
+   </property>
   </action>
   <action name="actionViewToggleSubjectBar">
    <property name="checkable">
@@ -2171,6 +2204,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Show Subject Bar</string>
+   </property>
+   <property name="statusTip">
+    <string/>
    </property>
   </action>
   <action name="actionViewToggleTabLabels">
@@ -2180,6 +2216,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Show Tab Labels</string>
    </property>
+   <property name="statusTip">
+    <string/>
+   </property>
   </action>
   <action name="actionViewToggleInboxTo">
    <property name="checkable">
@@ -2187,6 +2226,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>To</string>
+   </property>
+   <property name="statusTip">
+    <string/>
    </property>
   </action>
   <action name="actionViewToggleInboxFrom">
@@ -2196,6 +2238,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>From</string>
    </property>
+   <property name="statusTip">
+    <string/>
+   </property>
   </action>
   <action name="actionViewToggleInboxReceived">
    <property name="checkable">
@@ -2203,6 +2248,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Received</string>
+   </property>
+   <property name="statusTip">
+    <string/>
    </property>
   </action>
   <action name="actionViewToggleSentTo">
@@ -2245,7 +2293,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>tableWidgetYourIdentities</tabstop>
   <tabstop>pushButtonAddSubscription</tabstop>
   <tabstop>tableWidgetSubscriptions</tabstop>
-  <tabstop>pushButtonAddAddressBook</tabstop>
   <tabstop>tableWidgetAddressBook</tabstop>
   <tabstop>radioButtonBlacklist</tabstop>
   <tabstop>radioButtonWhitelist</tabstop>

@@ -816,6 +816,9 @@ class MyForm(QtGui.QMainWindow):
         else:
             self.toggleSentColStatusShow()
 
+        QtCore.QObject.connect(self.ui.addressBookSearchLineEdit, QtCore.SIGNAL(
+            "returnPressed()"), self.addressBookSearchLineEditPressed)
+
         # End changes by webdev25
 
 
@@ -1971,9 +1974,16 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetSent.item(
                 i, 0).setText(unicode(toLabel, 'utf-8'))
 
-    def rerenderAddressBook(self):
+    #function changed by webdev25
+    def rerenderAddressBook(self,what=""):
+
+
+        #changes by webdev25
+        self.ui.tableWidgetAddressBook.blockSignals(True)
         self.ui.tableWidgetAddressBook.setRowCount(0)
-        queryreturn = sqlQuery('SELECT * FROM addressbook')
+        what = "%" + what + "%"
+        queryreturn = sqlQuery('SELECT * FROM addressbook WHERE label LIKE ? OR address LIKE ?',what,what)
+        #end changes by webdev25
         
         for row in queryreturn:
             label, address = row
@@ -1986,6 +1996,7 @@ class MyForm(QtGui.QMainWindow):
                 QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
             self.ui.tableWidgetAddressBook.setItem(0, 1, newItem)
         #added by webdev25
+        self.ui.tableWidgetAddressBook.blockSignals(False)
         self.loadComposeToValues()
 
     def rerenderSubscriptions(self):
@@ -4091,7 +4102,12 @@ class MyForm(QtGui.QMainWindow):
                 self.statusBar().showMessage(_translate(
                     "MainWindow", "Error: You cannot add the same address to your whitelist twice. Try renaming the existing one if you want."))
 
-
+    def addressBookSearchLineEditPressed(self):
+        searchKeyword = self.ui.addressBookSearchLineEdit.text().toUtf8().data()
+        #searchOption = self.ui.inboxSearchOptionCB.currentText().toUtf8().data()
+        self.ui.addressBookSearchLineEdit.setText(QString(""))
+        #self.ui.textEditInboxMessage.setPlainText(QString(""))
+        self.rerenderAddressBook(searchKeyword)
 
     # End of changes made by webdev25
 
