@@ -3744,8 +3744,15 @@ class MyForm(QtGui.QMainWindow):
             sqlExecute('''UPDATE addressbook set label=? WHERE address=?''',
                        str(self.ui.tableWidgetAddressBook.item(currentRow, 0).text().toUtf8()),
                        str(addressAtCurrentRow))
+
+        #3 lines added by webdev25
+        self.clearAddressLabelCache()
+        self.rerenderInboxCombos()
+        self.rerenderSentCombos()
+
         self.rerenderInboxFromLabels()
         self.rerenderSentToLabels()
+        
         #added by webdev25
         self.loadComposeToValues()
 
@@ -3757,6 +3764,12 @@ class MyForm(QtGui.QMainWindow):
             sqlExecute('''UPDATE subscriptions set label=? WHERE address=?''',
                        str(self.ui.tableWidgetSubscriptions.item(currentRow, 0).text().toUtf8()),
                        str(addressAtCurrentRow))
+
+        #3 lines added by webdev25
+        self.clearAddressLabelCache()
+        self.rerenderInboxCombos()
+        self.rerenderSentCombos()
+
         self.rerenderInboxFromLabels()
         self.rerenderSentToLabels()
 
