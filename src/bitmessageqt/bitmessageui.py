@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Sun Nov 16 23:39:08 2014
+# Created: Mon Nov 17 02:26:09 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -65,12 +65,23 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.widgetInboxFilters.sizePolicy().hasHeightForWidth())
         self.widgetInboxFilters.setSizePolicy(sizePolicy)
         self.widgetInboxFilters.setObjectName(_fromUtf8("widgetInboxFilters"))
-        self._2 = QtGui.QHBoxLayout(self.widgetInboxFilters)
-        self._2.setMargin(0)
-        self._2.setObjectName(_fromUtf8("_2"))
+        self.horizontalLayout_11 = QtGui.QHBoxLayout(self.widgetInboxFilters)
+        self.horizontalLayout_11.setMargin(0)
+        self.horizontalLayout_11.setObjectName(_fromUtf8("horizontalLayout_11"))
+        self.comboInboxFrom = QtGui.QComboBox(self.widgetInboxFilters)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.comboInboxFrom.sizePolicy().hasHeightForWidth())
+        self.comboInboxFrom.setSizePolicy(sizePolicy)
+        self.comboInboxFrom.setMinimumSize(QtCore.QSize(160, 0))
+        self.comboInboxFrom.setMaximumSize(QtCore.QSize(160, 16777215))
+        self.comboInboxFrom.setBaseSize(QtCore.QSize(0, 0))
+        self.comboInboxFrom.setObjectName(_fromUtf8("comboInboxFrom"))
+        self.horizontalLayout_11.addWidget(self.comboInboxFrom)
         self.inboxSearchLineEdit = QtGui.QLineEdit(self.widgetInboxFilters)
         self.inboxSearchLineEdit.setObjectName(_fromUtf8("inboxSearchLineEdit"))
-        self._2.addWidget(self.inboxSearchLineEdit)
+        self.horizontalLayout_11.addWidget(self.inboxSearchLineEdit)
         self.inboxSearchOptionCB = QtGui.QComboBox(self.widgetInboxFilters)
         self.inboxSearchOptionCB.setObjectName(_fromUtf8("inboxSearchOptionCB"))
         self.inboxSearchOptionCB.addItem(_fromUtf8(""))
@@ -78,7 +89,7 @@ class Ui_MainWindow(object):
         self.inboxSearchOptionCB.addItem(_fromUtf8(""))
         self.inboxSearchOptionCB.addItem(_fromUtf8(""))
         self.inboxSearchOptionCB.addItem(_fromUtf8(""))
-        self._2.addWidget(self.inboxSearchOptionCB)
+        self.horizontalLayout_11.addWidget(self.inboxSearchOptionCB)
         self.horizontalLayoutSearch.addWidget(self.widgetInboxFilters)
         self.verticalLayout_2.addLayout(self.horizontalLayoutSearch)
         self.splitter = QtGui.QSplitter(self.inbox)

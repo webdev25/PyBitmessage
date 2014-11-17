@@ -839,6 +839,11 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.identitiesSearchLineEdit, QtCore.SIGNAL(
             "returnPressed()"), self.identitiesSearchLineEditPressed)
 
+        QtCore.QObject.connect(self.ui.comboInboxFrom, QtCore.SIGNAL(
+            "activated(int)"), self.comboInboxFromChanged)
+
+        
+
         # End changes by webdev25
 
 
@@ -1066,7 +1071,8 @@ class MyForm(QtGui.QMainWindow):
         self.ui.tableWidgetSent.keyPressEvent = self.tableWidgetSentKeyPressEvent
 
     # Load inbox from messages database file
-    def loadInbox(self, where="", what=""):
+    #function changed by webdev25
+    def loadInbox(self, where="", what="",fromVal=0):
         what = "%" + what + "%"
         if where == "To":
             where = "toaddress"
@@ -1079,12 +1085,16 @@ class MyForm(QtGui.QMainWindow):
         else:
             where = "toaddress || fromaddress || subject || message"
 
+        fromSql = ''
+        if( fromVal != 0 and fromVal != 1 and fromVal != 2 and fromVal != ''):
+            fromSql = ' AND fromaddress = "' + str(fromVal) + '" ';
+
         sqlStatement = '''
             SELECT msgid, toaddress, fromaddress, subject, received, read
-            FROM inbox WHERE folder="inbox" AND %s LIKE ?
+            FROM inbox WHERE folder="inbox" AND %s LIKE ? %s 
             ORDER BY received
-            ''' % (where,)
-
+            ''' % (where, fromSql,)
+        
         while self.ui.tableWidgetInbox.rowCount() > 0:
             self.ui.tableWidgetInbox.removeRow(0)
 
@@ -1094,85 +1104,100 @@ class MyForm(QtGui.QMainWindow):
         for row in queryreturn:
             msgid, toAddress, fromAddress, subject, received, read = row
             subject = shared.fixPotentiallyInvalidUTF8Data(subject)
-            try:
-                if toAddress == self.str_broadcast_subscribers:
-                    toLabel = self.str_broadcast_subscribers
-                else:
-                    toLabel = shared.config.get(toAddress, 'label')
-            except:
-                toLabel = ''
-            if toLabel == '':
-                toLabel = toAddress
 
-            fromLabel = ''
-            if shared.config.has_section(fromAddress):
-                fromLabel = shared.config.get(fromAddress, 'label')
-            
-            if fromLabel == '':  # If the fromAddress isn't one of our addresses and isn't a chan
-                queryreturn = sqlQuery(
-                    '''select label from addressbook where address=?''', fromAddress)
-                if queryreturn != []:
-                    for row in queryreturn:
-                        fromLabel, = row
+            addRow = True
 
-            if fromLabel == '':  # If this address wasn't in our address book...
-                queryreturn = sqlQuery(
-                    '''select label from subscriptions where address=?''', fromAddress)
-                if queryreturn != []:
-                    for row in queryreturn:
-                        fromLabel, = row
-            if fromLabel == '':
-                fromLabel = fromAddress
-            
-            # message row
-            self.ui.tableWidgetInbox.insertRow(0)
-            # to
-            to_item = QtGui.QTableWidgetItem(unicode(toLabel, 'utf-8'))
-            to_item.setToolTip(unicode(toLabel, 'utf-8'))
-            to_item.setFlags(
-                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-            if not read:
-                to_item.setFont(font)
-            to_item.setData(Qt.UserRole, str(toAddress))
-            if shared.safeConfigGetBoolean(toAddress, 'mailinglist'):
-                to_item.setTextColor(QtGui.QColor(137, 04, 177)) # magenta
-            if shared.safeConfigGetBoolean(str(toAddress), 'chan'):
-                to_item.setTextColor(QtGui.QColor(216, 119, 0)) # orange
-            to_item.setIcon(avatarize(toAddress))
-            self.ui.tableWidgetInbox.setItem(0, 0, to_item)
-            # from
-            from_item = QtGui.QTableWidgetItem(unicode(fromLabel, 'utf-8'))
-            from_item.setToolTip(unicode(fromLabel, 'utf-8'))
-            from_item.setFlags(
-                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-            if not read:
-                from_item.setFont(font)
-            from_item.setData(Qt.UserRole, str(fromAddress))
-            if shared.safeConfigGetBoolean(str(fromAddress), 'chan'):
-                from_item.setTextColor(QtGui.QColor(216, 119, 0)) # orange
-            from_item.setIcon(avatarize(fromAddress))
-            self.ui.tableWidgetInbox.setItem(0, 1, from_item)
-            # subject
-            subject_item = QtGui.QTableWidgetItem(unicode(subject, 'utf-8'))
-            subject_item.setToolTip(unicode(subject, 'utf-8'))
-            subject_item.setFlags(
-                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-            if not read:
-                subject_item.setFont(font)
-            self.ui.tableWidgetInbox.setItem(0, 2, subject_item)
-            # time received
-            time_item = myTableWidgetItem(l10n.formatTimestamp(received))
-            time_item.setToolTip(l10n.formatTimestamp(received))
-            time_item.setData(Qt.UserRole, QByteArray(msgid))
-            time_item.setData(33, int(received))
-            time_item.setFlags(
-                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-            if not read:
-                time_item.setFont(font)
-            self.ui.tableWidgetInbox.setItem(0, 3, time_item)
+            if ( fromVal == 1):
+                if not shared.safeConfigGetBoolean(fromAddress, 'chan'):
+                    addRow = False
 
-        self.ui.tableWidgetInbox.sortItems(3, Qt.DescendingOrder)
-        self.ui.tableWidgetInbox.keyPressEvent = self.tableWidgetInboxKeyPressEvent
+            elif( fromVal == 2 ):
+                if shared.safeConfigGetBoolean(fromAddress, 'chan'):
+                    addRow = False
+
+            if( addRow == True ):
+                try:
+                    if toAddress == self.str_broadcast_subscribers:
+                        toLabel = self.str_broadcast_subscribers
+                    else:
+                        toLabel = shared.config.get(toAddress, 'label')
+                except:
+                    toLabel = ''
+                if toLabel == '':
+                    toLabel = toAddress
+
+                fromLabel = ''
+                if shared.config.has_section(fromAddress):
+                    fromLabel = shared.config.get(fromAddress, 'label')
+                
+                if fromLabel == '':  # If the fromAddress isn't one of our addresses and isn't a chan
+                    queryreturn = sqlQuery(
+                        '''select label from addressbook where address=?''', fromAddress)
+                    if queryreturn != []:
+                        for row in queryreturn:
+                            fromLabel, = row
+
+                if fromLabel == '':  # If this address wasn't in our address book...
+                    queryreturn = sqlQuery(
+                        '''select label from subscriptions where address=?''', fromAddress)
+                    if queryreturn != []:
+                        for row in queryreturn:
+                            fromLabel, = row
+                if fromLabel == '':
+                    fromLabel = fromAddress
+                
+                # message row
+                self.ui.tableWidgetInbox.insertRow(0)
+                # to
+                to_item = QtGui.QTableWidgetItem(unicode(toLabel, 'utf-8'))
+                to_item.setToolTip(unicode(toLabel, 'utf-8'))
+                to_item.setFlags(
+                    QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+                if not read:
+                    to_item.setFont(font)
+                to_item.setData(Qt.UserRole, str(toAddress))
+                if shared.safeConfigGetBoolean(toAddress, 'mailinglist'):
+                    to_item.setTextColor(QtGui.QColor(137, 04, 177)) # magenta
+                if shared.safeConfigGetBoolean(str(toAddress), 'chan'):
+                    to_item.setTextColor(QtGui.QColor(216, 119, 0)) # orange
+                to_item.setIcon(avatarize(toAddress))
+                self.ui.tableWidgetInbox.setItem(0, 0, to_item)
+                # from
+                from_item = QtGui.QTableWidgetItem(unicode(fromLabel, 'utf-8'))
+                from_item.setToolTip(unicode(fromLabel, 'utf-8'))
+                from_item.setFlags(
+                    QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+                if not read:
+                    from_item.setFont(font)
+                from_item.setData(Qt.UserRole, str(fromAddress))
+                if shared.safeConfigGetBoolean(str(fromAddress), 'chan'):
+                    from_item.setTextColor(QtGui.QColor(216, 119, 0)) # orange
+                from_item.setIcon(avatarize(fromAddress))
+                self.ui.tableWidgetInbox.setItem(0, 1, from_item)
+                # subject
+                subject_item = QtGui.QTableWidgetItem(unicode(subject, 'utf-8'))
+                subject_item.setToolTip(unicode(subject, 'utf-8'))
+                subject_item.setFlags(
+                    QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+                if not read:
+                    subject_item.setFont(font)
+                self.ui.tableWidgetInbox.setItem(0, 2, subject_item)
+                # time received
+                time_item = myTableWidgetItem(l10n.formatTimestamp(received))
+                time_item.setToolTip(l10n.formatTimestamp(received))
+                time_item.setData(Qt.UserRole, QByteArray(msgid))
+                time_item.setData(33, int(received))
+                time_item.setFlags(
+                    QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+                if not read:
+                    time_item.setFont(font)
+                self.ui.tableWidgetInbox.setItem(0, 3, time_item)
+
+            self.ui.tableWidgetInbox.sortItems(3, Qt.DescendingOrder)
+            self.ui.tableWidgetInbox.keyPressEvent = self.tableWidgetInboxKeyPressEvent
+
+        #added by webdev25
+        self.rerenderInboxFromCombo()
 
     # create application indicator
     def appIndicatorInit(self, app):
@@ -3486,7 +3511,13 @@ class MyForm(QtGui.QMainWindow):
         searchOption = self.ui.inboxSearchOptionCB.currentText().toUtf8().data()
         self.ui.inboxSearchLineEdit.setText(QString(""))
         self.ui.textEditInboxMessage.setPlainText(QString(""))
-        self.loadInbox(searchOption, searchKeyword)
+        #added and updated by webdev25
+        if( self.ui.comboInboxFrom.itemData( self.ui.comboInboxFrom.currentIndex() ).toPyObject() == -1):
+            fromVal = self.ui.comboInboxFrom.currentIndex()
+        else:
+            fromVal = str(self.ui.comboInboxFrom.itemData( self.ui.comboInboxFrom.currentIndex() ).toPyObject())
+
+        self.loadInbox(searchOption, searchKeyword, fromVal)
 
     def sentSearchLineEditPressed(self):
         searchKeyword = self.ui.sentSearchLineEdit.text().toUtf8().data()
@@ -4289,6 +4320,93 @@ class MyForm(QtGui.QMainWindow):
         identType = self.ui.comboIdentityType.currentIndex()
         self.ui.identitiesSearchLineEdit.setText(QString(""))
         self.rerenderIdentities(searchKeyword,identType)
+
+    def rerenderInboxFromCombo(self):
+
+        currentindex = self.ui.comboInboxFrom.currentIndex()
+        currentdata = self.ui.comboInboxFrom.itemData(currentindex)
+        currenttext = self.ui.comboInboxFrom.itemText(currentindex)
+        
+
+        self.ui.comboInboxFrom.clear()
+
+        dictAddrs = {}
+
+        allRows = self.ui.tableWidgetInbox.rowCount()
+        for index in xrange(0,allRows):
+            address = str(self.ui.tableWidgetInbox.item(index,1).data(Qt.UserRole).toPyObject())
+            dictAddrs[ address ] = self.getAddressLabel(address)
+
+        for address in dictAddrs:
+            if shared.safeConfigGetBoolean(str(address), 'chan'):
+                self.ui.comboInboxFrom.insertItem(0,dictAddrs.get(address) )
+                self.ui.comboInboxFrom.setItemData(0,address)
+                self.ui.comboInboxFrom.setItemIcon(0,avatarize(address))
+
+        for address in dictAddrs:
+            if not shared.safeConfigGetBoolean(str(address), 'chan'):
+                self.ui.comboInboxFrom.insertItem(0,dictAddrs.get(address) )
+                self.ui.comboInboxFrom.setItemData(0,address)
+                self.ui.comboInboxFrom.setItemIcon(0,avatarize(address))
+
+        self.ui.comboInboxFrom.insertItem(0,'Other', -1)
+        self.ui.comboInboxFrom.insertItem(0,'Chan Only', -1)
+        self.ui.comboInboxFrom.insertItem(0,'From any address', -1)
+
+        if( currentindex == -1 ):
+            self.ui.comboInboxFrom.setCurrentIndex(0)
+        elif( currentindex == 0 or currentindex == 1 or currentindex == 2):
+            self.ui.comboInboxFrom.setCurrentIndex(currentindex)
+        else:
+            index = self.ui.comboInboxFrom.findData(currentdata)
+            if( index == -1):
+                index = self.ui.comboInboxFrom.count()
+                self.ui.comboInboxFrom.insertItem( index, currenttext )
+                
+                self.ui.comboInboxFrom.setItemIcon( index, avatarize( str(currentdata.toPyObject()) ) )
+                self.ui.comboInboxFrom.setItemData( index, currentdata )
+                self.ui.comboInboxFrom.setCurrentIndex(index)
+            else:
+                self.ui.comboInboxFrom.setCurrentIndex(index)
+
+
+    def comboInboxFromChanged(self,index):
+
+        if( index == 0 or index == 1 or index == 2):
+            fromVal = index
+        else:
+            fromVal = str(self.ui.comboInboxFrom.itemData(index).toPyObject())
+        
+        self.loadInbox('','',fromVal)
+
+
+    def getAddressLabel(self,address):
+
+        addressLabel = ''
+
+        if( address == self.str_broadcast_subscribers):
+            addressLabel = self.str_broadcast_subscribers
+        elif shared.config.has_section(address):
+            addressLabel = shared.config.get(address, 'label')
+        else:
+
+            queryreturn = sqlQuery(
+                    '''select label from addressbook where address=?''', address)
+            if queryreturn != []:
+                for row in queryreturn:
+                    addressLabel, = row
+
+            if( addressLabel == ''):
+                queryreturn = sqlQuery(
+                    '''select label from subscriptions where address=?''', address)
+                if queryreturn != []:
+                    for row in queryreturn:
+                        addressLabel, = row
+
+            if( addressLabel == ''):
+                addressLabel = address
+        
+        return str(addressLabel)
 
     #if shared.safeConfigGetBoolean(str(address), 'chan'):
 
