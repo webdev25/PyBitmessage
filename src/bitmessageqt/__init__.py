@@ -3219,6 +3219,8 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetInbox.selectRow(currentRow)
         else:
             self.ui.tableWidgetInbox.selectRow(currentRow - 1)
+            
+        self.rerenderInboxCombos()
 
 
     def on_action_InboxSaveMessageAs(self):
