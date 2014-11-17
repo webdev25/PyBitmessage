@@ -953,6 +953,8 @@ class MyForm(QtGui.QMainWindow):
 
     # Load Sent items from database
     def loadSent(self, where="", what="",fromVal=0,toVal=0):
+        toDict = {}
+        fromDict = {}
         what = "%" + what + "%"
         if where == "To":
             where = "toaddress"
@@ -1013,6 +1015,8 @@ class MyForm(QtGui.QMainWindow):
                 #    fromLabel = fromAddress
                 fromLabel = self.getAddressLabel(fromAddress)
                 toLabel = self.getAddressLabel(toAddress)
+                toDict[ toAddress ] = toLabel
+                fromDict[ fromAddress ] = fromLabel
                 #queryreturn = sqlQuery(
                 #    '''select label from addressbook where address=?''', toAddress)
                 #if queryreturn != []:
@@ -1110,7 +1114,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.tableWidgetSent.keyPressEvent = self.tableWidgetSentKeyPressEvent
 
         #added by webdev25
-        self.rerenderSentCombos()
+        self.rerenderSentCombos(fromDict,toDict)
         self.clearSentView()
 
     # Load inbox from messages database file
@@ -1144,6 +1148,9 @@ class MyForm(QtGui.QMainWindow):
         
         while self.ui.tableWidgetInbox.rowCount() > 0:
             self.ui.tableWidgetInbox.removeRow(0)
+
+        toDict = {}
+        fromDict = {}
 
         font = QFont()
         font.setBold(True)
@@ -1183,7 +1190,8 @@ class MyForm(QtGui.QMainWindow):
 
                 toLabel = self.getAddressLabel( toAddress )
                 fromLabel = self.getAddressLabel( fromAddress )
-
+                toDict[ toAddress ] = toLabel
+                fromDict[ fromAddress ] = fromLabel
                 #fromLabel = ''
                 #if shared.config.has_section(fromAddress):
                 #    fromLabel = shared.config.get(fromAddress, 'label')
@@ -1251,11 +1259,11 @@ class MyForm(QtGui.QMainWindow):
                     time_item.setFont(font)
                 self.ui.tableWidgetInbox.setItem(0, 3, time_item)
 
-            self.ui.tableWidgetInbox.sortItems(3, Qt.DescendingOrder)
-            self.ui.tableWidgetInbox.keyPressEvent = self.tableWidgetInboxKeyPressEvent
+        self.ui.tableWidgetInbox.sortItems(3, Qt.DescendingOrder)
+        self.ui.tableWidgetInbox.keyPressEvent = self.tableWidgetInboxKeyPressEvent
 
         #added by webdev25
-        self.rerenderInboxCombos()
+        self.rerenderInboxCombos(fromDict,toDict)
         self.clearInboxView()
 
     # create application indicator
@@ -1981,7 +1989,9 @@ class MyForm(QtGui.QMainWindow):
         if exitAfterUserClicksOk:
             os._exit(0)
 
-    def rerenderInboxFromLabels(self):
+    def rerenderInboxFromLabels(self,updateCombos=False):
+        toDict = {}
+        fromDict = {}
         for i in range(self.ui.tableWidgetInbox.rowCount()):
             addressToLookup = str(self.ui.tableWidgetInbox.item(
                 i, 1).data(Qt.UserRole).toPyObject())
@@ -1992,6 +2002,9 @@ class MyForm(QtGui.QMainWindow):
                 i, 0).data(Qt.UserRole).toPyObject())
 
             toLabel = self.getAddressLabel(addressToLookupTo)
+
+            toDict[ addressToLookupTo ] = toLabel
+            fromDict[ addressToLookup ] = fromLabel
 
             #queryreturn = sqlQuery(
             #    '''select label from addressbook where address=?''', addressToLookup)
@@ -2039,7 +2052,9 @@ class MyForm(QtGui.QMainWindow):
             else:
                 self.ui.tableWidgetInbox.item(
                     i, 0).setTextColor(QApplication.palette().text().color())
-                    
+
+        if( updateCombos == True):
+            self.rerenderInboxCombos(fromDict,toDict)
 
     def rerenderInboxToLabels(self):
 
@@ -2068,7 +2083,9 @@ class MyForm(QtGui.QMainWindow):
         #        self.ui.tableWidgetInbox.item(
         #            i, 0).setTextColor(QApplication.palette().text().color())
 
-    def rerenderSentFromLabels(self):
+    def rerenderSentFromLabels(self,updateCombos=False):
+        toDict = {}
+        fromDict = {}
         for i in range(self.ui.tableWidgetSent.rowCount()):
             fromAddress = str(self.ui.tableWidgetSent.item(
                 i, 1).data(Qt.UserRole).toPyObject())
@@ -2079,6 +2096,9 @@ class MyForm(QtGui.QMainWindow):
                 i, 0).data(Qt.UserRole).toPyObject())
 
             toLabel = self.getAddressLabel(toAddress)
+
+            toDict[ toAddress ] = toLabel
+            fromDict[ fromAddress ] = fromLabel
             # Message might be from an address we own like a chan address. Let's look for that label.
             #if shared.config.has_section(fromAddress):
             #    fromLabel = shared.config.get(fromAddress, 'label')
@@ -2094,6 +2114,9 @@ class MyForm(QtGui.QMainWindow):
                 i, 0).setText(unicode(toLabel, 'utf-8'))
             self.ui.tableWidgetSent.item(
                 i, 0).setIcon(avatarize(toAddress))
+
+        if( updateCombos == True):
+            self.rerenderSentCombos(fromDict,toDict)
 
     def rerenderSentToLabels(self):
 
@@ -3581,9 +3604,9 @@ class MyForm(QtGui.QMainWindow):
                 currentRow, 0).setIcon(avatarize(addressAtCurrentRow))
             self.rerenderSubscriptions()
             self.rerenderComboBoxSendFrom()
-            self.rerenderInboxFromLabels()
+            self.rerenderInboxFromLabels(True)
             #self.rerenderInboxToLabels()
-            self.rerenderSentFromLabels()
+            self.rerenderSentFromLabels(True)
             #self.rerenderSentToLabels()
         
     def on_context_menuYourIdentities(self, point):
@@ -3773,15 +3796,14 @@ class MyForm(QtGui.QMainWindow):
             with open(shared.appdata + 'keys.dat', 'wb') as configfile:
                 shared.config.write(configfile)
 
-            #3 lines added by webdev25
+            #added by webdev25
             self.clearAddressLabelCache()
-            self.rerenderInboxCombos()
-            self.rerenderSentCombos()
-
+            
             self.rerenderComboBoxSendFrom()
-            # self.rerenderInboxFromLabels()
-            self.rerenderInboxToLabels()
-            self.rerenderSentFromLabels()
+
+            self.rerenderInboxFromLabels(True)
+            #self.rerenderInboxToLabels()
+            self.rerenderSentFromLabels(True)
             # self.rerenderSentToLabels()
 
     def tableWidgetAddressBookItemChanged(self):
@@ -3795,11 +3817,11 @@ class MyForm(QtGui.QMainWindow):
 
         #3 lines added by webdev25
         self.clearAddressLabelCache()
-        self.rerenderInboxCombos()
-        self.rerenderSentCombos()
+        #self.rerenderInboxCombos()
+        #self.rerenderSentCombos()
 
-        self.rerenderInboxFromLabels()
-        self.rerenderSentToLabels()
+        self.rerenderInboxFromLabels(True)
+        self.rerenderSentFromLabels(True)
 
         #added by webdev25
         self.loadComposeToValues()
@@ -3815,11 +3837,11 @@ class MyForm(QtGui.QMainWindow):
 
         #3 lines added by webdev25
         self.clearAddressLabelCache()
-        self.rerenderInboxCombos()
-        self.rerenderSentCombos()
+        #self.rerenderInboxCombos()
+        #self.rerenderSentCombos()
 
-        self.rerenderInboxFromLabels()
-        self.rerenderSentToLabels()
+        self.rerenderInboxFromLabels(True)
+        self.rerenderSentFromLabels(True)
 
     def writeNewAddressToTable(self, label, address, streamNumber):
         self.ui.tableWidgetYourIdentities.setSortingEnabled(False)
@@ -4469,7 +4491,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.identitiesSearchLineEdit.setText(QString(""))
         self.rerenderIdentities(searchKeyword,identType)
 
-    def rerenderInboxCombos(self):
+    def rerenderInboxCombos(self, fromDict=None, toDict=None):
 
         fromCurrentIndex = self.ui.comboInboxFrom.currentIndex()
         fromCurrentData = self.ui.comboInboxFrom.itemData(fromCurrentIndex)
@@ -4487,12 +4509,17 @@ class MyForm(QtGui.QMainWindow):
 
         allRows = self.ui.tableWidgetInbox.rowCount()
 
-        for index in xrange(0,allRows):
-            address = str(self.ui.tableWidgetInbox.item(index,1).data(Qt.UserRole).toPyObject())
-            dictFromAddrs[ address ] = self.getAddressLabel(address)
+        if( fromDict != None and toDict != None ):
+            dictFromAddrs = fromDict
+            dictToAddrs = toDict
+            
+        else:
+            for index in xrange(0,allRows):
+                address = str(self.ui.tableWidgetInbox.item(index,1).data(Qt.UserRole).toPyObject())
+                dictFromAddrs[ address ] = self.getAddressLabel(address)
 
-            address = str(self.ui.tableWidgetInbox.item(index,0).data(Qt.UserRole).toPyObject())
-            dictToAddrs[ address ] = self.getAddressLabel(address)
+                address = str(self.ui.tableWidgetInbox.item(index,0).data(Qt.UserRole).toPyObject())
+                dictToAddrs[ address ] = self.getAddressLabel(address)
 
         for address in dictFromAddrs:
             if shared.safeConfigGetBoolean(str(address), 'chan'):
@@ -4598,39 +4625,31 @@ class MyForm(QtGui.QMainWindow):
 
         addressLabel = ''
 
-        address = str( address )
-
-        cache = self.temp_address_labels.get( address )
-
         if( address == self.str_broadcast_subscribers ):
             addressLabel = self.str_broadcast_subscribers
-        elif( cache != None ):
+        elif( self.temp_address_labels.get( address ) != None ):
             addressLabel = self.temp_address_labels[ address ]
         else:
-            if( address == self.str_broadcast_subscribers):
-                addressLabel = self.str_broadcast_subscribers
-            elif shared.config.has_section(address):
+            if shared.config.has_section(address):
                 addressLabel = shared.config.get(address, 'label')
             else:
-
                 queryreturn = sqlQuery(
                         '''select label from addressbook where address=?''', address)
                 if queryreturn != []:
                     for row in queryreturn:
                         addressLabel, = row
-
-                if( addressLabel == ''):
+                else:
                     queryreturn = sqlQuery(
                         '''select label from subscriptions where address=?''', address)
                     if queryreturn != []:
                         for row in queryreturn:
                             addressLabel, = row
-
-                if( addressLabel == ''):
-                    addressLabel = address
-            self.temp_address_labels[ address ] = addressLabel
+                    else:
+                        addressLabel = address
+    
+            self.temp_address_labels[ address ] = str(addressLabel)
         
-        return str(addressLabel)
+        return addressLabel
 
     def clearAddressLabelCache(self):
         self.temp_address_labels = {}
@@ -4646,7 +4665,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.graphicsViewInboxSubjectIcon.setScene( QGraphicsScene() )
         self.ui.graphicsViewInboxSubjectIcon.show()
 
-    def rerenderSentCombos(self):
+    def rerenderSentCombos(self, fromDict = None, toDict = None):
 
         fromCurrentIndex = self.ui.comboSentFrom.currentIndex()
         fromCurrentData = self.ui.comboSentFrom.itemData(fromCurrentIndex)
@@ -4664,12 +4683,17 @@ class MyForm(QtGui.QMainWindow):
 
         allRows = self.ui.tableWidgetSent.rowCount()
 
-        for index in xrange(0,allRows):
-            address = str(self.ui.tableWidgetSent.item(index,1).data(Qt.UserRole).toPyObject())
-            dictFromAddrs[ address ] = self.getAddressLabel(address)
+        if( fromDict != None and toDict != None ):
+            dictFromAddrs = fromDict
+            dictToAddrs = toDict
+            
+        else:
+            for index in xrange(0,allRows):
+                address = str(self.ui.tableWidgetSent.item(index,1).data(Qt.UserRole).toPyObject())
+                dictFromAddrs[ address ] = self.getAddressLabel(address)
 
-            address = str(self.ui.tableWidgetSent.item(index,0).data(Qt.UserRole).toPyObject())
-            dictToAddrs[ address ] = self.getAddressLabel(address)
+                address = str(self.ui.tableWidgetSent.item(index,0).data(Qt.UserRole).toPyObject())
+                dictToAddrs[ address ] = self.getAddressLabel(address)
 
         for address in dictFromAddrs:
             if shared.safeConfigGetBoolean(str(address), 'chan'):
