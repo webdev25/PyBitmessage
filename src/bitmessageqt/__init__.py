@@ -1213,6 +1213,7 @@ class MyForm(QtGui.QMainWindow):
 
         #added by webdev25
         self.rerenderInboxCombos()
+        self.clearInboxView()
 
     # create application indicator
     def appIndicatorInit(self, app):
@@ -4488,7 +4489,16 @@ class MyForm(QtGui.QMainWindow):
         
         return str(addressLabel)
 
-    #if shared.safeConfigGetBoolean(str(address), 'chan'):
+    def clearInboxView(self):
+        self.ui.tableWidgetInbox.clearSelection()
+        self.ui.labelInboxSubjectBarFrom.setText('')
+        self.ui.labelInboxSubjectBarSubject.setText('')
+        self.ui.labelInboxSubjectBarTo.setText('')
+        self.ui.textEditInboxMessage.clear()
+        self.ui.graphicsViewInboxSubjectIconTo.setScene( QGraphicsScene() )
+        self.ui.graphicsViewInboxSubjectIconTo.show()
+        self.ui.graphicsViewInboxSubjectIcon.setScene( QGraphicsScene() )
+        self.ui.graphicsViewInboxSubjectIcon.show()
 
     # End of changes made by webdev25
 
