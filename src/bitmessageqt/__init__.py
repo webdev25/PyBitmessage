@@ -4554,16 +4554,28 @@ class MyForm(QtGui.QMainWindow):
                 dictToAddrs[ address ] = self.getAddressLabel(address)
 
         for address in dictFromAddrs:
+            if not shared.safeConfigGetBoolean(str(address), 'chan') and dictFromAddrs.get(address) == address:
+                self.ui.comboInboxFrom.insertItem(0,dictFromAddrs.get(address) )
+                self.ui.comboInboxFrom.setItemData(0,address)
+                self.ui.comboInboxFrom.setItemIcon(0,avatarize(address))
+
+        for address in dictFromAddrs:
             if shared.safeConfigGetBoolean(str(address), 'chan'):
                 self.ui.comboInboxFrom.insertItem(0,dictFromAddrs.get(address) )
                 self.ui.comboInboxFrom.setItemData(0,address)
                 self.ui.comboInboxFrom.setItemIcon(0,avatarize(address))
 
         for address in dictFromAddrs:
-            if not shared.safeConfigGetBoolean(str(address), 'chan'):
+            if not shared.safeConfigGetBoolean(str(address), 'chan') and dictFromAddrs.get(address) != address:
                 self.ui.comboInboxFrom.insertItem(0,dictFromAddrs.get(address) )
                 self.ui.comboInboxFrom.setItemData(0,address)
                 self.ui.comboInboxFrom.setItemIcon(0,avatarize(address))
+
+        for address in dictToAddrs:
+            if not shared.safeConfigGetBoolean(str(address), 'chan') and dictToAddrs.get(address) == address:
+                self.ui.comboInboxTo.insertItem(0,dictToAddrs.get(address) )
+                self.ui.comboInboxTo.setItemData(0,address)
+                self.ui.comboInboxTo.setItemIcon(0,avatarize(address))
 
         for address in dictToAddrs:
             if shared.safeConfigGetBoolean(str(address), 'chan'):
@@ -4572,7 +4584,7 @@ class MyForm(QtGui.QMainWindow):
                 self.ui.comboInboxTo.setItemIcon(0,avatarize(address))
 
         for address in dictToAddrs:
-            if not shared.safeConfigGetBoolean(str(address), 'chan'):
+            if not shared.safeConfigGetBoolean(str(address), 'chan') and dictToAddrs.get(address) != address:
                 self.ui.comboInboxTo.insertItem(0,dictToAddrs.get(address) )
                 self.ui.comboInboxTo.setItemData(0,address)
                 self.ui.comboInboxTo.setItemIcon(0,avatarize(address))
@@ -4810,6 +4822,8 @@ class MyForm(QtGui.QMainWindow):
                 self.ui.comboSentTo.setCurrentIndex(index)
 
     def comboSentChanged(self,index):
+
+        self.ui.tableWidgetSent.clearSelection()
 
         fromIndex = self.ui.comboSentFrom.currentIndex()
         toIndex = self.ui.comboSentTo.currentIndex()
