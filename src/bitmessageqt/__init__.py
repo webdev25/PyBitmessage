@@ -4097,15 +4097,20 @@ class MyForm(QtGui.QMainWindow):
         
         currentIndex = self.ui.lineEditTo.currentIndex()
         toAddress = str(self.ui.lineEditTo.itemData(currentIndex).toPyObject())
+        self.ui.lineEditTo.blockSignals(True)
         self.ui.lineEditTo.setCurrentIndex(0)
 
         if toAddress != 'None':
             if self.temp_sendto == '':
                     self.ui.lineEditTo.setEditText(str(toAddress))
+                    self.temp_sendto = str(toAddress)
             else:
                 self.ui.lineEditTo.setEditText(str(self.temp_sendto) + '; ' + str(toAddress))
+                self.temp_sendto = str(self.temp_sendto) + '; ' + str(toAddress)
         else:
             self.ui.lineEditTo.setEditText(str(self.temp_sendto))
+
+        self.ui.lineEditTo.blockSignals(False)
         
     def composeDropdownEditTextChanged(self,newtext):
         currentIndex = self.ui.lineEditTo.currentIndex()
@@ -4113,6 +4118,9 @@ class MyForm(QtGui.QMainWindow):
 
         if self.temp_sendto != newtext and newtext != toAddressText:
             self.temp_sendto = newtext
+
+        if newtext == '':
+            self.temp_sendto = ''
     
     def on_action_InboxCopyDestinationClipboard(self):
         currentRow = self.ui.tableWidgetInbox.currentRow()
