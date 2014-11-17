@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Mon Nov 17 02:26:09 2014
+# Created: Mon Nov 17 03:09:53 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -68,6 +68,16 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11 = QtGui.QHBoxLayout(self.widgetInboxFilters)
         self.horizontalLayout_11.setMargin(0)
         self.horizontalLayout_11.setObjectName(_fromUtf8("horizontalLayout_11"))
+        self.comboInboxTo = QtGui.QComboBox(self.widgetInboxFilters)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.comboInboxTo.sizePolicy().hasHeightForWidth())
+        self.comboInboxTo.setSizePolicy(sizePolicy)
+        self.comboInboxTo.setMinimumSize(QtCore.QSize(160, 0))
+        self.comboInboxTo.setMaximumSize(QtCore.QSize(160, 16777215))
+        self.comboInboxTo.setObjectName(_fromUtf8("comboInboxTo"))
+        self.horizontalLayout_11.addWidget(self.comboInboxTo)
         self.comboInboxFrom = QtGui.QComboBox(self.widgetInboxFilters)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)

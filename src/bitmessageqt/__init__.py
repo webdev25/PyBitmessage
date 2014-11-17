@@ -840,7 +840,10 @@ class MyForm(QtGui.QMainWindow):
             "returnPressed()"), self.identitiesSearchLineEditPressed)
 
         QtCore.QObject.connect(self.ui.comboInboxFrom, QtCore.SIGNAL(
-            "activated(int)"), self.comboInboxFromChanged)
+            "activated(int)"), self.comboInboxChanged)
+
+        QtCore.QObject.connect(self.ui.comboInboxTo, QtCore.SIGNAL(
+            "activated(int)"), self.comboInboxChanged)
 
         
 
@@ -1072,7 +1075,7 @@ class MyForm(QtGui.QMainWindow):
 
     # Load inbox from messages database file
     #function changed by webdev25
-    def loadInbox(self, where="", what="",fromVal=0):
+    def loadInbox(self, where="", what="",fromVal=0,toVal=0):
         what = "%" + what + "%"
         if where == "To":
             where = "toaddress"
@@ -1089,11 +1092,15 @@ class MyForm(QtGui.QMainWindow):
         if( fromVal != 0 and fromVal != 1 and fromVal != 2 and fromVal != ''):
             fromSql = ' AND fromaddress = "' + str(fromVal) + '" ';
 
+        toSql = ''
+        if( toVal != 0 and toVal != 1 and toVal != 2 and toVal != ''):
+            toSql = ' AND toaddress = "' + str(toVal) + '" ';
+
         sqlStatement = '''
             SELECT msgid, toaddress, fromaddress, subject, received, read
-            FROM inbox WHERE folder="inbox" AND %s LIKE ? %s 
+            FROM inbox WHERE folder="inbox" AND %s LIKE ? %s %s 
             ORDER BY received
-            ''' % (where, fromSql,)
+            ''' % (where, fromSql,toSql,)
         
         while self.ui.tableWidgetInbox.rowCount() > 0:
             self.ui.tableWidgetInbox.removeRow(0)
@@ -1113,6 +1120,14 @@ class MyForm(QtGui.QMainWindow):
 
             elif( fromVal == 2 ):
                 if shared.safeConfigGetBoolean(fromAddress, 'chan'):
+                    addRow = False
+
+            if ( toVal == 1):
+                if not shared.safeConfigGetBoolean(toAddress, 'chan'):
+                    addRow = False
+
+            elif( toVal == 2 ):
+                if shared.safeConfigGetBoolean(toAddress, 'chan'):
                     addRow = False
 
             if( addRow == True ):
@@ -1197,7 +1212,7 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetInbox.keyPressEvent = self.tableWidgetInboxKeyPressEvent
 
         #added by webdev25
-        self.rerenderInboxFromCombo()
+        self.rerenderInboxCombos()
 
     # create application indicator
     def appIndicatorInit(self, app):
@@ -4321,63 +4336,128 @@ class MyForm(QtGui.QMainWindow):
         self.ui.identitiesSearchLineEdit.setText(QString(""))
         self.rerenderIdentities(searchKeyword,identType)
 
-    def rerenderInboxFromCombo(self):
+    def rerenderInboxCombos(self):
 
-        currentindex = self.ui.comboInboxFrom.currentIndex()
-        currentdata = self.ui.comboInboxFrom.itemData(currentindex)
-        currenttext = self.ui.comboInboxFrom.itemText(currentindex)
+        fromCurrentIndex = self.ui.comboInboxFrom.currentIndex()
+        fromCurrentData = self.ui.comboInboxFrom.itemData(fromCurrentIndex)
+        fromCurrentText = self.ui.comboInboxFrom.itemText(fromCurrentIndex)
+
+        toCurrentIndex = self.ui.comboInboxTo.currentIndex()
+        toCurrentData = self.ui.comboInboxTo.itemData(toCurrentIndex)
+        toCurrentText = self.ui.comboInboxTo.itemText(toCurrentIndex)
         
-
         self.ui.comboInboxFrom.clear()
+        self.ui.comboInboxTo.clear()
 
-        dictAddrs = {}
+        dictFromAddrs = {}
+        dictToAddrs = {}
 
         allRows = self.ui.tableWidgetInbox.rowCount()
+
         for index in xrange(0,allRows):
             address = str(self.ui.tableWidgetInbox.item(index,1).data(Qt.UserRole).toPyObject())
-            dictAddrs[ address ] = self.getAddressLabel(address)
+            dictFromAddrs[ address ] = self.getAddressLabel(address)
 
-        for address in dictAddrs:
+            address = str(self.ui.tableWidgetInbox.item(index,0).data(Qt.UserRole).toPyObject())
+            dictToAddrs[ address ] = self.getAddressLabel(address)
+
+        for address in dictFromAddrs:
             if shared.safeConfigGetBoolean(str(address), 'chan'):
-                self.ui.comboInboxFrom.insertItem(0,dictAddrs.get(address) )
+                self.ui.comboInboxFrom.insertItem(0,dictFromAddrs.get(address) )
                 self.ui.comboInboxFrom.setItemData(0,address)
                 self.ui.comboInboxFrom.setItemIcon(0,avatarize(address))
 
-        for address in dictAddrs:
+        for address in dictFromAddrs:
             if not shared.safeConfigGetBoolean(str(address), 'chan'):
-                self.ui.comboInboxFrom.insertItem(0,dictAddrs.get(address) )
+                self.ui.comboInboxFrom.insertItem(0,dictFromAddrs.get(address) )
                 self.ui.comboInboxFrom.setItemData(0,address)
                 self.ui.comboInboxFrom.setItemIcon(0,avatarize(address))
+
+        for address in dictToAddrs:
+            if shared.safeConfigGetBoolean(str(address), 'chan'):
+                self.ui.comboInboxTo.insertItem(0,dictToAddrs.get(address) )
+                self.ui.comboInboxTo.setItemData(0,address)
+                self.ui.comboInboxTo.setItemIcon(0,avatarize(address))
+
+        for address in dictToAddrs:
+            if not shared.safeConfigGetBoolean(str(address), 'chan'):
+                self.ui.comboInboxTo.insertItem(0,dictToAddrs.get(address) )
+                self.ui.comboInboxTo.setItemData(0,address)
+                self.ui.comboInboxTo.setItemIcon(0,avatarize(address))
 
         self.ui.comboInboxFrom.insertItem(0,'Other', -1)
         self.ui.comboInboxFrom.insertItem(0,'Chan Only', -1)
         self.ui.comboInboxFrom.insertItem(0,'From any address', -1)
 
-        if( currentindex == -1 ):
+        self.ui.comboInboxTo.insertItem(0,'Other', -1)
+        self.ui.comboInboxTo.insertItem(0,'Chan Only', -1)
+        self.ui.comboInboxTo.insertItem(0,'To any address', -1)
+
+        if( fromCurrentIndex == -1 ):
+
             self.ui.comboInboxFrom.setCurrentIndex(0)
-        elif( currentindex == 0 or currentindex == 1 or currentindex == 2):
-            self.ui.comboInboxFrom.setCurrentIndex(currentindex)
+
+        elif( fromCurrentIndex == 0 or fromCurrentIndex == 1 or fromCurrentIndex == 2):
+
+            self.ui.comboInboxFrom.setCurrentIndex(fromCurrentIndex)
+
         else:
-            index = self.ui.comboInboxFrom.findData(currentdata)
+
+            index = self.ui.comboInboxFrom.findData(fromCurrentData)
+
             if( index == -1):
+
                 index = self.ui.comboInboxFrom.count()
-                self.ui.comboInboxFrom.insertItem( index, currenttext )
-                
-                self.ui.comboInboxFrom.setItemIcon( index, avatarize( str(currentdata.toPyObject()) ) )
-                self.ui.comboInboxFrom.setItemData( index, currentdata )
+                self.ui.comboInboxFrom.insertItem( index, fromCurrentText )
+                self.ui.comboInboxFrom.setItemIcon( index, avatarize( str(fromCurrentData.toPyObject()) ) )
+                self.ui.comboInboxFrom.setItemData( index, fromCurrentData )
                 self.ui.comboInboxFrom.setCurrentIndex(index)
+
             else:
+
                 self.ui.comboInboxFrom.setCurrentIndex(index)
 
+        if( toCurrentIndex == -1 ):
 
-    def comboInboxFromChanged(self,index):
+            self.ui.comboInboxTo.setCurrentIndex(0)
 
-        if( index == 0 or index == 1 or index == 2):
-            fromVal = index
+        elif( toCurrentIndex == 0 or toCurrentIndex == 1 or toCurrentIndex == 2):
+
+            self.ui.comboInboxTo.setCurrentIndex(toCurrentIndex)
+
         else:
-            fromVal = str(self.ui.comboInboxFrom.itemData(index).toPyObject())
+
+            index = self.ui.comboInboxTo.findData(toCurrentData)
+
+            if( index == -1):
+
+                index = self.ui.comboInboxTo.count()
+                self.ui.comboInboxTo.insertItem( index, toCurrentText )
+                self.ui.comboInboxTo.setItemIcon( index, avatarize( str(toCurrentData.toPyObject()) ) )
+                self.ui.comboInboxTo.setItemData( index, toCurrentData )
+                self.ui.comboInboxTo.setCurrentIndex(index)
+
+            else:
+                
+                self.ui.comboInboxTo.setCurrentIndex(index)
+
+
+    def comboInboxChanged(self,index):
+
+        fromIndex = self.ui.comboInboxFrom.currentIndex()
+        toIndex = self.ui.comboInboxTo.currentIndex()
+
+        if( fromIndex == 0 or fromIndex == 1 or fromIndex == 2):
+            fromVal = fromIndex
+        else:
+            fromVal = str(self.ui.comboInboxFrom.itemData(fromIndex).toPyObject())
+
+        if( toIndex == 0 or toIndex == 1 or toIndex == 2):
+            toVal = toIndex
+        else:
+            toVal = str(self.ui.comboInboxTo.itemData(toIndex).toPyObject())
         
-        self.loadInbox('','',fromVal)
+        self.loadInbox('','',fromVal,toVal)
 
 
     def getAddressLabel(self,address):
