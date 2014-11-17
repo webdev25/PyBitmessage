@@ -3219,7 +3219,7 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetInbox.selectRow(currentRow)
         else:
             self.ui.tableWidgetInbox.selectRow(currentRow - 1)
-            
+
         self.rerenderInboxCombos()
 
 
@@ -4635,6 +4635,8 @@ class MyForm(QtGui.QMainWindow):
 
 
     def comboInboxChanged(self,index):
+
+        self.ui.tableWidgetInbox.clearSelection()
 
         fromIndex = self.ui.comboInboxFrom.currentIndex()
         toIndex = self.ui.comboInboxTo.currentIndex()
