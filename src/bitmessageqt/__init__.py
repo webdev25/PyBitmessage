@@ -1985,29 +1985,37 @@ class MyForm(QtGui.QMainWindow):
         for i in range(self.ui.tableWidgetInbox.rowCount()):
             addressToLookup = str(self.ui.tableWidgetInbox.item(
                 i, 1).data(Qt.UserRole).toPyObject())
-            fromLabel = ''
-            queryreturn = sqlQuery(
-                '''select label from addressbook where address=?''', addressToLookup)
+            #changed by webdev25
+            fromLabel = self.getAddressLabel(addressToLookup)
 
-            if queryreturn != []:
-                for row in queryreturn:
-                    fromLabel, = row
+            addressToLookupTo = str(self.ui.tableWidgetInbox.item(
+                i, 0).data(Qt.UserRole).toPyObject())
+
+            toLabel = self.getAddressLabel(addressToLookupTo)
+
+            #queryreturn = sqlQuery(
+            #    '''select label from addressbook where address=?''', addressToLookup)
+
+            #if queryreturn != []:
+            #    for row in queryreturn:
+            #        fromLabel, = row
             
-            if fromLabel == '':
+            #if fromLabel == '':
                 # It might be a broadcast message. We should check for that
                 # label.
-                queryreturn = sqlQuery(
-                    '''select label from subscriptions where address=?''', addressToLookup)
+            #    queryreturn = sqlQuery(
+            #        '''select label from subscriptions where address=?''', addressToLookup)
 
-                if queryreturn != []:
-                    for row in queryreturn:
-                        fromLabel, = row
-            if fromLabel == '':
+            #    if queryreturn != []:
+            #        for row in queryreturn:
+            #            fromLabel, = row
+            #if fromLabel == '':
                 # Message might be from an address we own like a chan address. Let's look for that label.
-                if shared.config.has_section(addressToLookup):
-                    fromLabel = shared.config.get(addressToLookup, 'label')
-            if fromLabel == '':
-                fromLabel = addressToLookup
+            #    if shared.config.has_section(addressToLookup):
+            #        fromLabel = shared.config.get(addressToLookup, 'label')
+            #if fromLabel == '':
+            #    fromLabel = addressToLookup
+
             self.ui.tableWidgetInbox.item(
                 i, 1).setText(unicode(fromLabel, 'utf-8'))
             self.ui.tableWidgetInbox.item(
@@ -2019,64 +2027,97 @@ class MyForm(QtGui.QMainWindow):
             else:
                 self.ui.tableWidgetInbox.item(
                     i, 1).setTextColor(QApplication.palette().text().color())
-                    
 
-    def rerenderInboxToLabels(self):
-        for i in range(self.ui.tableWidgetInbox.rowCount()):
-            toAddress = str(self.ui.tableWidgetInbox.item(
-                i, 0).data(Qt.UserRole).toPyObject())
-            # Message might be to an address we own like a chan address. Let's look for that label.
-            if shared.config.has_section(toAddress):
-                toLabel = shared.config.get(toAddress, 'label')
-            else:
-                toLabel = toAddress
             self.ui.tableWidgetInbox.item(
                 i, 0).setText(unicode(toLabel, 'utf-8'))
             self.ui.tableWidgetInbox.item(
-                i, 0).setIcon(avatarize(toAddress))
+                i, 0).setIcon(avatarize(addressToLookupTo))
             # Set the color according to whether it is the address of a mailing
-            # list, a chan or neither.
-            if shared.safeConfigGetBoolean(toAddress, 'chan'):
+            # list or not.
+            if shared.safeConfigGetBoolean(addressToLookup, 'chan'):
                 self.ui.tableWidgetInbox.item(i, 0).setTextColor(QtGui.QColor(216, 119, 0)) # orange
-            elif shared.safeConfigGetBoolean(toAddress, 'mailinglist'):
-                self.ui.tableWidgetInbox.item(i, 0).setTextColor(QtGui.QColor(137, 04, 177)) # magenta
             else:
                 self.ui.tableWidgetInbox.item(
                     i, 0).setTextColor(QApplication.palette().text().color())
+                    
+
+    def rerenderInboxToLabels(self):
+
+        self.rerenderInboxFromLabels()
+
+        #commented out by webdev25
+        #for i in range(self.ui.tableWidgetInbox.rowCount()):
+        #    toAddress = str(self.ui.tableWidgetInbox.item(
+        #        i, 0).data(Qt.UserRole).toPyObject())
+        #    # Message might be to an address we own like a chan address. Let's look for that label.
+        #    if shared.config.has_section(toAddress):
+        #        toLabel = shared.config.get(toAddress, 'label')
+        #    else:
+        #        toLabel = toAddress
+        #    self.ui.tableWidgetInbox.item(
+        #        i, 0).setText(unicode(toLabel, 'utf-8'))
+        #    self.ui.tableWidgetInbox.item(
+        #        i, 0).setIcon(avatarize(toAddress))
+        #    # Set the color according to whether it is the address of a mailing
+        #    # list, a chan or neither.
+        #    if shared.safeConfigGetBoolean(toAddress, 'chan'):
+        #        self.ui.tableWidgetInbox.item(i, 0).setTextColor(QtGui.QColor(216, 119, 0)) # orange
+        #    elif shared.safeConfigGetBoolean(toAddress, 'mailinglist'):
+        #        self.ui.tableWidgetInbox.item(i, 0).setTextColor(QtGui.QColor(137, 04, 177)) # magenta
+        #    else:
+        #        self.ui.tableWidgetInbox.item(
+        #            i, 0).setTextColor(QApplication.palette().text().color())
 
     def rerenderSentFromLabels(self):
         for i in range(self.ui.tableWidgetSent.rowCount()):
             fromAddress = str(self.ui.tableWidgetSent.item(
                 i, 1).data(Qt.UserRole).toPyObject())
+
+            fromLabel = self.getAddressLabel(fromAddress)
+
+            toAddress = str(self.ui.tableWidgetSent.item(
+                i, 0).data(Qt.UserRole).toPyObject())
+
+            toLabel = self.getAddressLabel(toAddress)
             # Message might be from an address we own like a chan address. Let's look for that label.
-            if shared.config.has_section(fromAddress):
-                fromLabel = shared.config.get(fromAddress, 'label')
-            else:
-                fromLabel = fromAddress
+            #if shared.config.has_section(fromAddress):
+            #    fromLabel = shared.config.get(fromAddress, 'label')
+            #else:
+            #    fromLabel = fromAddress
+
             self.ui.tableWidgetSent.item(
                 i, 1).setText(unicode(fromLabel, 'utf-8'))
             self.ui.tableWidgetSent.item(
                 i, 1).setIcon(avatarize(fromAddress))
 
-    def rerenderSentToLabels(self):
-        for i in range(self.ui.tableWidgetSent.rowCount()):
-            addressToLookup = str(self.ui.tableWidgetSent.item(
-                i, 0).data(Qt.UserRole).toPyObject())
-            toLabel = ''
-            queryreturn = sqlQuery(
-                '''select label from addressbook where address=?''', addressToLookup)
-            if queryreturn != []:
-                for row in queryreturn:
-                    toLabel, = row
-            
-            if toLabel == '':
-                # Message might be to an address we own like a chan address. Let's look for that label.
-                if shared.config.has_section(addressToLookup):
-                    toLabel = shared.config.get(addressToLookup, 'label')
-            if toLabel == '':
-                toLabel = addressToLookup
             self.ui.tableWidgetSent.item(
                 i, 0).setText(unicode(toLabel, 'utf-8'))
+            self.ui.tableWidgetSent.item(
+                i, 0).setIcon(avatarize(toAddress))
+
+    def rerenderSentToLabels(self):
+
+        self.rerenderSentFromLabels()
+
+        #commented out by webdev25
+        #for i in range(self.ui.tableWidgetSent.rowCount()):
+        #    addressToLookup = str(self.ui.tableWidgetSent.item(
+        #        i, 0).data(Qt.UserRole).toPyObject())
+        #    toLabel = ''
+        #    queryreturn = sqlQuery(
+        #        '''select label from addressbook where address=?''', addressToLookup)
+        #    if queryreturn != []:
+        #        for row in queryreturn:
+        #            toLabel, = row
+        #    
+        #    if toLabel == '':
+        #        # Message might be to an address we own like a chan address. Let's look for that label.
+        #        if shared.config.has_section(addressToLookup):
+        #            toLabel = shared.config.get(addressToLookup, 'label')
+        #    if toLabel == '':
+        #        toLabel = addressToLookup
+        #    self.ui.tableWidgetSent.item(
+        #        i, 0).setText(unicode(toLabel, 'utf-8'))
 
     #function changed by webdev25
     def rerenderAddressBook(self,what=""):
@@ -3537,9 +3578,9 @@ class MyForm(QtGui.QMainWindow):
             self.rerenderSubscriptions()
             self.rerenderComboBoxSendFrom()
             self.rerenderInboxFromLabels()
-            self.rerenderInboxToLabels()
+            #self.rerenderInboxToLabels()
             self.rerenderSentFromLabels()
-            self.rerenderSentToLabels()
+            #self.rerenderSentToLabels()
         
     def on_context_menuYourIdentities(self, point):
         self.popMenu.exec_(
