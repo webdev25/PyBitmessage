@@ -1007,32 +1007,32 @@ class MyForm(QtGui.QMainWindow):
 
             if( addRow == True ):
 
-                if shared.config.has_section(fromAddress):
-                    fromLabel = shared.config.get(fromAddress, 'label')
-                else:
-                    fromLabel = fromAddress
-
-                toLabel = ''
-                queryreturn = sqlQuery(
-                    '''select label from addressbook where address=?''', toAddress)
-                if queryreturn != []:
-                    for row in queryreturn:
-                        toLabel, = row
-                if toLabel == '':
-                    # It might be a broadcast message. We should check for that
-                    # label.
-                    queryreturn = sqlQuery(
-                        '''select label from subscriptions where address=?''', toAddress)
-
-                    if queryreturn != []:
-                        for row in queryreturn:
-                            toLabel, = row
+                #if shared.config.has_section(fromAddress):
+                #    fromLabel = shared.config.get(fromAddress, 'label')
+                #else:
+                #    fromLabel = fromAddress
+                fromLabel = self.getAddressLabel(fromAddress)
+                toLabel = self.getAddressLabel(toAddress)
+                #queryreturn = sqlQuery(
+                #    '''select label from addressbook where address=?''', toAddress)
+                #if queryreturn != []:
+                #    for row in queryreturn:
+                #        toLabel, = row
+                #if toLabel == '':
+                #    # It might be a broadcast message. We should check for that
+                #    # label.
+                #    queryreturn = sqlQuery(
+                #        '''select label from subscriptions where address=?''', toAddress)
+                #
+                #   if queryreturn != []:
+                #        for row in queryreturn:
+                #            toLabel, = row
                 
-                if toLabel == '':
-                    if shared.config.has_section(toAddress):
-                        toLabel = shared.config.get(toAddress, 'label')
-                if toLabel == '':
-                    toLabel = toAddress
+                #if toLabel == '':
+                #    if shared.config.has_section(toAddress):
+                #        toLabel = shared.config.get(toAddress, 'label')
+                #if toLabel == '':
+                #    toLabel = toAddress
 
                 self.ui.tableWidgetSent.insertRow(0)
                 toAddressItem = QtGui.QTableWidgetItem(unicode(toLabel, 'utf-8'))
