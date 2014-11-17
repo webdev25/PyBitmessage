@@ -3198,22 +3198,28 @@ class MyForm(QtGui.QMainWindow):
         #Added by webdev25
         self.ui.tableWidgetInbox.blockSignals(True)
 
+        inventoryHashesToTrash = []
         while self.ui.tableWidgetInbox.selectedIndexes() != []:
             currentRow = self.ui.tableWidgetInbox.selectedIndexes()[0].row()
             inventoryHashToTrash = str(self.ui.tableWidgetInbox.item(
                 currentRow, 3).data(Qt.UserRole).toPyObject())
-            sqlExecute('''UPDATE inbox SET folder='trash' WHERE msgid=?''', inventoryHashToTrash)
-            self.ui.textEditInboxMessage.setText("")
+            #sqlExecute('''UPDATE inbox SET folder='trash' WHERE msgid=?''', inventoryHashToTrash)
+            inventoryHashesToTrash.append(inventoryHashToTrash)
             self.ui.tableWidgetInbox.removeRow(currentRow)
-            self.statusBar().showMessage(_translate(
-                "MainWindow", "Moved items to trash. There is no user interface to view your trash, but it is still on disk if you are desperate to get it back."))
+        
+        #sqlite requires the exact number of ?s to prevent injection
+        sqlExecute('''UPDATE inbox SET folder='trash' WHERE msgid IN (%s)''' % (
+            "?," * len(inventoryHashesToTrash))[:-1], *inventoryHashesToTrash)
+        self.statusBar().showMessage(_translate(
+            "MainWindow", "Moved items to trash. There is no user interface to view your trash, but it is still on disk if you are desperate to get it back."))
+        self.ui.textEditInboxMessage.setText("")
+        #Added by webdev25
+        self.ui.tableWidgetInbox.blockSignals(False)
         if currentRow == 0:
             self.ui.tableWidgetInbox.selectRow(currentRow)
         else:
             self.ui.tableWidgetInbox.selectRow(currentRow - 1)
 
-        #Added by webdev25
-        self.ui.tableWidgetInbox.blockSignals(False)
 
     def on_action_InboxSaveMessageAs(self):
         currentInboxRow = self.ui.tableWidgetInbox.currentRow()
