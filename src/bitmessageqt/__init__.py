@@ -3716,8 +3716,20 @@ class MyForm(QtGui.QMainWindow):
             #added by webdev25
 
             self.ui.labelInboxSubjectBarSubject.setText(subjectText)
-            self.ui.labelInboxSubjectBarFrom.setText(fromAddressText)
-            self.ui.labelInboxSubjectBarTo.setText(toAddressText)
+
+            fromAddressLabel = self.getAddressLabel( fromAddressText )
+
+            if(fromAddressLabel != fromAddressText):
+                self.ui.labelInboxSubjectBarFrom.setText( fromAddressLabel + ' (' + fromAddressText + ')')
+            else:
+                self.ui.labelInboxSubjectBarFrom.setText( fromAddressText )
+            
+            toAddressLabel = self.getAddressLabel( toAddressText )
+
+            if(toAddressLabel != toAddressText):
+                self.ui.labelInboxSubjectBarTo.setText( toAddressLabel + ' (' + toAddressText + ')')
+            else:
+                self.ui.labelInboxSubjectBarTo.setText( toAddressText )
 
             avatarpixmap = avatarize(fromAddressText)
             scene = QGraphicsScene()
@@ -3766,8 +3778,20 @@ class MyForm(QtGui.QMainWindow):
             #changes by webdev25
 
             self.ui.labelSentSubjectBarSubject.setText(subjectText)
-            self.ui.labelSentSubjectBarFrom.setText(fromAddressText)
-            self.ui.labelSentSubjectBarTo.setText(toAddressText)
+
+            fromAddressLabel = self.getAddressLabel( fromAddressText )
+            
+            if(fromAddressLabel != fromAddressText):
+                self.ui.labelSentSubjectBarFrom.setText( fromAddressLabel + ' (' + fromAddressText + ')')
+            else:
+                self.ui.labelSentSubjectBarFrom.setText( fromAddressText)
+            
+            toAddressLabel = self.getAddressLabel( toAddressText )
+
+            if(toAddressLabel != toAddressText):
+                self.ui.labelSentSubjectBarTo.setText( toAddressLabel + ' (' + toAddressText + ')')
+            else:
+                self.ui.labelSentSubjectBarTo.setText( toAddressText)
 
             avatarpixmap = avatarize(fromAddressText)
             scene = QGraphicsScene()
