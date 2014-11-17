@@ -1171,35 +1171,38 @@ class MyForm(QtGui.QMainWindow):
                     addRow = False
 
             if( addRow == True ):
-                try:
-                    if toAddress == self.str_broadcast_subscribers:
-                        toLabel = self.str_broadcast_subscribers
-                    else:
-                        toLabel = shared.config.get(toAddress, 'label')
-                except:
-                    toLabel = ''
-                if toLabel == '':
-                    toLabel = toAddress
+                #try:
+                #    if toAddress == self.str_broadcast_subscribers:
+                #        toLabel = self.str_broadcast_subscribers
+                #    else:
+                #        toLabel = shared.config.get(toAddress, 'label')
+                #except:
+                #    toLabel = ''
+                #if toLabel == '':
+                #    toLabel = toAddress
 
-                fromLabel = ''
-                if shared.config.has_section(fromAddress):
-                    fromLabel = shared.config.get(fromAddress, 'label')
+                toLabel = self.getAddressLabel( toAddress )
+                fromLabel = self.getAddressLabel( fromAddress )
+
+                #fromLabel = ''
+                #if shared.config.has_section(fromAddress):
+                #    fromLabel = shared.config.get(fromAddress, 'label')
                 
-                if fromLabel == '':  # If the fromAddress isn't one of our addresses and isn't a chan
-                    queryreturn = sqlQuery(
-                        '''select label from addressbook where address=?''', fromAddress)
-                    if queryreturn != []:
-                        for row in queryreturn:
-                            fromLabel, = row
+                #if fromLabel == '':  # If the fromAddress isn't one of our addresses and isn't a chan
+                #    queryreturn = sqlQuery(
+                #        '''select label from addressbook where address=?''', fromAddress)
+                #    if queryreturn != []:
+                #        for row in queryreturn:
+                #            fromLabel, = row
 
-                if fromLabel == '':  # If this address wasn't in our address book...
-                    queryreturn = sqlQuery(
-                        '''select label from subscriptions where address=?''', fromAddress)
-                    if queryreturn != []:
-                        for row in queryreturn:
-                            fromLabel, = row
-                if fromLabel == '':
-                    fromLabel = fromAddress
+                #if fromLabel == '':  # If this address wasn't in our address book...
+                #    queryreturn = sqlQuery(
+                #        '''select label from subscriptions where address=?''', fromAddress)
+                #    if queryreturn != []:
+                #        for row in queryreturn:
+                #            fromLabel, = row
+                #if fromLabel == '':
+                #    fromLabel = fromAddress
                 
                 # message row
                 self.ui.tableWidgetInbox.insertRow(0)
@@ -3752,7 +3755,7 @@ class MyForm(QtGui.QMainWindow):
 
         self.rerenderInboxFromLabels()
         self.rerenderSentToLabels()
-        
+
         #added by webdev25
         self.loadComposeToValues()
 
@@ -4554,7 +4557,9 @@ class MyForm(QtGui.QMainWindow):
 
         cache = self.temp_address_labels.get( address )
 
-        if( cache != None ):
+        if( address == self.str_broadcast_subscribers ):
+            addressLabel = self.str_broadcast_subscribers
+        elif( cache != None ):
             addressLabel = self.temp_address_labels[ address ]
         else:
             if( address == self.str_broadcast_subscribers):
