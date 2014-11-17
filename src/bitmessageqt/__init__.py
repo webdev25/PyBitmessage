@@ -268,6 +268,7 @@ class MyForm(QtGui.QMainWindow):
 
 
         self.temp_sendto = ''
+        self.temp_address_labels = {}
 
         QtCore.QObject.connect(self.ui.actionViewToggleInboxTo, QtCore.SIGNAL(
             "triggered()"), self.toggleInboxColTo)
@@ -3723,6 +3724,12 @@ class MyForm(QtGui.QMainWindow):
                 self.ui.tableWidgetYourIdentities.item(currentRow, 0).text().toUtf8()))
             with open(shared.appdata + 'keys.dat', 'wb') as configfile:
                 shared.config.write(configfile)
+
+            #3 lines added by webdev25
+            self.clearAddressLabelCache()
+            self.rerenderInboxCombos()
+            self.rerenderSentCombos()
+
             self.rerenderComboBoxSendFrom()
             # self.rerenderInboxFromLabels()
             self.rerenderInboxToLabels()
@@ -4525,33 +4532,45 @@ class MyForm(QtGui.QMainWindow):
         self.loadInbox('','',fromVal,toVal)
 
 
+
     def getAddressLabel(self,address):
 
         addressLabel = ''
 
-        if( address == self.str_broadcast_subscribers):
-            addressLabel = self.str_broadcast_subscribers
-        elif shared.config.has_section(address):
-            addressLabel = shared.config.get(address, 'label')
+        address = str( address )
+
+        cache = self.temp_address_labels.get( address )
+
+        if( cache != None ):
+            addressLabel = self.temp_address_labels[ address ]
         else:
+            if( address == self.str_broadcast_subscribers):
+                addressLabel = self.str_broadcast_subscribers
+            elif shared.config.has_section(address):
+                addressLabel = shared.config.get(address, 'label')
+            else:
 
-            queryreturn = sqlQuery(
-                    '''select label from addressbook where address=?''', address)
-            if queryreturn != []:
-                for row in queryreturn:
-                    addressLabel, = row
-
-            if( addressLabel == ''):
                 queryreturn = sqlQuery(
-                    '''select label from subscriptions where address=?''', address)
+                        '''select label from addressbook where address=?''', address)
                 if queryreturn != []:
                     for row in queryreturn:
                         addressLabel, = row
 
-            if( addressLabel == ''):
-                addressLabel = address
+                if( addressLabel == ''):
+                    queryreturn = sqlQuery(
+                        '''select label from subscriptions where address=?''', address)
+                    if queryreturn != []:
+                        for row in queryreturn:
+                            addressLabel, = row
+
+                if( addressLabel == ''):
+                    addressLabel = address
+            self.temp_address_labels[ address ] = addressLabel
         
         return str(addressLabel)
+
+    def clearAddressLabelCache(self):
+        self.temp_address_labels = {}
 
     def clearInboxView(self):
         self.ui.tableWidgetInbox.clearSelection()
