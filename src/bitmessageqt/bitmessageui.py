@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
 #
-# Created: Mon Nov 17 03:09:53 2014
+# Created: Mon Nov 17 04:53:54 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -369,6 +369,26 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.widgetSentFilters)
         self.horizontalLayout_2.setMargin(0)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
+        self.comboSentTo = QtGui.QComboBox(self.widgetSentFilters)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.comboSentTo.sizePolicy().hasHeightForWidth())
+        self.comboSentTo.setSizePolicy(sizePolicy)
+        self.comboSentTo.setMinimumSize(QtCore.QSize(160, 0))
+        self.comboSentTo.setMaximumSize(QtCore.QSize(160, 16777215))
+        self.comboSentTo.setObjectName(_fromUtf8("comboSentTo"))
+        self.horizontalLayout_2.addWidget(self.comboSentTo)
+        self.comboSentFrom = QtGui.QComboBox(self.widgetSentFilters)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.comboSentFrom.sizePolicy().hasHeightForWidth())
+        self.comboSentFrom.setSizePolicy(sizePolicy)
+        self.comboSentFrom.setMinimumSize(QtCore.QSize(160, 0))
+        self.comboSentFrom.setMaximumSize(QtCore.QSize(160, 16777215))
+        self.comboSentFrom.setObjectName(_fromUtf8("comboSentFrom"))
+        self.horizontalLayout_2.addWidget(self.comboSentFrom)
         self.sentSearchLineEdit = QtGui.QLineEdit(self.widgetSentFilters)
         self.sentSearchLineEdit.setObjectName(_fromUtf8("sentSearchLineEdit"))
         self.horizontalLayout_2.addWidget(self.sentSearchLineEdit)

@@ -845,6 +845,12 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.comboInboxTo, QtCore.SIGNAL(
             "activated(int)"), self.comboInboxChanged)
 
+        QtCore.QObject.connect(self.ui.comboSentFrom, QtCore.SIGNAL(
+            "activated(int)"), self.comboSentChanged)
+
+        QtCore.QObject.connect(self.ui.comboSentTo, QtCore.SIGNAL(
+            "activated(int)"), self.comboSentChanged)
+
         
 
         # End changes by webdev25
@@ -945,7 +951,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.tabWidget.setCurrentIndex(5)
 
     # Load Sent items from database
-    def loadSent(self, where="", what=""):
+    def loadSent(self, where="", what="",fromVal=0,toVal=0):
         what = "%" + what + "%"
         if where == "To":
             where = "toaddress"
@@ -958,12 +964,20 @@ class MyForm(QtGui.QMainWindow):
         else:
             where = "toaddress || fromaddress || subject || message"
 
+        fromSql = ''
+        if( fromVal != 0 and fromVal != 1 and fromVal != 2 and fromVal != ''):
+            fromSql = ' AND fromaddress = "' + str(fromVal) + '" ';
+
+        toSql = ''
+        if( toVal != 0 and toVal != 1 and toVal != 2 and toVal != ''):
+            toSql = ' AND toaddress = "' + str(toVal) + '" ';
+
         sqlStatement = '''
             SELECT toaddress, fromaddress, subject, status, ackdata, lastactiontime 
-            FROM sent WHERE folder="sent" AND %s LIKE ? 
+            FROM sent WHERE folder="sent" AND %s LIKE ? %s %s 
             ORDER BY lastactiontime
-            ''' % (where,)
-
+            ''' % (where, fromSql,toSql,)
+        
         while self.ui.tableWidgetSent.rowCount() > 0:
             self.ui.tableWidgetSent.removeRow(0)
 
@@ -972,106 +986,131 @@ class MyForm(QtGui.QMainWindow):
             toAddress, fromAddress, subject, status, ackdata, lastactiontime = row
             subject = shared.fixPotentiallyInvalidUTF8Data(subject)
 
-            if shared.config.has_section(fromAddress):
-                fromLabel = shared.config.get(fromAddress, 'label')
-            else:
-                fromLabel = fromAddress
+            addRow = True
 
-            toLabel = ''
-            queryreturn = sqlQuery(
-                '''select label from addressbook where address=?''', toAddress)
-            if queryreturn != []:
-                for row in queryreturn:
-                    toLabel, = row
-            if toLabel == '':
-                # It might be a broadcast message. We should check for that
-                # label.
+            if ( fromVal == 1):
+                if not shared.safeConfigGetBoolean(fromAddress, 'chan'):
+                    addRow = False
+
+            elif( fromVal == 2 ):
+                if shared.safeConfigGetBoolean(fromAddress, 'chan'):
+                    addRow = False
+
+            if ( toVal == 1):
+                if not shared.safeConfigGetBoolean(toAddress, 'chan'):
+                    addRow = False
+
+            elif( toVal == 2 ):
+                if shared.safeConfigGetBoolean(toAddress, 'chan'):
+                    addRow = False
+
+            if( addRow == True ):
+
+                if shared.config.has_section(fromAddress):
+                    fromLabel = shared.config.get(fromAddress, 'label')
+                else:
+                    fromLabel = fromAddress
+
+                toLabel = ''
                 queryreturn = sqlQuery(
-                    '''select label from subscriptions where address=?''', toAddress)
-
+                    '''select label from addressbook where address=?''', toAddress)
                 if queryreturn != []:
                     for row in queryreturn:
                         toLabel, = row
-            
-            if toLabel == '':
-                if shared.config.has_section(toAddress):
-                    toLabel = shared.config.get(toAddress, 'label')
-            if toLabel == '':
-                toLabel = toAddress
+                if toLabel == '':
+                    # It might be a broadcast message. We should check for that
+                    # label.
+                    queryreturn = sqlQuery(
+                        '''select label from subscriptions where address=?''', toAddress)
 
-            self.ui.tableWidgetSent.insertRow(0)
-            toAddressItem = QtGui.QTableWidgetItem(unicode(toLabel, 'utf-8'))
-            toAddressItem.setToolTip(unicode(toLabel, 'utf-8'))
-            toAddressItem.setIcon(avatarize(toAddress))
-            toAddressItem.setData(Qt.UserRole, str(toAddress))
-            toAddressItem.setFlags(
-                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-            self.ui.tableWidgetSent.setItem(0, 0, toAddressItem)
+                    if queryreturn != []:
+                        for row in queryreturn:
+                            toLabel, = row
+                
+                if toLabel == '':
+                    if shared.config.has_section(toAddress):
+                        toLabel = shared.config.get(toAddress, 'label')
+                if toLabel == '':
+                    toLabel = toAddress
 
-            if fromLabel == '':
-                fromLabel = fromAddress
-            fromAddressItem = QtGui.QTableWidgetItem(unicode(fromLabel, 'utf-8'))
-            fromAddressItem.setToolTip(unicode(fromLabel, 'utf-8'))
-            fromAddressItem.setIcon(avatarize(fromAddress))
-            fromAddressItem.setData(Qt.UserRole, str(fromAddress))
-            fromAddressItem.setFlags(
-                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-            self.ui.tableWidgetSent.setItem(0, 1, fromAddressItem)
+                self.ui.tableWidgetSent.insertRow(0)
+                toAddressItem = QtGui.QTableWidgetItem(unicode(toLabel, 'utf-8'))
+                toAddressItem.setToolTip(unicode(toLabel, 'utf-8'))
+                toAddressItem.setIcon(avatarize(toAddress))
+                toAddressItem.setData(Qt.UserRole, str(toAddress))
+                toAddressItem.setFlags(
+                    QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+                self.ui.tableWidgetSent.setItem(0, 0, toAddressItem)
 
-            subjectItem = QtGui.QTableWidgetItem(unicode(subject, 'utf-8'))
-            subjectItem.setToolTip(unicode(subject, 'utf-8'))
-            subjectItem.setFlags(
-                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-            self.ui.tableWidgetSent.setItem(0, 2, subjectItem)
+                if fromLabel == '':
+                    fromLabel = fromAddress
+                fromAddressItem = QtGui.QTableWidgetItem(unicode(fromLabel, 'utf-8'))
+                fromAddressItem.setToolTip(unicode(fromLabel, 'utf-8'))
+                fromAddressItem.setIcon(avatarize(fromAddress))
+                fromAddressItem.setData(Qt.UserRole, str(fromAddress))
+                fromAddressItem.setFlags(
+                    QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+                self.ui.tableWidgetSent.setItem(0, 1, fromAddressItem)
 
-            if status == 'awaitingpubkey':
-                statusText = _translate(
-                    "MainWindow", "Waiting for their encryption key. Will request it again soon.")
-            elif status == 'doingpowforpubkey':
-                statusText = _translate(
-                    "MainWindow", "Encryption key request queued.")
-            elif status == 'msgqueued':
-                statusText = _translate(
-                    "MainWindow", "Queued.")
-            elif status == 'msgsent':
-                statusText = _translate("MainWindow", "Message sent. Waiting for acknowledgement. Sent at %1").arg(
-                    l10n.formatTimestamp(lastactiontime))
-            elif status == 'msgsentnoackexpected':
-                statusText = _translate("MainWindow", "Message sent. Sent at %1").arg(
-                    l10n.formatTimestamp(lastactiontime))
-            elif status == 'doingmsgpow':
-                statusText = _translate(
-                    "MainWindow", "Need to do work to send message. Work is queued.")
-            elif status == 'ackreceived':
-                statusText = _translate("MainWindow", "Acknowledgement of the message received %1").arg(
-                    l10n.formatTimestamp(lastactiontime))
-            elif status == 'broadcastqueued':
-                statusText = _translate(
-                    "MainWindow", "Broadcast queued.")
-            elif status == 'broadcastsent':
-                statusText = _translate("MainWindow", "Broadcast on %1").arg(
-                    l10n.formatTimestamp(lastactiontime))
-            elif status == 'toodifficult':
-                statusText = _translate("MainWindow", "Problem: The work demanded by the recipient is more difficult than you are willing to do. %1").arg(
-                    l10n.formatTimestamp(lastactiontime))
-            elif status == 'badkey':
-                statusText = _translate("MainWindow", "Problem: The recipient\'s encryption key is no good. Could not encrypt message. %1").arg(
-                    l10n.formatTimestamp(lastactiontime))
-            elif status == 'forcepow':
-                statusText = _translate(
-                    "MainWindow", "Forced difficulty override. Send should start soon.")
-            else:
-                statusText = _translate("MainWindow", "Unknown status: %1 %2").arg(status).arg(
-                    l10n.formatTimestamp(lastactiontime))
-            newItem = myTableWidgetItem(statusText)
-            newItem.setToolTip(statusText)
-            newItem.setData(Qt.UserRole, QByteArray(ackdata))
-            newItem.setData(33, int(lastactiontime))
-            newItem.setFlags(
-                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-            self.ui.tableWidgetSent.setItem(0, 3, newItem)
+                subjectItem = QtGui.QTableWidgetItem(unicode(subject, 'utf-8'))
+                subjectItem.setToolTip(unicode(subject, 'utf-8'))
+                subjectItem.setFlags(
+                    QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+                self.ui.tableWidgetSent.setItem(0, 2, subjectItem)
+
+                if status == 'awaitingpubkey':
+                    statusText = _translate(
+                        "MainWindow", "Waiting for their encryption key. Will request it again soon.")
+                elif status == 'doingpowforpubkey':
+                    statusText = _translate(
+                        "MainWindow", "Encryption key request queued.")
+                elif status == 'msgqueued':
+                    statusText = _translate(
+                        "MainWindow", "Queued.")
+                elif status == 'msgsent':
+                    statusText = _translate("MainWindow", "Message sent. Waiting for acknowledgement. Sent at %1").arg(
+                        l10n.formatTimestamp(lastactiontime))
+                elif status == 'msgsentnoackexpected':
+                    statusText = _translate("MainWindow", "Message sent. Sent at %1").arg(
+                        l10n.formatTimestamp(lastactiontime))
+                elif status == 'doingmsgpow':
+                    statusText = _translate(
+                        "MainWindow", "Need to do work to send message. Work is queued.")
+                elif status == 'ackreceived':
+                    statusText = _translate("MainWindow", "Acknowledgement of the message received %1").arg(
+                        l10n.formatTimestamp(lastactiontime))
+                elif status == 'broadcastqueued':
+                    statusText = _translate(
+                        "MainWindow", "Broadcast queued.")
+                elif status == 'broadcastsent':
+                    statusText = _translate("MainWindow", "Broadcast on %1").arg(
+                        l10n.formatTimestamp(lastactiontime))
+                elif status == 'toodifficult':
+                    statusText = _translate("MainWindow", "Problem: The work demanded by the recipient is more difficult than you are willing to do. %1").arg(
+                        l10n.formatTimestamp(lastactiontime))
+                elif status == 'badkey':
+                    statusText = _translate("MainWindow", "Problem: The recipient\'s encryption key is no good. Could not encrypt message. %1").arg(
+                        l10n.formatTimestamp(lastactiontime))
+                elif status == 'forcepow':
+                    statusText = _translate(
+                        "MainWindow", "Forced difficulty override. Send should start soon.")
+                else:
+                    statusText = _translate("MainWindow", "Unknown status: %1 %2").arg(status).arg(
+                        l10n.formatTimestamp(lastactiontime))
+                newItem = myTableWidgetItem(statusText)
+                newItem.setToolTip(statusText)
+                newItem.setData(Qt.UserRole, QByteArray(ackdata))
+                newItem.setData(33, int(lastactiontime))
+                newItem.setFlags(
+                    QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+                self.ui.tableWidgetSent.setItem(0, 3, newItem)
+
         self.ui.tableWidgetSent.sortItems(3, Qt.DescendingOrder)
         self.ui.tableWidgetSent.keyPressEvent = self.tableWidgetSentKeyPressEvent
+
+        #added by webdev25
+        self.rerenderSentCombos()
+        self.clearSentView()
 
     # Load inbox from messages database file
     #function changed by webdev25
@@ -3533,14 +3572,31 @@ class MyForm(QtGui.QMainWindow):
         else:
             fromVal = str(self.ui.comboInboxFrom.itemData( self.ui.comboInboxFrom.currentIndex() ).toPyObject())
 
-        self.loadInbox(searchOption, searchKeyword, fromVal)
+        if( self.ui.comboInboxTo.itemData( self.ui.comboInboxTo.currentIndex() ).toPyObject() == -1):
+            toVal = self.ui.comboInboxTo.currentIndex()
+        else:
+            toVal = str(self.ui.comboInboxTo.itemData( self.ui.comboInboxTo.currentIndex() ).toPyObject())
+
+        self.loadInbox(searchOption, searchKeyword, fromVal, toVal)
 
     def sentSearchLineEditPressed(self):
         searchKeyword = self.ui.sentSearchLineEdit.text().toUtf8().data()
         searchOption = self.ui.sentSearchOptionCB.currentText().toUtf8().data()
         self.ui.sentSearchLineEdit.setText(QString(""))
         self.ui.textEditInboxMessage.setPlainText(QString(""))
-        self.loadSent(searchOption, searchKeyword)
+
+        #added and updated by webdev25
+        if( self.ui.comboSentFrom.itemData( self.ui.comboSentFrom.currentIndex() ).toPyObject() == -1):
+            fromVal = self.ui.comboSentFrom.currentIndex()
+        else:
+            fromVal = str(self.ui.comboSentFrom.itemData( self.ui.comboSentFrom.currentIndex() ).toPyObject())
+
+        if( self.ui.comboSentTo.itemData( self.ui.comboSentTo.currentIndex() ).toPyObject() == -1):
+            toVal = self.ui.comboSentTo.currentIndex()
+        else:
+            toVal = str(self.ui.comboSentTo.itemData( self.ui.comboSentTo.currentIndex() ).toPyObject())
+
+        self.loadSent(searchOption, searchKeyword, fromVal, toVal)
 
     def tableWidgetInboxItemClicked(self):
         currentRow = self.ui.tableWidgetInbox.currentRow()
@@ -4507,6 +4563,139 @@ class MyForm(QtGui.QMainWindow):
         self.ui.graphicsViewInboxSubjectIconTo.show()
         self.ui.graphicsViewInboxSubjectIcon.setScene( QGraphicsScene() )
         self.ui.graphicsViewInboxSubjectIcon.show()
+
+    def rerenderSentCombos(self):
+
+        fromCurrentIndex = self.ui.comboSentFrom.currentIndex()
+        fromCurrentData = self.ui.comboSentFrom.itemData(fromCurrentIndex)
+        fromCurrentText = self.ui.comboSentFrom.itemText(fromCurrentIndex)
+
+        toCurrentIndex = self.ui.comboSentTo.currentIndex()
+        toCurrentData = self.ui.comboSentTo.itemData(toCurrentIndex)
+        toCurrentText = self.ui.comboSentTo.itemText(toCurrentIndex)
+        
+        self.ui.comboSentFrom.clear()
+        self.ui.comboSentTo.clear()
+
+        dictFromAddrs = {}
+        dictToAddrs = {}
+
+        allRows = self.ui.tableWidgetSent.rowCount()
+
+        for index in xrange(0,allRows):
+            address = str(self.ui.tableWidgetSent.item(index,1).data(Qt.UserRole).toPyObject())
+            dictFromAddrs[ address ] = self.getAddressLabel(address)
+
+            address = str(self.ui.tableWidgetSent.item(index,0).data(Qt.UserRole).toPyObject())
+            dictToAddrs[ address ] = self.getAddressLabel(address)
+
+        for address in dictFromAddrs:
+            if shared.safeConfigGetBoolean(str(address), 'chan'):
+                self.ui.comboSentFrom.insertItem(0,dictFromAddrs.get(address) )
+                self.ui.comboSentFrom.setItemData(0,address)
+                self.ui.comboSentFrom.setItemIcon(0,avatarize(address))
+
+        for address in dictFromAddrs:
+            if not shared.safeConfigGetBoolean(str(address), 'chan'):
+                self.ui.comboSentFrom.insertItem(0,dictFromAddrs.get(address) )
+                self.ui.comboSentFrom.setItemData(0,address)
+                self.ui.comboSentFrom.setItemIcon(0,avatarize(address))
+
+        for address in dictToAddrs:
+            if shared.safeConfigGetBoolean(str(address), 'chan'):
+                self.ui.comboSentTo.insertItem(0,dictToAddrs.get(address) )
+                self.ui.comboSentTo.setItemData(0,address)
+                self.ui.comboSentTo.setItemIcon(0,avatarize(address))
+
+        for address in dictToAddrs:
+            if not shared.safeConfigGetBoolean(str(address), 'chan'):
+                self.ui.comboSentTo.insertItem(0,dictToAddrs.get(address) )
+                self.ui.comboSentTo.setItemData(0,address)
+                self.ui.comboSentTo.setItemIcon(0,avatarize(address))
+
+        self.ui.comboSentFrom.insertItem(0,'Other', -1)
+        self.ui.comboSentFrom.insertItem(0,'Chan Only', -1)
+        self.ui.comboSentFrom.insertItem(0,'From any address', -1)
+
+        self.ui.comboSentTo.insertItem(0,'Other', -1)
+        self.ui.comboSentTo.insertItem(0,'Chan Only', -1)
+        self.ui.comboSentTo.insertItem(0,'To any address', -1)
+
+        if( fromCurrentIndex == -1 ):
+
+            self.ui.comboSentFrom.setCurrentIndex(0)
+
+        elif( fromCurrentIndex == 0 or fromCurrentIndex == 1 or fromCurrentIndex == 2):
+
+            self.ui.comboSentFrom.setCurrentIndex(fromCurrentIndex)
+
+        else:
+
+            index = self.ui.comboSentFrom.findData(fromCurrentData)
+
+            if( index == -1):
+
+                index = self.ui.comboSentFrom.count()
+                self.ui.comboSentFrom.insertItem( index, fromCurrentText )
+                self.ui.comboSentFrom.setItemIcon( index, avatarize( str(fromCurrentData.toPyObject()) ) )
+                self.ui.comboSentFrom.setItemData( index, fromCurrentData )
+                self.ui.comboSentFrom.setCurrentIndex(index)
+
+            else:
+
+                self.ui.comboSentFrom.setCurrentIndex(index)
+
+        if( toCurrentIndex == -1 ):
+
+            self.ui.comboSentTo.setCurrentIndex(0)
+
+        elif( toCurrentIndex == 0 or toCurrentIndex == 1 or toCurrentIndex == 2):
+
+            self.ui.comboSentTo.setCurrentIndex(toCurrentIndex)
+
+        else:
+
+            index = self.ui.comboSentTo.findData(toCurrentData)
+
+            if( index == -1):
+
+                index = self.ui.comboSentTo.count()
+                self.ui.comboSentTo.insertItem( index, toCurrentText )
+                self.ui.comboSentTo.setItemIcon( index, avatarize( str(toCurrentData.toPyObject()) ) )
+                self.ui.comboSentTo.setItemData( index, toCurrentData )
+                self.ui.comboSentTo.setCurrentIndex(index)
+
+            else:
+                
+                self.ui.comboSentTo.setCurrentIndex(index)
+
+    def comboSentChanged(self,index):
+
+        fromIndex = self.ui.comboSentFrom.currentIndex()
+        toIndex = self.ui.comboSentTo.currentIndex()
+
+        if( fromIndex == 0 or fromIndex == 1 or fromIndex == 2):
+            fromVal = fromIndex
+        else:
+            fromVal = str(self.ui.comboSentFrom.itemData(fromIndex).toPyObject())
+
+        if( toIndex == 0 or toIndex == 1 or toIndex == 2):
+            toVal = toIndex
+        else:
+            toVal = str(self.ui.comboSentTo.itemData(toIndex).toPyObject())
+        
+        self.loadSent('','',fromVal,toVal)
+
+    def clearSentView(self):
+        self.ui.tableWidgetSent.clearSelection()
+        self.ui.labelSentSubjectBarFrom.setText('')
+        self.ui.labelSentSubjectBarSubject.setText('')
+        self.ui.labelSentSubjectBarTo.setText('')
+        self.ui.textEditSentMessage.clear()
+        self.ui.graphicsViewSentSubjectIconTo.setScene( QGraphicsScene() )
+        self.ui.graphicsViewSentSubjectIconTo.show()
+        self.ui.graphicsViewSentSubjectIcon.setScene( QGraphicsScene() )
+        self.ui.graphicsViewSentSubjectIcon.show()
 
     # End of changes made by webdev25
 
