@@ -1120,6 +1120,7 @@ class MyForm(QtGui.QMainWindow):
     # Load inbox from messages database file
     #function changed by webdev25
     def loadInbox(self, where="", what="",fromVal=0,toVal=0):
+        searchKeyword = what
         what = "%" + what + "%"
         if where == "To":
             where = "toaddress"
@@ -1263,6 +1264,12 @@ class MyForm(QtGui.QMainWindow):
         self.ui.tableWidgetInbox.keyPressEvent = self.tableWidgetInboxKeyPressEvent
 
         #added by webdev25
+
+        if searchKeyword == '':
+            self.ui.inboxSearchLineEdit.setPlaceholderText( 'Search' )
+        else:
+            self.ui.inboxSearchLineEdit.setPlaceholderText( searchKeyword )
+
         self.rerenderInboxCombos(fromDict,toDict)
         self.clearInboxView()
 
@@ -3657,11 +3664,6 @@ class MyForm(QtGui.QMainWindow):
         else:
             toVal = str(self.ui.comboInboxTo.itemData( self.ui.comboInboxTo.currentIndex() ).toPyObject())
 
-        if searchKeyword == '':
-            self.ui.inboxSearchLineEdit.setPlaceholderText( 'Search' )
-        else:
-            self.ui.inboxSearchLineEdit.setPlaceholderText( searchKeyword )
-        
         self.loadInbox(searchOption, searchKeyword, fromVal, toVal)
 
     def sentSearchLineEditPressed(self):
