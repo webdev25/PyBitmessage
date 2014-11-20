@@ -3657,6 +3657,11 @@ class MyForm(QtGui.QMainWindow):
         else:
             toVal = str(self.ui.comboInboxTo.itemData( self.ui.comboInboxTo.currentIndex() ).toPyObject())
 
+        if searchKeyword == '':
+            self.ui.inboxSearchLineEdit.setPlaceholderText( 'Search' )
+        else:
+            self.ui.inboxSearchLineEdit.setPlaceholderText( searchKeyword )
+        
         self.loadInbox(searchOption, searchKeyword, fromVal, toVal)
 
     def sentSearchLineEditPressed(self):
