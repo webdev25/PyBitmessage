@@ -3707,8 +3707,8 @@ class MyForm(QtGui.QMainWindow):
             # added by webdev25
             subjectText = shared.fixPotentiallyInvalidUTF8Data(subjectText)
             subjectText = unicode(subjectText, 'utf-8)')
-            fromAddressText = unicode(fromAddressText, 'utf-8)')
-            toAddressText = unicode(toAddressText, 'utf-8)')
+            #fromAddressText = unicode(fromAddressText, 'utf-8)')
+            #toAddressText = unicode(toAddressText, 'utf-8)')
             # end changes by webdev25
             if len(messageText) > 30000:
                 messageText = (
@@ -3735,14 +3735,14 @@ class MyForm(QtGui.QMainWindow):
             fromAddressLabel = self.getAddressLabel( fromAddressText )
 
             if(fromAddressLabel != fromAddressText):
-                self.ui.labelInboxSubjectBarFrom.setText( fromAddressLabel + ' (' + fromAddressText + ')')
+                self.ui.labelInboxSubjectBarFrom.setText( unicode( fromAddressLabel , 'utf-8)') + ' (' + fromAddressText + ')')
             else:
                 self.ui.labelInboxSubjectBarFrom.setText( fromAddressText )
             
             toAddressLabel = self.getAddressLabel( toAddressText )
 
             if(toAddressLabel != toAddressText):
-                self.ui.labelInboxSubjectBarTo.setText( toAddressLabel + ' (' + toAddressText + ')')
+                self.ui.labelInboxSubjectBarTo.setText( unicode( toAddressLabel , 'utf-8)') + ' (' + toAddressText + ')')
             else:
                 self.ui.labelInboxSubjectBarTo.setText( toAddressText )
 
@@ -3784,8 +3784,8 @@ class MyForm(QtGui.QMainWindow):
                     # added by webdev25
                     subjectText = shared.fixPotentiallyInvalidUTF8Data(subjectText)
                     subjectText = unicode(subjectText, 'utf-8)')
-                    fromAddressText = unicode(fromAddressText, 'utf-8)')
-                    toAddressText = unicode(toAddressText, 'utf-8)')
+                    #fromAddressText = unicode(fromAddressText, 'utf-8)')
+                    #toAddressText = unicode(toAddressText, 'utf-8)')
                     # end changes by webdev25
             else:
                 message = "Error occurred: could not load message from disk."
@@ -3797,14 +3797,14 @@ class MyForm(QtGui.QMainWindow):
             fromAddressLabel = self.getAddressLabel( fromAddressText )
             
             if(fromAddressLabel != fromAddressText):
-                self.ui.labelSentSubjectBarFrom.setText( fromAddressLabel + ' (' + fromAddressText + ')')
+                self.ui.labelSentSubjectBarFrom.setText( unicode( fromAddressLabel , 'utf-8)') + ' (' + fromAddressText + ')')
             else:
                 self.ui.labelSentSubjectBarFrom.setText( fromAddressText)
             
             toAddressLabel = self.getAddressLabel( toAddressText )
 
             if(toAddressLabel != toAddressText):
-                self.ui.labelSentSubjectBarTo.setText( toAddressLabel + ' (' + toAddressText + ')')
+                self.ui.labelSentSubjectBarTo.setText( unicode( toAddressLabel , 'utf-8)') + ' (' + toAddressText + ')')
             else:
                 self.ui.labelSentSubjectBarTo.setText( toAddressText)
 
@@ -4702,7 +4702,7 @@ class MyForm(QtGui.QMainWindow):
     
             self.temp_address_labels[ address ] = str(addressLabel)
         
-        return addressLabel
+        return shared.fixPotentiallyInvalidUTF8Data(addressLabel)
 
     def clearAddressLabelCache(self):
         self.temp_address_labels = {}
