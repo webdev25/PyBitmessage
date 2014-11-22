@@ -2159,6 +2159,7 @@ class MyForm(QtGui.QMainWindow):
     def rerenderAddressBook(self,what=""):
 
         #changes by webdev25
+        searchKeyword = what
         self.ui.tableWidgetAddressBook.blockSignals(True)
         self.ui.tableWidgetAddressBook.setRowCount(0)
         what = "%" + what + "%"
@@ -2178,6 +2179,11 @@ class MyForm(QtGui.QMainWindow):
         #added by webdev25
         self.ui.tableWidgetAddressBook.blockSignals(False)
         self.loadComposeToValues()
+
+        if searchKeyword == '':
+            self.ui.addressBookSearchLineEdit.setPlaceholderText( 'Search' )
+        else:
+            self.ui.addressBookSearchLineEdit.setPlaceholderText( searchKeyword )
 
     # function changed by webdev25
     def rerenderSubscriptions(self,what=""):
@@ -2207,6 +2213,7 @@ class MyForm(QtGui.QMainWindow):
 
         #added by webdev25
         self.ui.tableWidgetSubscriptions.blockSignals(False)
+
         if searchKeyword == '':
             self.ui.subscriptionsSearchLineEdit.setPlaceholderText( 'Search' )
         else:
@@ -4501,8 +4508,13 @@ class MyForm(QtGui.QMainWindow):
                 if(identType == 1):
                     if shared.safeConfigGetBoolean(str(addressInKeysFile), 'chan'):
                         addToList = False
+                    if shared.safeConfigGetBoolean(str(addressInKeysFile), 'mailinglist'):
+                        addToList = False
                 elif(identType == 2):
                     if not shared.safeConfigGetBoolean(str(addressInKeysFile), 'chan'):
+                        addToList = False
+                elif(identType == 3):
+                    if not shared.safeConfigGetBoolean(str(addressInKeysFile), 'mailinglist'):
                         addToList = False
 
                 if( addToList == True ):

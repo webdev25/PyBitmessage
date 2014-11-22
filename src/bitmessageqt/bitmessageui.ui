@@ -1415,6 +1415,11 @@ p, li { white-space: pre-wrap; }
                <string>Chans Only</string>
               </property>
              </item>
+             <item>
+              <property name="text">
+               <string>Mailing Lists Only</string>
+              </property>
+             </item>
             </widget>
            </item>
            <item>

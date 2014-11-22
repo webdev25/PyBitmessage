@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'src/bitmessageqt/bitmessageui.ui'
+# Form implementation generated from reading ui file 'bitmessageqt/bitmessageui.ui'
 #
-# Created: Mon Nov 17 04:53:54 2014
+# Created: Sat Nov 22 16:49:14 2014
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -590,6 +590,7 @@ class Ui_MainWindow(object):
         self.comboIdentityType.addItem(_fromUtf8(""))
         self.comboIdentityType.addItem(_fromUtf8(""))
         self.comboIdentityType.addItem(_fromUtf8(""))
+        self.comboIdentityType.addItem(_fromUtf8(""))
         self.horizontalLayout_10.addWidget(self.comboIdentityType)
         self.identitiesSearchLineEdit = QtGui.QLineEdit(self.widgetIdentitiesFilters)
         self.identitiesSearchLineEdit.setObjectName(_fromUtf8("identitiesSearchLineEdit"))
@@ -1090,6 +1091,7 @@ class Ui_MainWindow(object):
         self.comboIdentityType.setItemText(0, _translate("MainWindow", "All Identities", None))
         self.comboIdentityType.setItemText(1, _translate("MainWindow", "Private Only", None))
         self.comboIdentityType.setItemText(2, _translate("MainWindow", "Chans Only", None))
+        self.comboIdentityType.setItemText(3, _translate("MainWindow", "Mailing Lists Only", None))
         self.identitiesSearchLineEdit.setPlaceholderText(_translate("MainWindow", "Search", None))
         self.tableWidgetYourIdentities.setSortingEnabled(True)
         item = self.tableWidgetYourIdentities.horizontalHeaderItem(0)
