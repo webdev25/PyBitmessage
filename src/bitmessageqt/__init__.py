@@ -2621,6 +2621,7 @@ class MyForm(QtGui.QMainWindow):
     def loadBlackWhiteList(self,what=""):
 
         #added by webdev25
+        searchKeyword = what
         what = "%" + what + "%"
         # Initialize the Blacklist or Whitelist table
         listType = shared.config.get('bitmessagesettings', 'blackwhitelist')
@@ -2645,6 +2646,11 @@ class MyForm(QtGui.QMainWindow):
             if not enabled:
                 newItem.setTextColor(QtGui.QColor(128, 128, 128))
             self.ui.tableWidgetBlacklist.setItem(0, 1, newItem)
+
+        if searchKeyword == '':
+            self.ui.blacklistSearchLineEdit.setPlaceholderText( 'Search' )
+        else:
+            self.ui.blacklistSearchLineEdit.setPlaceholderText( searchKeyword )
 
     def click_pushButtonStatusIcon(self):
         print 'click_pushButtonStatusIcon'
