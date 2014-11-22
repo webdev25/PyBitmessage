@@ -4562,37 +4562,37 @@ class MyForm(QtGui.QMainWindow):
 
         for address in dictFromAddrs:
             if not shared.safeConfigGetBoolean(str(address), 'chan') and dictFromAddrs.get(address) == address:
-                self.ui.comboInboxFrom.insertItem(0,dictFromAddrs.get(address) )
+                self.ui.comboInboxFrom.insertItem(0, unicode( dictFromAddrs.get(address) , 'utf-8)') )
                 self.ui.comboInboxFrom.setItemData(0,address)
                 self.ui.comboInboxFrom.setItemIcon(0,avatarize(address))
 
         for address in dictFromAddrs:
             if shared.safeConfigGetBoolean(str(address), 'chan'):
-                self.ui.comboInboxFrom.insertItem(0,dictFromAddrs.get(address) )
+                self.ui.comboInboxFrom.insertItem(0, unicode( dictFromAddrs.get(address) , 'utf-8)') )
                 self.ui.comboInboxFrom.setItemData(0,address)
                 self.ui.comboInboxFrom.setItemIcon(0,avatarize(address))
 
         for address in dictFromAddrs:
             if not shared.safeConfigGetBoolean(str(address), 'chan') and dictFromAddrs.get(address) != address:
-                self.ui.comboInboxFrom.insertItem(0,dictFromAddrs.get(address) )
+                self.ui.comboInboxFrom.insertItem(0, unicode( dictFromAddrs.get(address) , 'utf-8)') )
                 self.ui.comboInboxFrom.setItemData(0,address)
                 self.ui.comboInboxFrom.setItemIcon(0,avatarize(address))
 
         for address in dictToAddrs:
             if not shared.safeConfigGetBoolean(str(address), 'chan') and dictToAddrs.get(address) == address:
-                self.ui.comboInboxTo.insertItem(0,dictToAddrs.get(address) )
+                self.ui.comboInboxTo.insertItem(0, unicode( dictToAddrs.get(address), 'utf-8)') )
                 self.ui.comboInboxTo.setItemData(0,address)
                 self.ui.comboInboxTo.setItemIcon(0,avatarize(address))
 
         for address in dictToAddrs:
             if shared.safeConfigGetBoolean(str(address), 'chan'):
-                self.ui.comboInboxTo.insertItem(0,dictToAddrs.get(address) )
+                self.ui.comboInboxTo.insertItem(0, unicode( dictToAddrs.get(address), 'utf-8)') )
                 self.ui.comboInboxTo.setItemData(0,address)
                 self.ui.comboInboxTo.setItemIcon(0,avatarize(address))
 
         for address in dictToAddrs:
             if not shared.safeConfigGetBoolean(str(address), 'chan') and dictToAddrs.get(address) != address:
-                self.ui.comboInboxTo.insertItem(0,dictToAddrs.get(address) )
+                self.ui.comboInboxTo.insertItem(0, unicode( dictToAddrs.get(address), 'utf-8)') )
                 self.ui.comboInboxTo.setItemData(0,address)
                 self.ui.comboInboxTo.setItemIcon(0,avatarize(address))
 
@@ -4750,25 +4750,25 @@ class MyForm(QtGui.QMainWindow):
 
         for address in dictFromAddrs:
             if shared.safeConfigGetBoolean(str(address), 'chan'):
-                self.ui.comboSentFrom.insertItem(0,dictFromAddrs.get(address) )
+                self.ui.comboSentFrom.insertItem(0, unicode( dictFromAddrs.get(address) , 'utf-8)') )
                 self.ui.comboSentFrom.setItemData(0,address)
                 self.ui.comboSentFrom.setItemIcon(0,avatarize(address))
 
         for address in dictFromAddrs:
             if not shared.safeConfigGetBoolean(str(address), 'chan'):
-                self.ui.comboSentFrom.insertItem(0,dictFromAddrs.get(address) )
+                self.ui.comboSentFrom.insertItem(0, unicode( dictFromAddrs.get(address) , 'utf-8)') )
                 self.ui.comboSentFrom.setItemData(0,address)
                 self.ui.comboSentFrom.setItemIcon(0,avatarize(address))
 
         for address in dictToAddrs:
             if shared.safeConfigGetBoolean(str(address), 'chan'):
-                self.ui.comboSentTo.insertItem(0,dictToAddrs.get(address) )
+                self.ui.comboSentTo.insertItem(0, unicode( dictToAddrs.get(address), 'utf-8)') )
                 self.ui.comboSentTo.setItemData(0,address)
                 self.ui.comboSentTo.setItemIcon(0,avatarize(address))
 
         for address in dictToAddrs:
             if not shared.safeConfigGetBoolean(str(address), 'chan'):
-                self.ui.comboSentTo.insertItem(0,dictToAddrs.get(address) )
+                self.ui.comboSentTo.insertItem(0, unicode( dictToAddrs.get(address), 'utf-8)') )
                 self.ui.comboSentTo.setItemData(0,address)
                 self.ui.comboSentTo.setItemIcon(0,avatarize(address))
 
