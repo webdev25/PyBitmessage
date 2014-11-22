@@ -1118,7 +1118,7 @@ class MyForm(QtGui.QMainWindow):
         if searchKeyword == '':
             self.ui.sentSearchLineEdit.setPlaceholderText( 'Search' )
         else:
-            self.ui.sentSearchLineEdit.setPlaceholderText( searchKeyword )
+            self.ui.sentSearchLineEdit.setPlaceholderText( unicode( shared.fixPotentiallyInvalidUTF8Data(searchKeyword), 'utf-8)' ) )
 
         self.rerenderSentCombos(fromDict,toDict)
         self.clearSentView()
@@ -1274,7 +1274,7 @@ class MyForm(QtGui.QMainWindow):
         if searchKeyword == '':
             self.ui.inboxSearchLineEdit.setPlaceholderText( 'Search' )
         else:
-            self.ui.inboxSearchLineEdit.setPlaceholderText( searchKeyword )
+            self.ui.inboxSearchLineEdit.setPlaceholderText( unicode( shared.fixPotentiallyInvalidUTF8Data(searchKeyword), 'utf-8)' ) )
 
         self.rerenderInboxCombos(fromDict,toDict)
         self.clearInboxView()
@@ -2183,7 +2183,7 @@ class MyForm(QtGui.QMainWindow):
         if searchKeyword == '':
             self.ui.addressBookSearchLineEdit.setPlaceholderText( 'Search' )
         else:
-            self.ui.addressBookSearchLineEdit.setPlaceholderText( searchKeyword )
+            self.ui.addressBookSearchLineEdit.setPlaceholderText( unicode( shared.fixPotentiallyInvalidUTF8Data(searchKeyword), 'utf-8)' ) )
 
     # function changed by webdev25
     def rerenderSubscriptions(self,what=""):
@@ -2217,7 +2217,7 @@ class MyForm(QtGui.QMainWindow):
         if searchKeyword == '':
             self.ui.subscriptionsSearchLineEdit.setPlaceholderText( 'Search' )
         else:
-            self.ui.subscriptionsSearchLineEdit.setPlaceholderText( searchKeyword )
+            self.ui.subscriptionsSearchLineEdit.setPlaceholderText( unicode( shared.fixPotentiallyInvalidUTF8Data(searchKeyword), 'utf-8)' ) )
 
     def click_pushButtonSend(self):
         self.statusBar().showMessage('')
@@ -2662,7 +2662,7 @@ class MyForm(QtGui.QMainWindow):
         if searchKeyword == '':
             self.ui.blacklistSearchLineEdit.setPlaceholderText( 'Search' )
         else:
-            self.ui.blacklistSearchLineEdit.setPlaceholderText( searchKeyword )
+            self.ui.blacklistSearchLineEdit.setPlaceholderText( unicode( shared.fixPotentiallyInvalidUTF8Data(searchKeyword), 'utf-8)' ) )
 
     def click_pushButtonStatusIcon(self):
         print 'click_pushButtonStatusIcon'
@@ -4553,7 +4553,7 @@ class MyForm(QtGui.QMainWindow):
         if what == '':
             self.ui.identitiesSearchLineEdit.setPlaceholderText( 'Search' )
         else:
-            self.ui.identitiesSearchLineEdit.setPlaceholderText( what )
+            self.ui.identitiesSearchLineEdit.setPlaceholderText( unicode( shared.fixPotentiallyInvalidUTF8Data(what), 'utf-8)' ) )
 
     def comboIdentityTypeChanged(self,index):
         self.rerenderIdentities('',index)
