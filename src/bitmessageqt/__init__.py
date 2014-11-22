@@ -4533,6 +4533,11 @@ class MyForm(QtGui.QMainWindow):
                         status, addressVersionNumber, streamNumber, hash = decodeAddress(
                             addressInKeysFile)
 
+        if what == '':
+            self.ui.identitiesSearchLineEdit.setPlaceholderText( 'Search' )
+        else:
+            self.ui.identitiesSearchLineEdit.setPlaceholderText( what )
+
     def comboIdentityTypeChanged(self,index):
         self.rerenderIdentities('',index)
 
