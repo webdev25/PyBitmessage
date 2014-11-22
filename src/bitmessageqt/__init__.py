@@ -4289,6 +4289,12 @@ class MyForm(QtGui.QMainWindow):
         configSections = shared.config.sections()
         for addressInKeysFile in configSections:
             if addressInKeysFile != 'bitmessagesettings':
+                if shared.safeConfigGetBoolean(str(addressInKeysFile), 'mailinglist'):
+                    lbl = shared.config.get(addressInKeysFile, 'label')
+                    self.ui.lineEditTo.insertItem(0, avatarize(addressInKeysFile), unicode(lbl, 'utf-8'), addressInKeysFile)
+
+        for addressInKeysFile in configSections:
+            if addressInKeysFile != 'bitmessagesettings':
                 if shared.safeConfigGetBoolean(str(addressInKeysFile), 'chan'):
                     lbl = shared.config.get(addressInKeysFile, 'label')
                     self.ui.lineEditTo.insertItem(0, avatarize(addressInKeysFile), unicode(lbl, 'utf-8'), addressInKeysFile)
