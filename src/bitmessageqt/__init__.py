@@ -2183,6 +2183,7 @@ class MyForm(QtGui.QMainWindow):
     def rerenderSubscriptions(self,what=""):
 
         #changes by webdev25
+        searchKeyword = what
         self.ui.tableWidgetSubscriptions.blockSignals(True)
         self.ui.tableWidgetSubscriptions.setRowCount(0)
         what = "%" + what + "%"
@@ -2206,6 +2207,10 @@ class MyForm(QtGui.QMainWindow):
 
         #added by webdev25
         self.ui.tableWidgetSubscriptions.blockSignals(False)
+        if searchKeyword == '':
+            self.ui.subscriptionsSearchLineEdit.setPlaceholderText( 'Search' )
+        else:
+            self.ui.subscriptionsSearchLineEdit.setPlaceholderText( searchKeyword )
 
     def click_pushButtonSend(self):
         self.statusBar().showMessage('')
