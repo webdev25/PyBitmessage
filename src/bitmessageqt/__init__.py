@@ -953,6 +953,7 @@ class MyForm(QtGui.QMainWindow):
 
     # Load Sent items from database
     def loadSent(self, where="", what="",fromVal=0,toVal=0):
+        searchKeyword = what;
         toDict = {}
         fromDict = {}
         what = "%" + what + "%"
@@ -1114,6 +1115,11 @@ class MyForm(QtGui.QMainWindow):
         self.ui.tableWidgetSent.keyPressEvent = self.tableWidgetSentKeyPressEvent
 
         #added by webdev25
+        if searchKeyword == '':
+            self.ui.sentSearchLineEdit.setPlaceholderText( 'Search' )
+        else:
+            self.ui.sentSearchLineEdit.setPlaceholderText( searchKeyword )
+
         self.rerenderSentCombos(fromDict,toDict)
         self.clearSentView()
 
